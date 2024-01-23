@@ -1,0 +1,81 @@
+<c-card >
+    <div class="form-main-container">
+        <div class="add-user-main-container">
+            <div class="add-user-main-header">Reg Fresh Lead</div>
+        
+        <form [formGroup]="addLeadForm" (ngSubmit)="saveFreshLeadDetails()">
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Enquiry For</label>
+                    <select class="form-control" formControlName="enquiryFor">
+                        <option aria-readonly="true">Select Enquiry For</option>
+                        <option *ngFor="let enqForOpt of enquiryForOption">{{enqForOpt}}</option>
+                      </select>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Enquiry Source</label>
+                    <select class="form-control" formControlName="enquirySource">
+                        <option aria-readonly="true">Select Enquiry Source</option>
+                        <option *ngFor="let enqSrcOpt of enquirySourceOption">{{enqSrcOpt}}</option>
+                      </select>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Business Type</label>
+                    <select class="form-control" formControlName="businessType">
+                        <option aria-readonly="true">Select Business Type</option>
+                        <option *ngFor="let busTypOpt of businessTypeOption">{{busTypOpt}}</option>
+                      </select>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Customer First Name</label>
+                    <input class="form-control" type="text" pInputText formControlName="customerFirstName" maxlength="100">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Customer Last Name</label>
+                    <input class="form-control" type="text" pInputText formControlName="customerLastName" maxlength="100">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Customer Mobile</label>
+                    <input class="form-control" type="text" pInputText formControlName="customerMobile" maxlength="100">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Customer Alternate Mobile</label>
+                    <input class="form-control" type="text" pInputText formControlName="customerAlternateMobile" maxlength="100">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Customer City</label>
+                    <input class="form-control" type="text" pInputText formControlName="customerCity" maxlength="100">
+                </div>
+               
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-control" formControlName="status">
+                        <option aria-readonly="true">Select Status</option>
+                        <option *ngFor="let statusOpt of statusOption">{{statusOpt}}</option>
+                      </select>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Notes</label>
+                    <textarea style=" float: left; width: 100%; margin-top: 6px; height:150px" formControlName="notes" placeholder="Write Notes.."></textarea>
+                </div>
+                
+            </div>
+    
+            <div class="submit-button">
+                <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+            </div>
+    
+        </form>
+    </div>
+    </div>
+    </c-card>

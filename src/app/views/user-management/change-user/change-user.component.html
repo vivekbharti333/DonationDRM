@@ -1,0 +1,109 @@
+<c-card>
+    <div class="form-main-container">
+        <div class="add-user-main-header">Change Password</div>
+
+        <div *ngIf="isLoading; else dataContent">
+            <div class="loader">
+                <!-- <c-spinner color="primary"></c-spinner> -->
+                <div class="spinner"></div>
+                <img src="assets/img/brand/logo.png" alt="Loading..." />
+            </div>
+        </div>
+
+        <ng-template #dataContent>
+
+            <div class="inner-header">Change Password</div>
+            <div class="scrollable-container">
+                <form [formGroup]="changeUserPasswordForm" (ngSubmit)="changePassword()">
+                    <div class="row">
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Select User</label>
+                            <select class="form-control" formControlName="loginId">
+                                <option [ngValue]="null">Select User</option>
+                                <option *ngFor="let user of userList" [ngValue]="user.loginId">{{user.firstName + ' ' + user.lastName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Password</label>
+                            <input class="form-control" pInputText type="text" formControlName="password" maxlength="20">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <input class="form-control" pInputText type="text" formControlName="password" maxlength="20">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <div class="submit-button">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+
+<p><p><p><p><p><p><p><p><p><p><p><p></p>
+
+            <div class="inner-header">Change Team Leader</div>
+            <div class="scrollable-container">
+                <form [formGroup]="changeTeamLeaderForm" (ngSubmit)="changeTeamLeader()">
+                    <div class="row">
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Select User</label>
+                            <select class="form-control" formControlName="loginId">
+                                <option [ngValue]="null">Select User</option>
+                                <option *ngFor="let user of userList" [ngValue]="user.loginId">{{user.firstName + ' ' + user.lastName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Team Leader</label>
+                            <select class="form-control" formControlName="teamLeaderId">
+                                <option [ngValue]="null">Select Teamleader</option>
+                                <option *ngFor="let teamleader of teamLeaderList" [ngValue]="teamleader.loginId">{{teamleader.firstName + ' ' + teamleader.lastName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <div class="submit-button">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div> 
+
+
+<p><p><p><p><p><p><p><p><p><p><p><p></p>
+
+            <!-- <div class="inner-header">Change User Role</div>
+            <div class="scrollable-container">
+                <form [formGroup]="changeTeamLeaderForm" (ngSubmit)="changeUserRole()">
+                    <div class="row">
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Select User</label>
+                            <select class="form-control" formControlName="loginId">
+                                <option [ngValue]="null">Select User</option>
+                                <option *ngFor="let user of userList" [ngValue]="user.loginId">{{user.firstName + ' ' + user.lastName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Role Type</label>
+                            <select class="form-control" formControlName="roleType">
+                                <option aria-readonly="true">Select Role Type</option>
+                                <option *ngFor="let member of roleTypeForSuperadmin">{{member}}</option>
+                            </select>
+                        </div> 
+                       
+                        <div class="col-sm-3 form-group">
+                            <div class="submit-button">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>  -->
+
+        </ng-template>
+    </div>
+</c-card>
+

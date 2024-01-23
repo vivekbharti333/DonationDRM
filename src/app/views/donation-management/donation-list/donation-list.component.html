@@ -1,0 +1,537 @@
+<div class="container">
+  <div class="table-responsive">
+
+    <div class="view-main-heading"> Donation Receipt List </div>
+
+    <div *ngIf="isLoading; else dataContent">
+      <div class="loader">
+        <div class="spinner"></div>
+        <img src="assets/img/brand/logo.png" alt="Loading..." />
+      </div>
+    </div>
+
+
+    <ng-template #dataContent>
+
+      <div class="tab">
+        <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today</button>
+        <button class="tablinks" (click)="openDetails('YESTERDAY')"
+          [class.active]="isTabActive('YESTERDAY')">Yesterday</button>
+        <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">Current
+          Month</button>
+        <button class="tablinks" (click)="openDetails('CUSTOM')" [class.active]="isTabActive('CUSTOM')">Custom
+          Search</button>
+      </div>
+
+
+      <div class="tabcontent" [ngStyle]="{'display': isTabActive('TODAY') ? 'block' : 'none'}">
+
+        <form [formGroup]="searchDonationForm" *ngIf="isSuperadmin">
+          <div class="row">
+              <div class="col-sm-3 form-group">
+                  <!-- <label class="form-label">Select User</label> -->
+                  <select class="form-control" formControlName="loginId" (change)="getDonationByLoginId('TODAY')">
+                    <option value="" disabled selected>Select Fundrising Officer</option>
+                      <option *ngFor="let user of userList" [ngValue]="user.loginId">{{user.firstName + ' ' + user.lastName}}</option>
+                  </select>
+              </div>
+              <div class="col-sm-3 form-group">
+                  <!-- <label class="form-label">Team Leader</label> -->
+                  <select class="form-control" formControlName="teamLeaderId" (change)="getDonationByTeamLeaderId('TODAY')">
+                    <option value="" disabled selected>Select Team Leader</option>
+                      <option *ngFor="let teamleader of teamLeaderList" [ngValue]="teamleader.loginId">{{teamleader.firstName + ' ' + teamleader.lastName}}</option>
+                  </select>
+              </div>
+          </div>
+        </form>
+
+
+        <table class="table table-striped" id="customers">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Mobile No.</th>
+              <th>Amount</th>
+              <!-- <th>Transaction id</th> -->
+              <th>Payment Mode</th>
+              <th>Received By</th>
+              <th>Invoice For</th>
+              <th>Program</th>
+              <th>Date & Time</th>
+              <th>Invoice No.</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+              <td>{{ donation.donorName }}</td>
+              <td>{{ donation.mobileNumber }}</td>
+              <td>{{ donation.amount }} {{ donation.lastName }}</td>
+              <!-- <td>{{ donation.transactionId }}</td> -->
+              <td>{{ donation.paymentMode }}</td>
+              <td>{{ donation.createdbyName }}</td>
+              <td>{{ donation.invoiceHeaderName }}</td>
+              <td>{{ donation.programName }}</td>
+              <td>{{ donation.createdAt | date: 'dd-MM-yyyy | hh:mm:ss a' }}</td>
+              <td>{{ donation.invoiceNumber}}</td>
+
+              <td>
+                <c-badge *ngIf="donation.invoiceDownloadStatus === 'NO'" class="ms-2 float-end" color="success"
+                  style="cursor: pointer;">
+                  {{ donation.invoiceDownloadStatus }}
+                </c-badge>
+                <c-badge *ngIf="donation.invoiceDownloadStatus === 'YES'" class="ms-2 float-end" color="primary"
+                  style="cursor: pointer;">
+                  {{ donation.invoiceDownloadStatus }}
+                </c-badge>
+              </td>
+
+              <td>
+                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i
+                    class="material-icons">cloud_download</i></button>&nbsp;&nbsp;
+                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
+                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+          </pagination-controls>
+        </div>
+
+      </div>
+
+      <div class="tabcontent" [ngStyle]="{'display': isTabActive('YESTERDAY') ? 'block' : 'none'}">
+        <form [formGroup]="searchDonationForm" *ngIf="isSuperadmin">
+          <div class="row">
+              <div class="col-sm-3 form-group">
+                  <!-- <label class="form-label">Select User</label> -->
+                  <select class="form-control" formControlName="loginId" (change)="getDonationByLoginId('YESTERDAY')">
+                    <option value="" disabled selected>Select Fundrising Officer</option>
+                      <option *ngFor="let user of userList" [ngValue]="user.loginId">{{user.firstName + ' ' + user.lastName}}</option>
+                  </select>
+              </div>
+              <div class="col-sm-3 form-group">
+                  <!-- <label class="form-label">Team Leader</label> -->
+                  <select class="form-control" formControlName="teamLeaderId" (change)="getDonationByTeamLeaderId('YESTERDAY')">
+                    <option value="" disabled selected>Select Team Leader</option>
+                      <option *ngFor="let teamleader of teamLeaderList" [ngValue]="teamleader.loginId">{{teamleader.firstName + ' ' + teamleader.lastName}}</option>
+                  </select>
+              </div>
+          </div>
+        </form>
+        <table class="table table-striped" id="customers">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Mobile No.</th>
+              <th>Amount</th>
+              <th>Transaction id</th>
+              <th>Payment Mode</th>
+              <th>Received By</th>
+              <th>Invoice For</th>
+              <th>Program</th>
+              <th>Date & Time</th>
+              <th>Invoice Number</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+              <td>{{ donation.donorName }}</td>
+              <td>{{ donation.mobileNumber }}</td>
+              <td>{{ donation.amount }} {{ donation.lastName }}</td>
+              <td>{{ donation.transactionId }}</td>
+              <td>{{ donation.paymentMode }}</td>
+              <td>{{ donation.createdbyName }}</td>
+              <td>{{ donation.invoiceHeaderName }}</td>
+              <td>{{ donation.programName }}</td>
+              <td>{{ donation.createdAt | date: 'dd-MM-yyyy | hh:mm:ss a' }}</td>
+              <td>{{ donation.invoiceNumber}}</td>
+              <td>
+                <c-badge *ngIf="donation.invoiceDownloadStatus === 'NO'" class="ms-2 float-end" color="success"
+                  style="cursor: pointer;">
+                  {{ donation.invoiceDownloadStatus }}
+                </c-badge>
+                <c-badge *ngIf="donation.invoiceDownloadStatus === 'YES'" class="ms-2 float-end" color="primary"
+                  style="cursor: pointer;">
+                  {{ donation.invoiceDownloadStatus }}
+                </c-badge>
+              </td>
+              <td>
+                <!-- <button type="button" class="btn btn-primary" (click)="editDonationPopup(donation)">Edit</button> -->
+                <!-- <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)">Download</button> -->
+                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i
+                    class="material-icons">cloud_download</i>
+                </button>
+                &nbsp;&nbsp;
+                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
+                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+          </pagination-controls>
+        </div>
+
+      </div>
+
+
+
+      <div class="tabcontent" [ngStyle]="{'display': isTabActive('MONTH') ? 'block' : 'none'}">
+        <form [formGroup]="searchDonationForm" *ngIf="isSuperadmin">
+          <div class="row">
+              <div class="col-sm-3 form-group">
+                  <!-- <label class="form-label">Select User</label> -->
+                  <select class="form-control" formControlName="loginId" (change)="getDonationByLoginId('MONTH')">
+                      <option value="" disabled selected>Select Fundrising Officer</option>
+                      <option *ngFor="let user of userList" [ngValue]="user.loginId">{{user.firstName + ' ' + user.lastName}}</option>
+                  </select>
+              </div>
+              <div class="col-sm-3 form-group">
+                  <!-- <label class="form-label">Team Leader</label> -->
+                  <select class="form-control" formControlName="teamLeaderId" (change)="getDonationByTeamLeaderId('MONTH')">
+                    <option value="" disabled selected>Select Team Leader</option>
+                      <option *ngFor="let teamleader of teamLeaderList" [ngValue]="teamleader.loginId">{{teamleader.firstName + ' ' + teamleader.lastName}}</option>
+                  </select>
+              </div>
+          </div>
+        </form>
+        <table class="table table-striped" id="customers">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Mobile No.</th>
+              <th>Amount</th>
+              <th>Transaction id</th>
+              <th>Payment Mode</th>
+              <th>Received By</th>
+              <th>Invoice For</th>
+              <th>Program</th>
+              <th>Date & Time</th>
+              <th>Invoice Number</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+              <td>{{ donation.donorName }}</td>
+              <td>{{ donation.mobileNumber }}</td>
+              <td>{{ donation.amount }} {{ donation.lastName }}</td>
+              <td>{{ donation.transactionId }}</td>
+              <td>{{ donation.paymentMode }}</td>
+              <td>{{ donation.createdbyName }}</td>
+              <td>{{ donation.invoiceHeaderName }}</td>
+              <td>{{ donation.programName }}</td>
+              <td>{{ donation.createdAt | date: 'dd-MM-yyyy | hh:mm:ss a' }}</td>
+              <td>{{ donation.invoiceNumber}}</td>
+              <td>
+                <c-badge *ngIf="donation.invoiceDownloadStatus === 'NO'" class="ms-2 float-end" color="success"
+                  style="cursor: pointer;">
+                  {{ donation.invoiceDownloadStatus }}
+                </c-badge>
+                <c-badge *ngIf="donation.invoiceDownloadStatus === 'YES'" class="ms-2 float-end" color="primary"
+                  style="cursor: pointer;">
+                  {{ donation.invoiceDownloadStatus }}
+                </c-badge>
+              </td>
+              <td>
+                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"> <i
+                    class="material-icons">cloud_download</i> </button>&nbsp;
+                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
+                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+          </pagination-controls>
+        </div>
+
+      </div>
+
+      <div class="tabcontent" [ngStyle]="{'display': isTabActive('CUSTOM') ? 'block' : 'none'}">
+        <div class="row">
+          <div class="col-2">
+            <label> Download In Excel</label>
+            <br>
+            <button mat-raised-button class="btn btn-warning" (click)="exportAsExcelFile()">
+              <img src="/assets/img/brand/excel-logo.png" width="24"> Export Report
+            </button>
+          </div>
+          <div class="col-sm-2">
+            <label> From</label>
+            <input class="form-control" pInputText type="date" #firstDate>
+          </div>
+          <div class="col-sm-2">
+            <label> To </label>
+            <input class="form-control" pInputText type="date" #lastDate>
+
+          </div>
+          <div class="col-sm-2">
+            <br>
+            <button type="submit" mat-raised-button class="btn btn-warning"
+              (click)="getDonationListByDate(firstDate.value,lastDate.value)"
+              style="margin-top: 8px; margin-left: 0px;">Search</button>
+          </div>
+
+          <div class="form-group col-sm-3"><br>
+            <input type="text" class="form-control"  #searchKey placeholder="Filter">
+          </div>
+          <div class="form-group col-sm-1"><br>
+            <button type="button" class="btn btn-primary" (click)="getDonationDetailsBySearch(searchKey.value)">Search</button>
+          </div>
+
+
+        </div>
+        <table class="table table-striped" id="customers">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Mobile No.</th>
+              <th>Amount</th>
+              <th>Transaction id</th>
+              <th>Payment Mode</th>
+              <th>Received By</th>
+              <th>Invoice For</th>
+              <th>Program</th>
+              <th>Date & Time</th>
+              <th>Invoice Number</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+              <td>{{ donation.donorName }}</td>
+              <td>{{ donation.mobileNumber }}</td>
+              <td>{{ donation.amount }} {{ donation.lastName }}</td>
+              <td>{{ donation.transactionId }}</td>
+              <td>{{ donation.paymentMode }}</td>
+              <td>{{ donation.createdbyName }}</td>
+              <td>{{ donation.invoiceHeaderName }}</td>
+              <td>{{ donation.programName }}</td>
+              <td>{{ donation.createdAt | date: 'dd-MM-yyyy | hh:mm:ss a' }}</td>
+              <td>{{ donation.invoiceNumber}}</td>
+              <td>
+                <c-badge *ngIf="donation.invoiceDownloadStatus === 'NO'" class="ms-2 float-end" color="success"
+                  style="cursor: pointer;">
+                  {{ donation.invoiceDownloadStatus }}
+                </c-badge>
+                <c-badge *ngIf="donation.invoiceDownloadStatus === 'YES'" class="ms-2 float-end" color="primary"
+                  style="cursor: pointer;">
+                  {{ donation.invoiceDownloadStatus }}
+                </c-badge>
+              </td>
+              <td>
+                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)">
+                  <i class="material-icons">cloud_download</i>
+                </button>
+                &nbsp;&nbsp;
+                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
+                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableCustomDataChange($event)">
+          </pagination-controls>
+        </div>
+
+      </div>
+
+    </ng-template>
+
+  </div>
+
+  <!-- <div class="modal" [@modalAnimation]="cancelDisplayStyle ? 'visible' : 'hidden'" [ngStyle]="{'display': cancelDisplayStyle ? 'block' : 'none'}" aria-hidden="true"> -->
+  <div class="modal" tabindex="-1" [ngStyle]="{'display': cancelDisplayStyle}" aria-hidden="true" [@modalAnimation]>
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+
+        <div class="form-main-container">
+          <div class="add-user-main-container">
+            <div class="main-header">Sure <h6 class="modal-title" style="margin-left: 95%;">
+                <button type="button" class="btn-close" (click)="closeCancelPopup()" aria-label="Close"></button>
+              </h6>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure? want to cancel Receipt.</p>
+            </div>
+            <div class="modal-footer">
+
+              <div class="m_footer"> <button type="button" class="btn btn-primary btn-sm"
+                  (click)="yesCancelDonationReceipt()">Yes. Cancel it</button> </div>
+              <div class="m_footer"> <button type="button" class="btn btn-secondary btn-sm"
+                  (click)="yesCancelDonationReceipt()">No. Don't cancel</button> </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <!-- Edit Donation -->
+    <div class="modal" tabindex="-1" [ngStyle]="{'display': displayStyle}" aria-hidden="true" [@modalAnimation]>
+      <!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayStyle}" aria-hidden="true"> -->
+      <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title" style="margin-left: 95%;">
+              <button type="button" class="btn-close" (click)="closeEditPopup()" aria-label="Close"></button>
+            </h6>
+          </div>
+          <div class="modal-body">
+            <div class="form-main-container">
+              <div class="add-user-main-container">
+                <div class="main-header">Update Donation</div>
+
+                <form [formGroup]="editDonationForm" (ngSubmit)="updateDonationDetails()">
+
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Created By</label>
+                      <input class="form-control" type="text" pInputText formControlName="createdBy" maxlength="100"
+                        readonly>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Donner Name</label>
+                      <input class="form-control" type="text" pInputText formControlName="donorName" maxlength="100"
+                        readonly>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Mobile Number</label>
+                      <input class="form-control" type="number" pInputText formControlName="mobileNumber"
+                        maxlength="100">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Email Id</label>
+                      <input class="form-control" type="text" pInputText formControlName="emailId" maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Address</label>
+                      <input class="form-control" type="text" pInputText formControlName="address" maxlength="100">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Pan</label>
+                      <input class="form-control" type="text" pInputText formControlName="panNumber" maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Amount</label>
+                      <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="amount"
+                        maxlength="100" readonly>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Transaction Id</label>
+                      <input class="form-control" type="text" pInputText formControlName="transactionId"
+                        maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Payment Mode</label>
+                      <select class="form-control" formControlName="paymentMode">
+                        <option aria-readonly="true">Select Payment Type</option>
+                        <option *ngFor="let payModOpt of paymentModeOption">{{payModOpt}}</option>
+                      </select>
+                    </div>
+                    <!-- <div class="col-sm-6 form-group">
+                      <label class="form-label">requestFor</label>
+                      <input class="form-control" type="text" pInputText formControlName="requestFor" maxlength="100">
+                  </div> -->
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">remarks</label>
+                      <textarea style=" float: left; width: 100%; margin-top: 6px; height:150px" formControlName="notes"
+                        placeholder="Write Notes.."></textarea>
+                    </div>
+                  </div>
+
+
+
+                  <div class="submit-button">
+                    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+    <!-- <div class="row">
+          <div class="col-2">
+            <label> Download In Excel</label>
+            <br>
+            <button mat-raised-button class="btn btn-warning">
+              <img src="{}" width="24">Export Report
+            </button>
+          </div>
+          <div class="col-2">
+            <label> Choose user</label>
+            <br>
+            <select class="form-control" [(ngModel)]="selectedLoginId" name="loginId">
+              <option [ngValue]="null">Choose User</option>
+              <option *ngFor="let payModOpt of userList" [ngValue]="payModOpt.loginId">{{payModOpt.firstName}}</option>
+            </select>
+
+
+          </div>
+          <div class="col-sm-2">
+            <label> From</label>
+            <input class="form-control" pInputText type="date" #firstDate>
+          </div>
+          <div class="col-sm-2">
+            <label> To </label>
+            <input class="form-control" pInputText type="date" #lastDate>
+
+          </div>
+          <div class="col-sm-1">
+            <br>
+            <button type="submit" mat-raised-button class="btn btn-warning" (click)="getDonationListByDate('',firstDate.value,lastDate.value)" style="margin-top: 8px; margin-left: 0px;">Search</button> 
+          </div>
+        </div> -->

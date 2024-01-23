@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="table-responsive">
+
+    <div styleClass="user-mngmt-view-user-container">
+      <div class="user-mngmt-view-user-heading"> Donation List </div>
+
+      <table class="table table-striped" id="customers">
+        <thead>
+          <tr>
+            <!-- <th>ID</th> -->
+            <th>Donner Name</th>
+            <th>Mobile No.</th>
+            <th>Amount</th>
+            <th>Payment Mode</th>
+            <th>Date & Time</th>
+            <th>login Userid</th>
+            <th>created Userid</th>
+            <th>created By Name</th>
+            <th>Parent Name</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor=" let post of leadList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+            <!-- <td scope="row">{{ post.id }}</td> -->
+            <td>{{ post.donnerName }}</td>
+            <td>{{ post.donnerMobile }}</td>
+            <td>{{ post.amount }}</td>
+            <td>{{ post.paymentMode }}</td>
+            <td>{{ post.dateTime }}</td>
+            <td>{{ post.userId }}</td>
+            <td>{{ post.createdBy }}</td>
+            <td>{{ post.createdByName }}</td>
+            <td>{{ post.parentName }}</td>
+            <td>{{ post.status}}</td>
+            <td><svg cIcon name="cilPaperPlane" size="xl" title="Paper Plane Icon"></svg><svg cIcon name="cilPaperPlane" size="xl" title="Paper Plane Icon"></svg></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-center">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

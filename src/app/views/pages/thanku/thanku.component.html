@@ -1,0 +1,26 @@
+<!-- <div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <c-container>
+      <c-row class="justify-content-center">
+        <c-col md="12">
+       
+           
+            <h4 class="pt-3" style="align-items: center;">{{successMessageVisible}}</h4>
+            <h5 class="pt-3" style="align-items: center;">For {{countdownValue}}</h5>
+
+            
+        
+          
+        </c-col>
+      </c-row>
+    </c-container>
+  </div> -->
+
+
+  <div class="container">
+    <p class="error-message">{{ successMessageVisible }}
+      <span *ngIf="countShow">{{ countdownValue }}</span>
+    </p>
+  </div>
+
+
+  

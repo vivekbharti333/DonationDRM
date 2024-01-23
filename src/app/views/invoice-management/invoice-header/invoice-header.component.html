@@ -1,0 +1,172 @@
+<c-card>
+    <div class="form-main-container">
+        <div class="add-user-main-header">Invoice Heading</div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <select class="form-control" formControlName="superadminId" (change)="getInvoiceHeaderList($event,'BYSUPERADMINID')">
+                    <option [ngValue]="null">Select Superadmin</option>
+                    <option *ngFor="let userList of superadminList" [ngValue]="userList.loginId">
+                        {{ userList.firstName + ' ' + userList.lastName }}
+                    </option>
+                </select>
+            </div>
+  
+            <div class="col-sm-4 form-group">
+                <select class="form-control" formControlName="id" (change)="getInvoiceHeaderById($event,'BYID')">
+                    <option [ngValue]="null">Select Invoice</option>
+                    <option *ngFor="let invoiceList of invoiceHeaderList" [ngValue]="invoiceList.id">
+                        {{ invoiceList.companyFirstName + ' ' + invoiceList.companyLastName }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <hr>
+
+
+        
+
+        <form [formGroup]="addInvoiceHeaderForm" (ngSubmit)="saveInvoiceHeader()">
+            <div class="row">
+                <div class="col-sm-4 form-group">
+  
+                  <img src="{{logo}}" width="200" height="200">
+                </div>
+              </div>
+            <div class="row">
+                <div class="col-sm-2 form-group">
+                    <label class="form-label">Logo</label>
+                    <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*">
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label class="form-label">Invoice Initial</label>
+                    <input class="form-control" type="text" pInputText formControlName="invoiceInitial" maxlength="100">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Background Color</label>
+                    <input class="form-control" type="color" pInputText formControlName="backgroundColor" maxlength="100">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">First Name</label>
+                    <input class="form-control" type="text" pInputText formControlName="companyFirstName" maxlength="100">
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label class="form-label">First Name Color</label>
+                    <input class="form-control" type="color" pInputText formControlName="companyFirstNameColor" maxlength="100">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Last Name</label>
+                    <input class="form-control" type="text" pInputText formControlName="companyLastName" maxlength="100">
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label class="form-label">Last Name Color</label>
+                    <input class="form-control" pInputText type="color" formControlName="companyLastNameColor" maxlength="100">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Reg Address</label>
+                    <input class="form-control" pInputText type="text" formControlName="regAddress" maxlength="100">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Office Address</label>
+                    <input class="form-control" pInputText type="text" formControlName="officeAddress" maxlength="100">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Mobile Number</label>
+                    <input class="form-control" pInputText type="text" formControlName="mobileNo" maxlength="50">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Alternate Mobile</label>
+                    <input class="form-control" pInputText type="text" formControlName="alternateMobile" maxlength="50">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Email Id</label>
+                    <input class="form-control" pInputText type="text" formControlName="emailId" maxlength="50">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Pan Number<span style="font-size: 20px; color: red;">*</span></label>
+                    <input class="form-control" pInputText type="text" formControlName="panNumber" maxlength="10">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">GST Number<span style="font-size: 20px; color: red;">*</span></label>
+                    <input class="form-control" pInputText type="text" formControlName="gstNumber" maxlength="50">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Website<span style="font-size: 20px; color: red;">*</span></label>
+                    <input class="form-control" pInputText type="text" formControlName="website" maxlength="50">
+                </div>
+            </div>
+
+            <div class="inner-header">Bank Details</div>
+
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Account Holder Name</label>
+                    <input class="form-control" pInputText type="text" formControlName="accountHolderName" maxlength="50">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Account Number</label>
+                    <input class="form-control" pInputText type="text" formControlName="accountNumber" pKeyFilter="int" pattern="[0-9]*" maxlength="50">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">IFSC Code</label>
+                    <input class="form-control" pInputText type="text" formControlName="ifscCode" maxlength="50">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Bank Name</label>
+                    <input class="form-control" pInputText type="text" formControlName="bankName" maxlength="50">
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label class="form-label">Branch Name</label>
+                    <input class="form-control" pInputText type="text" formControlName="branchName" maxlength="50">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label class="form-label">Thank You Notes</label>
+                    <textarea style=" float: left; width: 100%; margin-top: 6px; height:150px" formControlName="thankYouNote" placeholder="Write Thank you note.."></textarea>
+                </div>    
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Footer</label>
+                    <textarea style=" float: left; width: 100%; margin-top: 6px; height:150px" formControlName="footer" placeholder="Write Footer.."></textarea>
+                </div>    
+            </div>
+
+            
+
+
+           
+
+            <div class="submit-button">
+                <!-- <input cButton class="me-1" color="primary" type="submit" value="Submit"> -->
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+
+    </div>
+</c-card>
+
+
+
+
+
+  

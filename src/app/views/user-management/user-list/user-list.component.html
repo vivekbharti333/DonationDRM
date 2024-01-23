@@ -1,0 +1,443 @@
+<div class="container">
+
+
+
+  <div class="table-responsive">
+
+    <div styleClass="user-mngmt-view-user-container">
+      <div class="user-mngmt-view-user-heading"> User List </div>
+
+      <div *ngIf="isLoading; else dataContent">
+        
+        <div class="loader">
+          <!-- <c-spinner color="primary"></c-spinner> -->
+          <div class="spinner"></div>
+          <img src="assets/img/brand/logo.png" alt="Loading..." />
+        </div>
+        
+      </div>
+
+      
+      
+      <ng-template #dataContent>
+        <form *ngIf="isSuperadmin" [formGroup]="teamLeaderForm" class="col-sm-12">
+        <div class="row">
+          
+            <div class="form-group col-sm-3">
+              <select class="form-control" formControlName="teamLeaderId" (change)="getUserByTeamLeader()">
+                <option value="" disabled selected>Select User Under Team Leader</option>
+                <option *ngFor="let teamleader of teamLeaderList" [ngValue]="teamleader.loginId">
+                  {{ teamleader.firstName + ' ' + teamleader.lastName }}
+                </option>
+              </select>
+            </div>
+      
+            <div class="form-group col-sm-5">
+              <!-- If necessary content goes here -->
+            </div>
+      
+            <div class="form-group col-sm-3">
+              <input type="text" class="form-control" formControlName="searchKey" placeholder="Filter">
+            </div>
+      
+            <div class="form-group col-sm-1">
+              <button type="button" class="btn btn-primary" (click)="getUserDetailsBySearch()">Search</button>
+            </div>
+            </div>
+          </form>
+        
+       
+
+       
+
+      <table class="table table-striped" id="customers">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Login Id</th>
+            <th>Mobile No</th>
+            <th>Role</th>
+            <th>Date & Time</th>
+            <th>Status</th>
+            <th *ngIf="isSuperadmin">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor=" let user of userList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+            <td><ng-container *ngIf="user.userPicture; else defaultAvatar">
+              <c-avatar src="data:image/png;base64,{{user.userPicture}}" size="lg" width="20px" height="10px" status="success"></c-avatar>
+            </ng-container>
+            <ng-template #defaultAvatar>
+              <c-avatar src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" size="lg" width="20px" height="10px" status="success"></c-avatar>
+            </ng-template>
+            {{ user.firstName }} {{ user.lastName }}</td>
+            <td>{{ user.loginId }}</td>
+            <td>{{ user.mobileNo }}</td>
+            <td>{{ user.roleType }}</td>
+            <td>{{ user.createdAt | date: 'dd-MM-yyyy | HH:mm'}}</td>
+
+            <td *ngIf="user.status === 'ACTIVE'">
+              <c-badge class="ms-2 float-end" color="success" class="left-content" style="cursor: pointer;"
+                (click)="changeUserStatus(user)">{{ user.status }}</c-badge>
+            </td>
+            <td *ngIf="user.status === 'INACTIVE'">
+              <c-badge class="ms-2 float-end" color="danger" class="left-content" style="cursor: pointer;"
+                (click)="changeUserStatus(user)">{{user.status }}</c-badge>
+            </td>
+
+            <td *ngIf="isSuperadmin">
+              <button type="button" class="btn btn-primary" (click)="editUserPopup(user)"><i class="material-icons">edit</i></button> &nbsp; 
+               <button type="button" class="btn btn-primary" (click)="removeUserPopup(user)"><i class="material-icons">delete_forever</i></button>
+            </td>
+            <td *ngIf="isMainAdmin">
+              <button type="button" class="btn btn-primary" (click)="editUserPopup(user)"><i class="material-icons">edit</i></button> &nbsp; 
+              <button type="button" class="btn btn-primary" (click)="removeUserPopup(user)"><i class="material-icons">delete_forever</i></button>
+           </td> 
+
+          </tr>
+        </tbody>
+      </table>
+    
+      <div class="d-flex justify-content-center">
+        <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+        </pagination-controls>
+      </div>
+    </ng-template>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Edit User -->
+<!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayStyle}" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">
+          <button type="button" class="btn-close" (click)="closeEditPopup()" aria-label="Close"></button>
+        </h6>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-main-container">
+          <div class="add-user-main-header">Update User Details</div>
+          <form [formGroup]="editUserForm" (ngSubmit)="updateUserDetails()">
+
+            <div class="inner-header">Basic Details</div>
+
+            <div class="row">
+              <div class="col-sm-4 form-group">
+
+                <img src="{{userPhoto}}" width="200" height="200">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 form-group">
+                <label class="form-label">Photo</label>
+                <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*">
+              </div>
+
+              <div class="col-sm-4 form-group">
+                <label class="form-label">Role Type</label>
+                <select class="form-control" formControlName="roleType">
+                  <option aria-readonly="true">Select Role Type</option>
+                  <option *ngFor="let member of roleType">{{member}}</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 form-group">
+                <label class="form-label">First Name</label>
+                <input class="form-control" type="text" pInputText formControlName="firstName" maxlength="100">
+              </div>
+              <div class="col-sm-4 form-group">
+                <label class="form-label">Last Name</label>
+                <input class="form-control" pInputText type="text" formControlName="lastName" maxlength="50">
+              </div>
+              <div class="col-sm-4 form-group">
+                <label class="form-label">Date of bith</label>
+                <input class="form-control" type="date" formControlName="dob">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4 form-group">
+                <label class="form-label">Mobile No</label>
+                <input class="form-control" pInputText type="text" formControlName="mobileNo" pattern="[0-9]*"
+                  maxlength="13">
+              </div>
+
+              <div class="col-sm-4 form-group">
+                <label class="form-label">Whats App No</label>
+                <input class="form-control" pInputText type="text" formControlName="alternateMobile" pattern="[0-9]*"
+                  maxlength="13">
+              </div>
+              <div class="col-sm-4 form-group">
+                <label class="form-label">Email Id</label>
+                <input class="form-control" type="text" formControlName="emailId" maxlength="50">
+              </div>
+            </div>
+
+
+            <div formArrayName="addressList">
+              <div *ngFor="let address of addressList.controls; let i=index">
+                <div [formGroupName]="i">
+                  <div class="inner-header" *ngIf="i === 0 ">Current Address</div>
+                  <div class="inner-header" *ngIf="i === 1">Parmanent Address</div>
+
+                  <div class="row">
+                    <input class="form-control" *ngIf="i === 0" type="text" pInputText [value]="'BILLING'"
+                      formControlName="addressType" hidden>
+                    <input class="form-control" *ngIf="i === 1" type="text" pInputText [value]="'DELIVERY'"
+                      formControlName="addressType" hidden>
+                  </div>
+
+                  <div class="row">
+                     <div class="col-sm-3 form-group">
+                      <label class="form-label">Address </label>
+                      <input class="form-control" type="text" pInputText formControlName="addressType" maxlength="100">
+                    </div> 
+                    <div class="col-sm-3 form-group">
+                      <label class="form-label">Address </label>
+                      <input class="form-control" type="text" pInputText formControlName="addressLine" maxlength="100">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label class="form-label">Landmark</label>
+                      <input class="form-control" type="text" pInputText formControlName="landmark" maxlength="100">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-2 form-group">
+                      <label class="form-label">District</label>
+                      <input class="form-control" pInputText type="text" formControlName="district" maxlength="50">
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      <label class="form-label">City</label>
+                      <input class="form-control" pInputText type="text" formControlName="city" maxlength="50">
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      <label class="form-label">State</label>
+                      <input class="form-control" pInputText type="text" formControlName="state" maxlength="50">
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      <label class="form-label">Country</label>
+                      <input class="form-control" pInputText type="text" formControlName="country" maxlength="50"
+                        readonly>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      <label class="form-label">Pincode</label>
+                      <input class="form-control" pInputText type="text" formControlName="pincode" maxlength="50">
+                    </div>
+
+                  </div>
+                   <button type="button" class="btn btn-danger btn-close" (click)="removeItem(i)" aria-label="Close"></button> 
+                </div>
+              </div>
+            </div>
+             <button type="button" class="btn btn-info" (click)="addItem()">Add row</button>
+            <br>
+
+            <div class="submit-button">
+              <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<c-modal id="liveDemoModal" #modalXl id="modalXl" size="lg" #verticallyCenteredScrollableModal [scrollable]="true"
+  [visible]="removeUserVisible">
+  <c-modal-header>
+    <button type="button" class="btn-close" (click)="closeUserRemovePopup()" aria-label="Close"></button>
+  </c-modal-header>
+
+  <div class="add-user-main-header">Once removed, can not be rollback.<br>Are You Sure To Remove This User</div>
+  <div class="modal-footer">
+    <div class="m_footer"> <button type="button" class="btn btn-primary btn-sm" (click)="removeUser()">Yes. Remove it</button> </div>
+    <div class="m_footer"> <button type="button" class="btn btn-secondary btn-sm" (click)="closeUserRemovePopup()">No. Don't remove</button> </div>
+  </div>
+
+</c-modal>
+
+
+<c-modal id="liveDemoModal" #modalXl id="modalXl" size="xl" #verticallyCenteredScrollableModal [scrollable]="true" [visible]="visible" >
+  <c-modal-header>
+    <h5 cModalTitle><div class="add-user-main-header">Update User Details</div></h5>
+    <!-- <button (click)="toggleLiveDemo()" cButtonClose></button> -->
+    <button type="button" class="btn-close" (click)="closeEditPopup()" aria-label="Close"></button>
+  </c-modal-header>
+
+
+
+  <c-modal-body>
+    <div class="form-main-container">
+      
+      <form [formGroup]="editUserForm" (ngSubmit)="updateUserDetails()">
+
+        <div class="inner-header">Basic Details</div>
+
+        <div class="row">
+          <div class="col-sm-4 form-group">
+
+            <ng-container *ngIf="userPhoto; else defaultAvatar">
+              <img src="{{userPhoto}}" width="200" height="200">
+            </ng-container>
+            <ng-template #defaultAvatar>
+              <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" width="200" height="200">
+            </ng-template>
+
+
+
+           
+          </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-sm-4 form-group">
+            <label class="form-label">Photo</label>
+            <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*">
+          </div>
+
+          <!-- <div class="col-sm-4 form-group">
+            <label class="form-label">Role Type</label>
+            <select class="form-control" formControlName="roleType">
+              <option aria-readonly="true">Select Role Type</option>
+              <option *ngFor="let member of roleType">{{member}}</option>
+            </select>
+          </div> -->
+
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4 form-group">
+            <label class="form-label">First Name</label>
+            <input class="form-control" type="text" pInputText formControlName="firstName" maxlength="100">
+          </div>
+          <div class="col-sm-4 form-group">
+            <label class="form-label">Last Name</label>
+            <input class="form-control" pInputText type="text" formControlName="lastName" maxlength="50">
+          </div>
+          <div class="col-sm-4 form-group">
+            <label class="form-label">Date of bith</label>
+            <input class="form-control" type="date" formControlName="dob">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4 form-group">
+            <label class="form-label">Mobile No</label>
+            <input class="form-control" pInputText type="text" formControlName="mobileNo" pattern="[0-9]*"
+              maxlength="13">
+          </div>
+
+          <div class="col-sm-4 form-group">
+            <label class="form-label">Whats App No</label>
+            <input class="form-control" pInputText type="text" formControlName="alternateMobile" pattern="[0-9]*"
+              maxlength="13">
+          </div>
+          <div class="col-sm-4 form-group">
+            <label class="form-label">Email Id</label>
+            <input class="form-control" type="text" formControlName="emailId" maxlength="50">
+          </div>
+        </div>
+
+
+        <div formArrayName="addressList">
+          <div *ngFor="let address of addressList.controls; let i=index">
+            <div [formGroupName]="i">
+              <div class="inner-header" *ngIf="i === 0 ">Current Address</div>
+              <div class="inner-header" *ngIf="i === 1">Parmanent Address</div>
+
+              <div class="row">
+                <input class="form-control" *ngIf="i === 0" type="text" pInputText [value]="'BILLING'"
+                  formControlName="addressType" hidden>
+                <input class="form-control" *ngIf="i === 1" type="text" pInputText [value]="'DELIVERY'"
+                  formControlName="addressType" hidden>
+              </div>
+
+              <div class="row">
+                <!-- <div class="col-sm-3 form-group">
+                  <label class="form-label">Address </label>
+                  <input class="form-control" type="text" pInputText formControlName="addressType" maxlength="100">
+                </div> -->
+                <div class="col-sm-6 form-group">
+                  <label class="form-label">Address </label>
+                  <input class="form-control" type="text" pInputText formControlName="addressLine" maxlength="100">
+                </div>
+                <div class="col-sm-6 form-group">
+                  <label class="form-label">Landmark</label>
+                  <input class="form-control" type="text" pInputText formControlName="landmark" maxlength="100">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2 form-group">
+                  <label class="form-label">District</label>
+                  <input class="form-control" pInputText type="text" formControlName="district" maxlength="50">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="form-label">City</label>
+                  <input class="form-control" pInputText type="text" formControlName="city" maxlength="50">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="form-label">State</label>
+                  <input class="form-control" pInputText type="text" formControlName="state" maxlength="50">
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="form-label">Country</label>
+                  <input class="form-control" pInputText type="text" formControlName="country" maxlength="50"
+                    readonly>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="form-label">Pincode</label>
+                  <input class="form-control" pInputText type="text" formControlName="pincode" maxlength="50">
+                </div>
+
+              </div>
+              <!-- <button type="button" class="btn btn-danger btn-close" (click)="removeItem(i)" aria-label="Close"></button> -->
+            </div>
+          </div>
+        </div>
+        <!-- <button type="button" class="btn btn-info" (click)="addItem()">Add row</button> -->
+        <br>
+
+        <div class="submit-button">
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+
+
+
+  </c-modal-body>
+
+
+
+
+
+
+
+
+  <c-modal-footer>
+    <!-- <button cButton color="primary">Save changes</button> -->
+    <div class="close-button">
+      <button class="btn btn-primary" (click)="closeEditPopup()">Close</button>
+    </div>
+  </c-modal-footer>
+</c-modal>
+
+
+

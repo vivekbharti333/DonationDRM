@@ -1,0 +1,199 @@
+ <div class="loader" *ngIf="showLoader">Loading...</div>
+
+
+<c-card >
+	<div class="form-main-container">
+		<div class="add-user-main-header">Generate Invoice</div>
+
+		<div class="form-check">
+			<input type="radio" class="form-check-input" id="radio1" name="optradio" value="NEW" [(ngModel)]="selectedOption" (change)="onOptionChange()">
+			<label class="form-check-label" for="radio1">New Customer</label>
+		  </div>
+		  <div class="form-check">
+			<input type="radio" class="form-check-input" id="radio2" name="optradio" value="OLD" [(ngModel)]="selectedOption" (change)="onOptionChange()">
+			<label class="form-check-label" for="radio2">Existing Customer</label>
+		  </div>
+
+		<div *ngIf="isNewCustomer">
+			<form [formGroup]="invoiceForm" (ngSubmit)="saveNewInvoice()">
+
+				<div class="row">
+					<div class="col-sm-6 form-group">
+						<label class="form-label">First Name</label>
+						<input class="form-control" type="text" pInputText formControlName="firstName" maxlength="100">
+					</div>
+					<div class="col-sm-6 form-group">
+						<label class="form-label">Last Name</label>
+						<input class="form-control" pInputText type="text" formControlName="lastName" maxlength="50">
+					</div>
+				</div>
+	
+					<div class="row">
+					<div class="col-sm-6 form-group">
+					</div>
+					<div class="col-sm-6 form-group">
+						<label class="form-label">Email Id</label>
+						<input class="form-control" pInputText type="text" formControlName="emailId" maxlength="50">
+					</div>
+				</div>
+	
+					<div class="row">
+					<div class="col-sm-6 form-group">
+						<label class="form-label">Whats App Number</label>
+						<input class="form-control" pInputText type="text" formControlName="mobileNo"  pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+					</div>
+	
+					<div class="col-sm-6 form-group">
+						<label class="form-label">Alternate Mobile Number</label>
+						<input class="form-control" pInputText type="text" formControlName="alternateMobile"  pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+					</div>
+	
+					
+				</div>
+
+			<div class="row">
+				<div class="col-sm-6 form-group">
+					<label class="form-label">Company Name</label>
+					  <select class="form-control" formControlName="companyName">
+                        <option aria-readonly="true">Select a Customer</option>
+                        <option *ngFor="let customer of customerList" [value]="customer.companyName">{{ customer.companyName }}</option>
+                    </select>
+				</div>
+				<div class="col-sm-6 form-group">
+					<label class="form-label">GST Number</label>
+					<input class="form-control" pInputText type="text" formControlName="gstNumber" maxlength="50">
+				</div>
+			</div>
+
+			<div formArrayName="itemDetails">
+				<div *ngFor="let invoiceDetail of itemDetails.controls; let i=index">
+					<div [formGroupName]="i">
+
+
+						<div class="row">
+							<div class="col-sm-6 form-group">
+								{{i+1}}<label class="form-label">Item Name & Description</label>
+								<input class="form-control" pInputText type="text" formControlName="itemName"
+									pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+							</div>
+
+							<div class="col-sm-1 form-group">
+								<label class="form-label">Rate</label>
+								<input class="form-control" pInputText type="text" formControlName="rate"
+									pattern="[0-9]*" maxlength="5">
+							</div>
+
+							<div class="col-sm-1 form-group">
+								<label class="form-label">Quantity</label>
+								<input class="form-control" pInputText type="text" formControlName="quantity"
+									pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+							</div>
+							<div class="col-sm-1 form-group">
+								<label class="form-label">Discount</label>
+								<input class="form-control" pInputText type="text" formControlName="quantity"
+									pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+							</div>
+							<div class="col-sm-2 form-group">
+								<label class="form-label">Total Amount</label>
+								<input class="form-control" pInputText type="text" formControlName="quantity"
+									pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+							</div>
+
+							<div class="col-sm-1 form-group">
+								<label class="form-label"> </label><br>
+								<button type="button" class="btn btn-danger btn-close" style="font-display: red;"
+									(click)="removeItem(i)" aria-label="Close"></button>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<button type="button" class="btn btn-info" (click)="addItem()">Add row</button>
+
+			<div class="submit-button">
+				<button class="btn btn-primary" type="submit">Submit</button>
+			</div>
+
+		</form>
+		</div>
+
+
+
+
+		<div *ngIf="isExistsCustomer">
+		<form [formGroup]="invoiceForm" (ngSubmit)="saveNewInvoice()">
+			<div class="row">
+				<div class="col-sm-6 form-group">
+					<label class="form-label">Company Name</label>
+					<select class="form-control" formControlName="companyName" [(ngModel)]="selectedGstNumber">
+						<option value="" disabled selected>Select a Company</option>
+						<option *ngFor="let customer of customerList" [value]="customer.gstNumber">{{ customer.companyName }}</option>
+					</select>
+				</div>
+				<div class="col-sm-6 form-group">
+					<label class="form-label">GST Number</label>
+					<input class="form-control" pInputText type="text" value="{{ selectedGstNumber }}" formControlName="gstNumber" maxlength="50">
+				</div>
+			</div>
+
+			<div formArrayName="itemDetails">
+				<div *ngFor="let invoiceDetail of itemDetails.controls; let i=index">
+					<div [formGroupName]="i">
+
+						<div class="row">
+							<div class="col-sm-6 form-group">
+								{{i+1}}<label class="form-label">Item Name & Description</label>
+								<input class="form-control" pInputText type="text" formControlName="itemName"
+									pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+							</div>
+
+							<div class="col-sm-1 form-group">
+								<label class="form-label">Rate</label>
+								<input class="form-control" pInputText type="text" formControlName="rate"
+									pattern="[0-9]*" maxlength="5">
+							</div>
+
+							<div class="col-sm-1 form-group">
+								<label class="form-label">Quantity</label>
+								<input class="form-control" pInputText type="text" formControlName="quantity"
+									pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+							</div>
+							<div class="col-sm-1 form-group">
+								<label class="form-label">Discount</label>
+								<input class="form-control" pInputText type="text" formControlName="quantity"
+									pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+							</div>
+							<div class="col-sm-2 form-group">
+								<label class="form-label">Total Amount</label>
+								<input class="form-control" pInputText type="text" formControlName="quantity"
+									pKeyFilter="int" pattern="[0-9]*" maxlength="5">
+							</div>
+
+							<div class="col-sm-1 form-group">
+								<label class="form-label"> </label><br>
+								<button type="button" class="btn btn-danger btn-close" style="font-display: red;"
+									(click)="removeItem(i)" aria-label="Close"></button>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<button type="button" class="btn btn-info" (click)="addItem()">Add row</button>
+
+			<div class="submit-button">
+				<button class="btn btn-primary" type="submit">Submit</button>
+			</div>
+
+		</form>
+	</div>
+
+		{{this.invoiceForm.value | json}} 
+
+	</div>
+</c-card> 

@@ -1,0 +1,115 @@
+<c-card>
+    <div class="form-main-container">
+        <div class="add-user-main-header">Customer Registration</div>
+        <form [formGroup]="addCustomerForm" (ngSubmit)="saveCustomerDetails()">
+
+            <div class="inner-header">Company Details</div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Company Name</label>
+                    <input class="form-control" pInputText type="text" formControlName="companyName" maxlength="50">
+                </div>
+
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">GST Number</label>
+                    <input class="form-control" pInputText type="text" formControlName="gstNumber" maxlength="20">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Contact Person's First Name</label>
+                    <input class="form-control" type="text" pInputText formControlName="firstName" maxlength="100">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Contact Person's Last Name</label>
+                    <input class="form-control" pInputText type="text" formControlName="lastName" maxlength="50">
+                </div>
+            </div>
+
+           
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <label class="form-label">Mobile No</label>
+                    <input class="form-control" pInputText type="text" formControlName="mobileNo" pKeyFilter="int"
+                        pattern="[0-9]*" maxlength="10">
+                </div>
+
+                <div class="col-sm-3 form-group">
+                    <label class="form-label">Whats App No</label>
+                    <input class="form-control" pInputText type="text" formControlName="alternateMobile"
+                        pKeyFilter="int" pattern="[0-9]*" maxlength="10">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label class="form-label">Email Id</label>
+                    <input class="form-control" pInputText type="text" formControlName="emailId" maxlength="50">
+                </div>
+            </div>
+
+           
+           
+
+            <div formArrayName="addressList">
+                <div *ngFor="let address of addressList.controls; let i=index">
+                    <div [formGroupName]="i">
+                        <div class="inner-header" *ngIf="i === 0 ">Billing Address</div>
+                        <div class="inner-header" *ngIf="i === 1">Delivery Address</div>
+
+                        <div class="row">
+                            <input class="form-control" *ngIf="i === 0" type="text" pInputText [value]="'BILLING'" formControlName="addressType" hidden>
+                            <input class="form-control" *ngIf="i === 1" type="text" pInputText [value]="'DELIVERY'" formControlName="addressType" hidden>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label class="form-label">Address</label>
+                                <input class="form-control" type="text" pInputText formControlName="addressLine"
+                                    maxlength="100">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label class="form-label">Landmark</label>
+                                <input class="form-control" type="text" pInputText formControlName="landmark"
+                                    maxlength="100">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-2 form-group">
+                                <label class="form-label">District</label>
+                                <input class="form-control" pInputText type="text" formControlName="district"
+                                    maxlength="50">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label class="form-label">City</label>
+                                <input class="form-control" pInputText type="text" formControlName="city"
+                                    maxlength="50">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label class="form-label">State</label>
+                                <input class="form-control" pInputText type="text" formControlName="state"
+                                    maxlength="50">
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label class="form-label">Country</label>
+                                <input class="form-control" pInputText type="text" formControlName="country"
+                                    maxlength="50" readonly>
+                            </div>
+                            <div class="col-sm-2 form-group">
+                                <label class="form-label">Pincode</label>
+                                <input class="form-control" pInputText type="text" formControlName="pincode"
+                                    maxlength="6">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            <br>
+
+            <div class="submit-button">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+
+    </div>
+</c-card>

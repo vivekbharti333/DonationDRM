@@ -1,0 +1,66 @@
+.table-container {
+    max-height: 350px;
+    overflow: auto;
+  }
+  
+  .table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  
+  .table thead {
+    position: sticky;
+    top: 0;
+    background-color: #fff; /* Change this to match your table header background */
+  }
+  
+  .table th {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd; /* Optional: Add bottom border to table cells */
+  }
+  
+
+  /* Styles for the tabs */
+.tab {
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 15px;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+
+/* Example media query for smaller devices */
+@media (max-width: 768px) {
+  /* Add your responsive CSS rules here */
+  .tab button {
+    /* Adjust button styles for smaller screens */
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  /* Additional styles for smaller screens */
+  /* ... */
+}
