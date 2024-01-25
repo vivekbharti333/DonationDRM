@@ -53,6 +53,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { ApplicationDetailsComponent } from './views/application-management/application-details/application-details.component';
 
 
 
@@ -67,7 +68,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS,],
+  declarations: [AppComponent, ...APP_CONTAINERS, ApplicationDetailsComponent,],
   imports: [
     NgxDatatableModule,
     NgxPaginationModule,
