@@ -39,6 +39,14 @@ label {
   overflow-y: auto; /* Enable vertical scrolling when content exceeds the max height */
 }
 
+.model-form-main-container {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 10px;
+  max-height: 800px; /* Set a maximum height for the container */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds the max height */
+}
+
 .add-user-mngmt-inner-header {
   color: darkblue;
   font-family: serif;

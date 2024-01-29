@@ -278,8 +278,6 @@ export class DonationListComponent {
 
   editDonationPopup(donation: any) {
 
-    console.log("enter1");
-
     this.editDonationForm.patchValue({
       id: donation['id'],
       createdBy: donation['createdBy'],
@@ -293,9 +291,8 @@ export class DonationListComponent {
       paymentMode: donation['paymentMode'],
       notes: donation['notes'],
     });
-    console.log("enter2");
+    this.cancelDisplayStyle = "none";
     this.displayStyle = "block";
-    console.log("enter3");
   }
 
   closeEditPopup() {
@@ -417,6 +414,30 @@ export class DonationListComponent {
 
 
   updateDonationDetails(){
+    this.isLoading = true;
+    this.donationManagementService.updateDonationDetails(this.editDonationForm.value)
+      .subscribe({
+        next: (response: any) => {
+          if (response['responseCode'] == '200') {
+            if (response['payload']['respCode'] == '200') {
+              console.log("ok hai")
+              this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
+              this.editDonationForm.reset();
+              this.getDonationList('TODAY');
+              // this.setValueInForm();
+              this.isLoading = false;
+            } else {
+              this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
+              this.isLoading = false;
+            }
+          } else {
+            this.toastr.error(response['responseMessage'], response['responseCode']);
+            this.isLoading = false;
+          }
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
+        
+      });
 
   }
 

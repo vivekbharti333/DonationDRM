@@ -77,6 +77,35 @@ export class DonationManagementService {
     return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "addDonation", request);
   }
 
+
+  updateDonationDetails(donationDetails: DonationDetails): Observable<DonationDetailsRequest> {
+    this.loginUser = this.authenticationService.getLoginUser();
+    let request: DonationDetailsRequest = {
+      payload: {
+        id: donationDetails.id,
+        createdBy: this.loginUser['loginId'],
+        invoiceHeaderDetailsId: donationDetails.invoiceHeaderDetailsId,
+        donorName: donationDetails.donorName,
+        mobileNumber: donationDetails.mobileNumber,
+        emailId: donationDetails.emailId,
+        address: donationDetails.address,
+        panNumber: donationDetails.panNumber,
+        programName: donationDetails.programName,
+        amount: donationDetails.amount,
+        transactionId: donationDetails.transactionId,
+        paymentMode: donationDetails.paymentMode,
+        notes: donationDetails.notes,
+        paymentType: 'OFFLINE',
+        roleType: this.loginUser['roleType'],
+        token: this.loginUser['token'],
+        loginId: this.loginUser['loginId'],
+        superadminId: this.loginUser['superadminId'],
+
+      }
+    };
+    return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "updateDonation", request);
+  }
+
   getDonationList(tabName:string): Observable<DonationDetailsRequest> {
     let request: DonationDetailsRequest = {
       payload: {
