@@ -89,7 +89,7 @@
                 </c-badge>
               </td>
 
-              <td>
+              <td> <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)">ggghg</button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i
                     class="material-icons">cloud_download</i></button>&nbsp;&nbsp;
                 <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
@@ -167,7 +167,7 @@
                 </c-badge>
               </td>
               <td>
-                <!-- <button type="button" class="btn btn-primary" (click)="editDonationPopup(donation)">Edit</button> -->
+                <button type="button" class="btn btn-primary" (click)="editDonationPopup(donation)">Edit</button>
                 <!-- <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)">Download</button> -->
                 <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i
                     class="material-icons">cloud_download</i>
@@ -365,7 +365,7 @@
   </div>
 
   <!-- <div class="modal" [@modalAnimation]="cancelDisplayStyle ? 'visible' : 'hidden'" [ngStyle]="{'display': cancelDisplayStyle ? 'block' : 'none'}" aria-hidden="true"> -->
-  <div class="modal" tabindex="-1" [ngStyle]="{'display': cancelDisplayStyle}" aria-hidden="true" [@modalAnimation]>
+  <!-- <div class="modal" tabindex="-1" [ngStyle]="{'display': cancelDisplayStyle}" aria-hidden="true" [@modalAnimation]>
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
 
@@ -391,7 +391,7 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
 
 
 

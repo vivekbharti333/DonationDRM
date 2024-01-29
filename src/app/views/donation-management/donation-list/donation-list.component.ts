@@ -278,6 +278,8 @@ export class DonationListComponent {
 
   editDonationPopup(donation: any) {
 
+    console.log("enter1");
+
     this.editDonationForm.patchValue({
       id: donation['id'],
       createdBy: donation['createdBy'],
@@ -291,7 +293,9 @@ export class DonationListComponent {
       paymentMode: donation['paymentMode'],
       notes: donation['notes'],
     });
+    console.log("enter2");
     this.displayStyle = "block";
+    console.log("enter3");
   }
 
   closeEditPopup() {
@@ -313,7 +317,6 @@ export class DonationListComponent {
    }
 
   yesCancelDonationReceipt(){
-    console.log("Enter hiiiii")
     this.isLoading = true;
     this.donationManagementService.yesCancelDonationReceipt(this.donationReceiptId)
       .subscribe({
