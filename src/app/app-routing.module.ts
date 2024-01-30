@@ -48,11 +48,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/lead-management/lead-management.module').then((m) => m.LeadManagementModule), canActivate: [AuthGuard],
       },
-      {
-        path: 'application',
-        loadChildren: () =>
-          import('./views/application-management/application-management.module').then((m) => m.ApplicationManagementModule), canActivate: [AuthGuard],
-      },
+      // {
+      //   path: 'application',
+      //   loadChildren: () =>
+      //     import('./views/application-management/application-management.module').then((m) => m.ApplicationManagementModule), canActivate: [AuthGuard],
+      // },
       {
         path: 'donation',
         loadChildren: () =>
