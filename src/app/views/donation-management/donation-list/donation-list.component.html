@@ -89,13 +89,22 @@
                 </c-badge>
               </td>
 
-              <td> <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i
+              <td>
+                 <!-- <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i
                 class="material-icons">edit</i></button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i
                     class="material-icons">cloud_download</i></button>&nbsp;&nbsp;
                 <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
-                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
-              </td>
+                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button> -->
+                  <c-dropdown>
+                    <button cButton cDropdownToggle color="secondary"> Action </button>
+                    <ul cDropdownMenu>
+                      <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
+                      <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
+                      <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
+                    </ul>
+                  </c-dropdown>
+                </td>
             </tr>
           </tbody>
         </table>
@@ -130,7 +139,7 @@
           <thead>
             <tr>
               <th>Name</th>
-              <!-- <th>Mobile No.</th> -->
+              <th>Mobile No.</th>
               <th>Amount</th>
               <!-- <th>Transaction id</th> -->
               <th>Payment Mode</th>
@@ -148,7 +157,7 @@
             <tr
               *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
               <td>{{ donation.donorName }}</td>
-              <!-- <td>{{ donation.mobileNumber }}</td> -->
+              <td>{{ donation.mobileNumber }}</td>
               <td>{{ donation.amount }} {{ donation.lastName }}</td>
               <!-- <td>{{ donation.transactionId }}</td> -->
               <td>{{ donation.paymentMode }}</td>
@@ -218,7 +227,7 @@
               <th>Name</th>
               <th>Mobile No.</th>
               <th>Amount</th>
-              <th>Transaction id</th>
+              <!-- <th>Transaction id</th> -->
               <th>Payment Mode</th>
               <th>Received By</th>
               <th>Invoice For</th>
@@ -236,7 +245,7 @@
               <td>{{ donation.donorName }}</td>
               <td>{{ donation.mobileNumber }}</td>
               <td>{{ donation.amount }} {{ donation.lastName }}</td>
-              <td>{{ donation.transactionId }}</td>
+              <!-- <td>{{ donation.transactionId }}</td> -->
               <td>{{ donation.paymentMode }}</td>
               <td>{{ donation.createdbyName }}</td>
               <td>{{ donation.invoiceHeaderName }}</td>
@@ -253,10 +262,19 @@
                   {{ donation.invoiceDownloadStatus }}
                 </c-badge>
               </td>
-              <td><button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;&nbsp;&nbsp;
+              <td>
+                <!-- <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"> <i class="material-icons">cloud_download</i> </button>&nbsp;
                 <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
-                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
+                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button> -->
+                  <c-dropdown>
+                    <button cButton cDropdownToggle color="secondary"> Action </button>
+                    <ul cDropdownMenu>
+                      <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
+                      <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
+                      <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
+                    </ul>
+                  </c-dropdown>
               </td>
             </tr>
           </tbody>
@@ -309,7 +327,7 @@
               <th>Name</th>
               <th>Mobile No.</th>
               <th>Amount</th>
-              <th>Transaction id</th>
+              <!-- <th>Transaction id</th> -->
               <th>Payment Mode</th>
               <th>Received By</th>
               <th>Invoice For</th>
@@ -327,7 +345,7 @@
               <td>{{ donation.donorName }}</td>
               <td>{{ donation.mobileNumber }}</td>
               <td>{{ donation.amount }} {{ donation.lastName }}</td>
-              <td>{{ donation.transactionId }}</td>
+              <!-- <td>{{ donation.transactionId }}</td> -->
               <td>{{ donation.paymentMode }}</td>
               <td>{{ donation.createdbyName }}</td>
               <td>{{ donation.invoiceHeaderName }}</td>
@@ -345,9 +363,17 @@
                 </c-badge>
               </td>
               <td>
-                <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;&nbsp;&nbsp;
+                <!-- <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i></button>&nbsp;&nbsp;&nbsp;
-                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary" (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
+                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary" (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button> -->
+                <c-dropdown>
+                  <button cButton cDropdownToggle color="secondary"> Action </button>
+                  <ul cDropdownMenu>
+                    <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
+                    <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
+                    <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
+                  </ul>
+                </c-dropdown>
               </td>
             </tr>
           </tbody>
@@ -479,7 +505,7 @@
 
                   <div class="row">
                     <div class="col-sm-6 form-group">
-                      <label class="form-label">remarks</label>
+                      <label class="form-label">Remarks</label>
                       <textarea style=" float: left; width: 100%; margin-top: 6px; height:150px" formControlName="notes"
                         placeholder="Write Notes.."></textarea>
                     </div>

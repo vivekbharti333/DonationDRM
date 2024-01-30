@@ -44,7 +44,7 @@ let navDonationManager: INavData[] = [
     children: [
       {
         name: 'Add Receipt',
-        url: '/donation/addDonation',
+        url: '/donation/add-donation',
         iconComponent: { name: 'cilEnvelopeOpen' },
         permission: ''
       },

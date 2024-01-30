@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IconModule } from '@coreui/icons-angular';
 
+
 import { AddUserComponent } from './add-user/add-user.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { ChangeUserComponent } from './change-user/change-user.component';
@@ -46,9 +47,24 @@ import {
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    BreadcrumbModule,
+    ButtonGroupModule,
+    FooterModule,
+  FormModule,
+  GridModule,
+  HeaderModule,
+  ListGroupModule,
+  NavModule,
+  ProgressModule,
+  SharedModule,
+  SidebarModule,
+  TabsModule,
+  UtilitiesModule,
+    ButtonModule,
     AvatarModule,
     IconModule,
     CardModule,
+    DropdownModule,
     BadgeModule,
     ModalModule,
     SpinnerModule,

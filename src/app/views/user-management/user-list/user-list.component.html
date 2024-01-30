@@ -87,13 +87,27 @@
             </td>
 
             <td *ngIf="isSuperadmin">
-              <button type="button" class="btn btn-primary" (click)="editUserPopup(user)"><i class="material-icons">edit</i></button> &nbsp; 
-               <button type="button" class="btn btn-primary" (click)="removeUserPopup(user)"><i class="material-icons">delete_forever</i></button>
-            </td>
+              <!-- <button type="button" class="btn btn-primary" (click)="editUserPopup(user)"><i class="material-icons">edit</i></button> &nbsp; 
+               <button type="button" class="btn btn-primary" (click)="removeUserPopup(user)"><i class="material-icons">delete_forever</i></button> -->
+               <c-dropdown>
+                <button cButton cDropdownToggle color="primary"> Action </button>
+                <ul cDropdownMenu>
+                  <li><button cDropdownItem type="button" (click)="editUserPopup(user)"><i class="material-icons">edit</i> Edit</button></li>
+                  <li><button cDropdownItem type="button" (click)="removeUserPopup(user)"><i class="material-icons">delete_forever</i> Delete</button></li>
+                </ul>
+              </c-dropdown>
+              </td>
             <td *ngIf="isMainAdmin">
-              <button type="button" class="btn btn-primary" (click)="editUserPopup(user)"><i class="material-icons">edit</i></button> &nbsp; 
-              <button type="button" class="btn btn-primary" (click)="removeUserPopup(user)"><i class="material-icons">delete_forever</i></button>
-           </td> 
+              <!-- <button type="button" class="btn btn-primary" (click)="editUserPopup(user)"><i class="material-icons">edit</i></button> &nbsp; 
+              <button type="button" class="btn btn-primary" (click)="removeUserPopup(user)"><i class="material-icons">delete_forever</i></button> -->
+              <c-dropdown>
+                <button cButton cDropdownToggle color="primary"> Action </button>
+                <ul cDropdownMenu>
+                  <li><button cDropdownItem type="button" (click)="editUserPopup(user)"><i class="material-icons">edit</i> Edit</button></li>
+                  <li><button cDropdownItem type="button" (click)="removeUserPopup(user)"><i class="material-icons">delete_forever</i> Delete</button></li>
+                </ul>
+              </c-dropdown>
+            </td> 
 
           </tr>
         </tbody>

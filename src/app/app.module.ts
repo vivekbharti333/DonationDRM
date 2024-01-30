@@ -107,8 +107,7 @@ const APP_CONTAINERS = [
   providers: [CookieService,
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy,
-      
+      useClass: HashLocationStrategy,
     },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,

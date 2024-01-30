@@ -12,25 +12,25 @@ let navDonationSuperadmin: INavData[] = [
       text: 'NEW'
     }
   },
-  {
-    name: 'App Management',
-    url: '/application',
-    iconComponent: { name: 'cil-user' }, 
-    children: [
-      {
-        name: 'Application Details',
-        url: '/application/app-details',
-        iconComponent: { name: 'cil-user' },
-        permission: 'app-details'
-      },
-      {
-        name: 'Program Details',
-        url: '/application/program-details',
-        iconComponent: { name: 'cil-user' },
-        permission: 'program-details'
-      },
-    ],
-  },
+  // {
+  //   name: 'App Management',
+  //   url: '/application',
+  //   iconComponent: { name: 'cil-user' }, 
+  //   children: [
+  //     {
+  //       name: 'Application Details',
+  //       url: '/application/app-details',
+  //       iconComponent: { name: 'cil-user' },
+  //       permission: 'app-details'
+  //     },
+  //     {
+  //       name: 'Program Details',
+  //       url: '/application/program-details',
+  //       iconComponent: { name: 'cil-user' },
+  //       permission: 'program-details'
+  //     },
+  //   ],
+  // },
   {
     name: 'User Management',
     url: '/user',
@@ -63,7 +63,7 @@ let navDonationSuperadmin: INavData[] = [
     children: [
       {
         name: 'Add Receipt',
-        url: '/donation/addDonation',
+        url: '/donation/add-donation',
         iconComponent: { name: 'cilEnvelopeOpen' },
         permission: ''
       },
