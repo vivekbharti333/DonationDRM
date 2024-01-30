@@ -1,1 +1,103 @@
-<p>applicantion-details works!</p>
+<c-card>
+    <div class="form-main-container">
+        <div class="add-user-main-container">
+            <div class="add-user-main-header">Application Details</div>
+
+            <div *ngIf="isLoading; else dataContent">
+        
+                <div class="loader">
+                  <!-- <c-spinner color="primary"></c-spinner> -->
+                  <div class="spinner"></div>
+                  <img src="assets/img/brand/logo.png" alt="Loading..." />
+                </div>
+                
+              </div>
+              
+              <ng-template #dataContent>
+
+
+
+            <form [formGroup]="applicationForm" (ngSubmit)="saveAndUpdateAppDetails()">
+
+                <div class="row">
+                    <!-- <div class="col-sm-3 form-group">
+                        <label class="form-label">Created By</label>
+                        <input class="form-control" type="text" pInputText formControlName="createdBy" maxlength="100">
+                    </div> -->
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Receipt Type</label>
+                        
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Donor Name</label>
+                        <input class="form-control" type="text" pInputText formControlName="donorName" maxlength="100">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Mobile Number</label>
+                        <input class="form-control" type="number" pInputText formControlName="mobileNumber"
+                            maxlength="100">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Email Id</label>
+                        <input class="form-control" type="text" pInputText formControlName="emailId" maxlength="100">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Address</label>
+                        <input class="form-control" type="text" pInputText formControlName="address" maxlength="100">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Pan</label>
+                        <input class="form-control" type="text" pInputText formControlName="panNumber" maxlength="100">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <label class="form-label">Program</label>
+                        
+
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label class="form-label">Amount</label>
+                        <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="amount"
+                            maxlength="100">
+                    </div>
+
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Transaction Id</label>
+                        <input class="form-control" type="text" pInputText formControlName="transactionId"
+                            maxlength="100">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Payment Mode</label>
+                       
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label class="form-label">Remarks</label>
+                        <textarea style=" float: left; width: 100%; margin-top: 6px; height:150px"
+                            formControlName="notes" placeholder="Write Notes.."></textarea>
+                    </div>
+                </div>
+
+
+
+                <div class="submit-button">
+                    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            </ng-template>
+        </div>
+    </div>
+</c-card>
