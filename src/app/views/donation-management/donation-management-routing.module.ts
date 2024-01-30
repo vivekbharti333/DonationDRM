@@ -5,7 +5,7 @@ import { DonationListComponent } from './donation-list/donation-list.component';
 
 const routes: Routes = [
   {
-    path: 'addDonation',
+    path: 'applicationDetails',
     component: AddDonationComponent,
     data: {
       title: 'Add Donation',

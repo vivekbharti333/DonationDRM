@@ -273,10 +273,21 @@ export class DonationListComponent {
   cancelConfirmationPopup(donation: any) {
     this.donationReceiptId = donation;    
     this.cancelDisplayStyle = "block";
+    this.displayStyle = "none";
+  
   }
 
 
   editDonationPopup(donation: any) {
+
+    this.cancelDisplayStyle = "none";
+    this.displayStyle = "block";
+
+    console.log("Opening Edit Modal");
+    console.log("displayStyle:", this.displayStyle);
+
+    this.cancelDisplayStyle = "none";
+    this.displayStyle = "block";
 
     this.editDonationForm.patchValue({
       id: donation['id'],
@@ -291,8 +302,7 @@ export class DonationListComponent {
       paymentMode: donation['paymentMode'],
       notes: donation['notes'],
     });
-    this.cancelDisplayStyle = "none";
-    this.displayStyle = "block";
+    
   }
 
   closeEditPopup() {
