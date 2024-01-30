@@ -273,10 +273,21 @@ export class DonationListComponent {
   cancelConfirmationPopup(donation: any) {
     this.donationReceiptId = donation;    
     this.cancelDisplayStyle = "block";
+    this.displayStyle = "none";
+  
   }
 
 
   editDonationPopup(donation: any) {
+
+    this.cancelDisplayStyle = "none";
+    this.displayStyle = "block";
+
+    console.log("Opening Edit Modal");
+    console.log("displayStyle:", this.displayStyle);
+
+    this.cancelDisplayStyle = "none";
+    this.displayStyle = "block";
 
     this.editDonationForm.patchValue({
       id: donation['id'],
@@ -291,7 +302,7 @@ export class DonationListComponent {
       paymentMode: donation['paymentMode'],
       notes: donation['notes'],
     });
-    this.displayStyle = "block";
+    
   }
 
   closeEditPopup() {
@@ -313,7 +324,6 @@ export class DonationListComponent {
    }
 
   yesCancelDonationReceipt(){
-    console.log("Enter hiiiii")
     this.isLoading = true;
     this.donationManagementService.yesCancelDonationReceipt(this.donationReceiptId)
       .subscribe({
@@ -414,6 +424,30 @@ export class DonationListComponent {
 
 
   updateDonationDetails(){
+    this.isLoading = true;
+    this.donationManagementService.updateDonationDetails(this.editDonationForm.value)
+      .subscribe({
+        next: (response: any) => {
+          if (response['responseCode'] == '200') {
+            if (response['payload']['respCode'] == '200') {
+              console.log("ok hai")
+              this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
+              this.editDonationForm.reset();
+              this.getDonationList('TODAY');
+              // this.setValueInForm();
+              this.isLoading = false;
+            } else {
+              this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
+              this.isLoading = false;
+            }
+          } else {
+            this.toastr.error(response['responseMessage'], response['responseCode']);
+            this.isLoading = false;
+          }
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
+        
+      });
 
   }
 

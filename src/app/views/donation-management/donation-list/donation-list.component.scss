@@ -25,7 +25,6 @@
 }
 
 label {
- 
   font-size: 14px;
   font-weight: bold;
   color: #0a0a0a;
@@ -38,6 +37,15 @@ label {
   max-height: 500px; /* Set a maximum height for the container */
   overflow-y: auto; /* Enable vertical scrolling when content exceeds the max height */
 }
+
+.model-form-main-container {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 10px;
+  max-height: 800px; /* Set a maximum height for the container */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds the max height */
+}
+
 
 .add-user-mngmt-inner-header {
   color: darkblue;
@@ -94,7 +102,37 @@ label {
   }
 }
 
+.cancelmodal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 
+.cancelmodal-dialog {
+  width: 50%; /* Adjust as needed */
+  max-width: 500px; /* Adjust as needed */
+}
+
+.modal-dialog {
+  max-height: 80vh; /* Adjust the percentage or value as needed */
+  overflow-y: auto; /* Add a scrollbar if content exceeds max-height */
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.733); /* Adjust the opacity here (0.5 for 50%) */
+  z-index: 999; /* Ensure it's above your modal */
+}
 
 
 

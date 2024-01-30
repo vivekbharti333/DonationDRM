@@ -89,7 +89,8 @@
                 </c-badge>
               </td>
 
-              <td>
+              <td> <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i
+                class="material-icons">edit</i></button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i
                     class="material-icons">cloud_download</i></button>&nbsp;&nbsp;
                 <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
@@ -129,9 +130,9 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Mobile No.</th>
+              <!-- <th>Mobile No.</th> -->
               <th>Amount</th>
-              <th>Transaction id</th>
+              <!-- <th>Transaction id</th> -->
               <th>Payment Mode</th>
               <th>Received By</th>
               <th>Invoice For</th>
@@ -147,9 +148,9 @@
             <tr
               *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
               <td>{{ donation.donorName }}</td>
-              <td>{{ donation.mobileNumber }}</td>
+              <!-- <td>{{ donation.mobileNumber }}</td> -->
               <td>{{ donation.amount }} {{ donation.lastName }}</td>
-              <td>{{ donation.transactionId }}</td>
+              <!-- <td>{{ donation.transactionId }}</td> -->
               <td>{{ donation.paymentMode }}</td>
               <td>{{ donation.createdbyName }}</td>
               <td>{{ donation.invoiceHeaderName }}</td>
@@ -167,14 +168,17 @@
                 </c-badge>
               </td>
               <td>
-                <!-- <button type="button" class="btn btn-primary" (click)="editDonationPopup(donation)">Edit</button> -->
-                <!-- <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)">Download</button> -->
-                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i
-                    class="material-icons">cloud_download</i>
-                </button>
-                &nbsp;&nbsp;
-                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
-                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
+                <!-- <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;
+                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> </button>&nbsp;
+                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary" (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button> -->
+                <c-dropdown>
+                  <button cButton cDropdownToggle color="secondary"> Action </button>
+                  <ul cDropdownMenu>
+                    <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
+                    <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
+                    <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
+                  </ul>
+                </c-dropdown>
               </td>
             </tr>
           </tbody>
@@ -249,9 +253,8 @@
                   {{ donation.invoiceDownloadStatus }}
                 </c-badge>
               </td>
-              <td>
-                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"> <i
-                    class="material-icons">cloud_download</i> </button>&nbsp;
+              <td><button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"> <i class="material-icons">cloud_download</i> </button>&nbsp;
                 <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
                   (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
               </td>
@@ -342,12 +345,9 @@
                 </c-badge>
               </td>
               <td>
-                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)">
-                  <i class="material-icons">cloud_download</i>
-                </button>
-                &nbsp;&nbsp;
-                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary"
-                  (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
+                <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i></button>&nbsp;&nbsp;&nbsp;
+                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary" (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
               </td>
             </tr>
           </tbody>
@@ -365,39 +365,44 @@
   </div>
 
   <!-- <div class="modal" [@modalAnimation]="cancelDisplayStyle ? 'visible' : 'hidden'" [ngStyle]="{'display': cancelDisplayStyle ? 'block' : 'none'}" aria-hidden="true"> -->
-  <div class="modal" tabindex="-1" [ngStyle]="{'display': cancelDisplayStyle}" aria-hidden="true" [@modalAnimation]>
-    <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content">
+   <!-- Overlay -->
+<div class="overlay" [ngStyle]="{'display': cancelDisplayStyle}" (click)="closeCancelPopup()"></div>
 
-        <div class="form-main-container">
-          <div class="add-user-main-container">
-            <div class="main-header">Sure <h6 class="modal-title" style="margin-left: 95%;">
-                <button type="button" class="btn-close" (click)="closeCancelPopup()" aria-label="Close"></button>
-              </h6>
+<!-- Cancel Modal -->
+<div class="modal cancelmodal" tabindex="-1" [ngStyle]="{'display': cancelDisplayStyle}" aria-hidden="true" [@modalAnimation]>
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="form-main-container">
+        <div class="add-user-main-container">
+          <div class="modal-header">
+            <h6 class="modal-title" style="margin-left: 95%;">
+              <button type="button" class="btn-close" (click)="closeCancelPopup()" aria-label="Close"></button>
+            </h6>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure? want to cancel Receipt.</p>
+          </div>
+          <div class="modal-footer">
+            <div class="m_footer">
+              <button type="button" class="btn btn-primary btn-sm" (click)="yesCancelDonationReceipt()">Yes. Cancel it</button>
             </div>
-            <div class="modal-body">
-              <p>Are you sure? want to cancel Receipt.</p>
+            <div class="m_footer">
+              <button type="button" class="btn btn-secondary btn-sm" (click)="closeCancelPopup()">No. Don't cancel</button>
             </div>
-            <div class="modal-footer">
-
-              <div class="m_footer"> <button type="button" class="btn btn-primary btn-sm"
-                  (click)="yesCancelDonationReceipt()">Yes. Cancel it</button> </div>
-              <div class="m_footer"> <button type="button" class="btn btn-secondary btn-sm"
-                  (click)="yesCancelDonationReceipt()">No. Don't cancel</button> </div>
-
-            </div>
-
           </div>
         </div>
-
       </div>
     </div>
+  </div>
+</div>
 
 
 
     <!-- Edit Donation -->
-    <div class="modal" tabindex="-1" [ngStyle]="{'display': displayStyle}" aria-hidden="true" [@modalAnimation]>
-      <!-- <div class="modal" tabindex="-1" [ngStyle]="{'display':displayStyle}" aria-hidden="true"> -->
+    <div class="overlay" [ngStyle]="{'display': displayStyle}" (click)="closeEditPopup()"></div>
+
+    <!-- Edit Donation Modal -->
+    <div class="modal" tabindex="-1" [ngStyle]="{'display': displayStyle}" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -406,34 +411,27 @@
             </h6>
           </div>
           <div class="modal-body">
-            <div class="form-main-container">
+            <div class="model-form-main-container">
               <div class="add-user-main-container">
                 <div class="main-header">Update Donation</div>
 
                 <form [formGroup]="editDonationForm" (ngSubmit)="updateDonationDetails()">
 
                   <div class="row">
-                    <div class="col-sm-6 form-group">
+                    <!-- <div class="col-sm-6 form-group">
                       <label class="form-label">Created By</label>
                       <input class="form-control" type="text" pInputText formControlName="createdBy" maxlength="100"
                         readonly>
-                    </div>
+                    </div> -->
                     <div class="col-sm-6 form-group">
                       <label class="form-label">Donner Name</label>
                       <input class="form-control" type="text" pInputText formControlName="donorName" maxlength="100"
                         readonly>
                     </div>
-                  </div>
-
-                  <div class="row">
                     <div class="col-sm-6 form-group">
                       <label class="form-label">Mobile Number</label>
                       <input class="form-control" type="number" pInputText formControlName="mobileNumber"
                         maxlength="100">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                      <label class="form-label">Email Id</label>
-                      <input class="form-control" type="text" pInputText formControlName="emailId" maxlength="100">
                     </div>
                   </div>
 
@@ -443,37 +441,41 @@
                       <input class="form-control" type="text" pInputText formControlName="address" maxlength="100">
                     </div>
                     <div class="col-sm-6 form-group">
-                      <label class="form-label">Pan</label>
-                      <input class="form-control" type="text" pInputText formControlName="panNumber" maxlength="100">
+                      <label class="form-label">Email Id</label>
+                      <input class="form-control" type="text" pInputText formControlName="emailId" maxlength="100">
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="col-sm-6 form-group">
+                      <label class="form-label">Pan</label>
+                      <input class="form-control" type="text" pInputText formControlName="panNumber" maxlength="100">
+                    </div>
+                    <div class="col-sm-3 form-group">
                       <label class="form-label">Amount</label>
                       <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="amount"
                         maxlength="100" readonly>
                     </div>
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-3 form-group">
                       <label class="form-label">Transaction Id</label>
                       <input class="form-control" type="text" pInputText formControlName="transactionId"
                         maxlength="100">
                     </div>
                   </div>
 
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-sm-6 form-group">
                       <label class="form-label">Payment Mode</label>
                       <select class="form-control" formControlName="paymentMode">
                         <option aria-readonly="true">Select Payment Type</option>
                         <option *ngFor="let payModOpt of paymentModeOption">{{payModOpt}}</option>
                       </select>
-                    </div>
+                    </div> -->
                     <!-- <div class="col-sm-6 form-group">
                       <label class="form-label">requestFor</label>
                       <input class="form-control" type="text" pInputText formControlName="requestFor" maxlength="100">
                   </div> -->
-                  </div>
+                  <!-- </div> -->
 
                   <div class="row">
                     <div class="col-sm-6 form-group">
@@ -492,10 +494,11 @@
                 </form>
               </div>
             </div>
-
+            <div style="display: flex; justify-content: center; align-items: center;">
+              <button type="button" class="btn btn-secondary" (click)="closeEditPopup()">Close</button>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
 

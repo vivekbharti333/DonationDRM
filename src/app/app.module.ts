@@ -107,7 +107,7 @@ const APP_CONTAINERS = [
   providers: [CookieService,
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy,
+      useClass: PathLocationStrategy,
       
     },
     {
