@@ -168,10 +168,17 @@
                 </c-badge>
               </td>
               <td>
-                <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;
+                <!-- <button type="button" class="btn btn-secondary" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i></button>&nbsp;
                 <button type="button" class="btn btn-secondary" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> </button>&nbsp;
-                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary" (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button>
-                
+                <button type="button" *ngIf="isSuperadmin" class="btn btn-secondary" (click)="cancelConfirmationPopup(donation.id)"> <i class="material-icons">cancel</i></button> -->
+                <c-dropdown>
+                  <button cButton cDropdownToggle color="secondary"> Action </button>
+                  <ul cDropdownMenu>
+                    <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
+                    <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
+                    <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
+                  </ul>
+                </c-dropdown>
               </td>
             </tr>
           </tbody>
