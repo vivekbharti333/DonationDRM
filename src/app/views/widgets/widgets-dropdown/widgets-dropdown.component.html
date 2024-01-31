@@ -49,11 +49,14 @@
 </c-row>
 
 <br>
+<div id="curve_chart" style="width: 100%; height: 40%"></div>
+<br>
+
 
 
 <div *ngIf="isSuperadmin">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <c-card>
       <div class="tab">
         <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today's Report</button>
@@ -87,7 +90,7 @@
     </c-card>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <c-card>
       <div class="tab">
         <button class="tablinks" (click)="openPaymentDetails('TODAY')" [class.active]="isPaymentTabActive('TODAY')">Today's Payment</button>
@@ -113,10 +116,17 @@
           </tbody>
         </table>
       </div>
+      
     </c-card>
     </div>
 
+    <div class="col-md-2">
+      <div id="piechart"></div>
+      </div>
+
   </div>
 
-  
 </div>
+
+
+  

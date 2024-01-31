@@ -15,6 +15,8 @@ import { Constant } from '../../services/constants';
 import { AuthenticationService } from '../../services/authentication.service';
 
 
+declare var google: any;
+
 @Component({
   selector: 'app-widgets-dropdown',
   templateUrl: './widgets-dropdown.component.html',
@@ -155,7 +157,95 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     this.getDonationPaymentModeCountAndAmountGroupByName("TODAY");
     // this.setData();
     this.checkRoleType();
+
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(this.drawChart.bind(this));
+    google.charts.setOnLoadCallback(this.drawPieHoleChart.bind(this));
+
   }
+
+  drawPieHoleChart() {
+    //  const dataArray = [['Name', 'Count', 'Amount']];
+  
+    // for (var i = 0; i < this.FRToday.length; i++) {
+    //   // Add data for each item to the dataArray
+    //   dataArray.push([this.FRToday[i][0], this.FRToday[i][2]]);
+    // }
+    const data = google.visualization.arrayToDataTable([
+      ['Task', 'Hours per Day'],
+      ['Work', 8],
+      ['Eat', 2],
+      ['TV', 4],
+      ['Gym', 2],
+      ['Sleep', 8]
+    ]);
+
+    const options = {
+      title: 'My Average Day',
+      width: 550,
+      height: 400,
+      pieHole: 0.4,
+    };
+
+    const chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+  }
+
+  drawChart() {
+    // Create an array to store data for all items
+    const dataArray = [['Name', 'Count', 'Amount']];
+  
+    for (var i = 0; i < this.FRToday.length; i++) {
+      // Add data for each item to the dataArray
+      dataArray.push([this.FRToday[i][0], this.FRToday[i][2]]);
+    }
+  
+    // Create a DataTable using the dataArray
+    var data = google.visualization.arrayToDataTable(dataArray);
+  
+
+  // drawChart() {
+  //   for(var i=0; i< this.FRToday.length; i++){
+  //     this.FRToday = this.FRToday;
+  //    console.log(" juhh "+ this.FRToday[i][0],this.FRToday[i][1],this.FRToday[i][2] )
+   
+
+  //   var data = google.visualization.arrayToDataTable([
+      
+  //     ['Name', 'Count', 'Amount'],
+  //     [this.FRToday[i][0],this.FRToday[i][1],this.FRToday[i][2]],
+  //     // ['2004',  100000,      400],
+  //     // ['2005',  1170,      460],
+  //     // ['2006',  6660,       1120],
+  //     // ['2007',  1030,      540],
+  //     // ['2008',  660,       1120],
+  //     // ['2009',  1030,      540],
+  //     // ['2010',  660,       1120],
+  //     // ['2011',  1030,      540],
+  //     // ['2012',  1000,      400],
+  //     // ['2013',  1170,      460],
+  //     // ['2014',  660,       1120],
+  //     // ['2015',  1030,      540],
+  //     // ['2016',  660,       1120],
+  //     // ['2017',  1030,      540],
+  //     // ['2018',  660,       1120],
+  //     // ['2019',  1030,      540]
+  //   ]);
+  // }
+
+
+    const options = {
+      title: 'Company Performance',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    const chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
+
+
 
   checkRoleType(){
     console.log("user role : "+this.loginUser['roleType'])
@@ -229,6 +319,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
                 this.FRToday = frtoday;
               }
 
+              this.drawChart();
             } else {
               // this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
             }

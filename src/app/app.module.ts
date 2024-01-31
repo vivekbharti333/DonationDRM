@@ -10,6 +10,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthGuard } from './views/gaurd/auth.guard';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -73,6 +74,7 @@ const APP_CONTAINERS = [
     NgxDatatableModule,
     NgxPaginationModule,
     BrowserModule,
+    GoogleChartsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AvatarModule,
