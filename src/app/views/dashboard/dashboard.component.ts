@@ -23,6 +23,8 @@ interface IUser {
   color: string;
 }
 
+declare var google: any;
+
 @Component({
   templateUrl: 'dashboard.component.html',
   styleUrls: ['dashboard.component.scss']
@@ -125,7 +127,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     // this.getCountAndSum();
     this.initCharts();
+
   }
+
 
   initCharts(): void {
     this.mainChart = this.chartsData.mainChart;
