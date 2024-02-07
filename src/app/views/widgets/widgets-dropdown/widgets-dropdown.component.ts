@@ -159,7 +159,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     this.checkRoleType();
 
     google.charts.load('current', {'packages': ['corechart']});
-    google.charts.setOnLoadCallback(this.drawChart.bind(this));
+    // google.charts.setOnLoadCallback(this.drawChart.bind(this));
     google.charts.setOnLoadCallback(this.drawPieHoleChart.bind(this));
 
   }
@@ -191,59 +191,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     chart.draw(data, options);
   }
 
-  drawChart() {
-    // Create an array to store data for all items
-    const dataArray = [['Name', 'Count', 'Amount']];
-  
-    for (var i = 0; i < this.FRToday.length; i++) {
-      // Add data for each item to the dataArray
-      dataArray.push([this.FRToday[i][0], this.FRToday[i][2]]);
-    }
-  
-    // Create a DataTable using the dataArray
-    var data = google.visualization.arrayToDataTable(dataArray);
-  
-
-  // drawChart() {
-  //   for(var i=0; i< this.FRToday.length; i++){
-  //     this.FRToday = this.FRToday;
-  //    console.log(" juhh "+ this.FRToday[i][0],this.FRToday[i][1],this.FRToday[i][2] )
-   
-
-  //   var data = google.visualization.arrayToDataTable([
-      
-  //     ['Name', 'Count', 'Amount'],
-  //     [this.FRToday[i][0],this.FRToday[i][1],this.FRToday[i][2]],
-  //     // ['2004',  100000,      400],
-  //     // ['2005',  1170,      460],
-  //     // ['2006',  6660,       1120],
-  //     // ['2007',  1030,      540],
-  //     // ['2008',  660,       1120],
-  //     // ['2009',  1030,      540],
-  //     // ['2010',  660,       1120],
-  //     // ['2011',  1030,      540],
-  //     // ['2012',  1000,      400],
-  //     // ['2013',  1170,      460],
-  //     // ['2014',  660,       1120],
-  //     // ['2015',  1030,      540],
-  //     // ['2016',  660,       1120],
-  //     // ['2017',  1030,      540],
-  //     // ['2018',  660,       1120],
-  //     // ['2019',  1030,      540]
-  //   ]);
-  // }
-
-
-    const options = {
-      title: 'Company Performance',
-      curveType: 'function',
-      legend: { position: 'bottom' }
-    };
-
-    const chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-    chart.draw(data, options);
-  }
+ 
 
 
 
@@ -319,7 +267,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
                 this.FRToday = frtoday;
               }
 
-              this.drawChart();
+              // this.drawChart();
             } else {
               // this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
             }
@@ -463,12 +411,10 @@ export class ChartSample implements AfterViewInit {
       const newLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
       const newData = [42, 88, 42, 66, 77];
       let { datasets, labels } = { ...this.data };
-      // @ts-ignore
+
       const before = this.chartComponent?.chart?.data.datasets.length;
       console.log('before', before);
-      // console.log('datasets, labels', datasets, labels)
-      // @ts-ignore
-      // this.data = data()
+
       this.data = {
         ...this.data,
         datasets: [{ ...this.data.datasets[0], data: newData }, {
@@ -478,8 +424,7 @@ export class ChartSample implements AfterViewInit {
         }],
         labels: newLabels
       };
-      // console.log('datasets, labels', { datasets, labels } = {...this.data})
-      // @ts-ignore
+      
       setTimeout(() => {
         const after = this.chartComponent?.chart?.data.datasets.length;
         console.log('after', after);
