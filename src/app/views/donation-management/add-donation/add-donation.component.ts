@@ -5,6 +5,7 @@ import { DonationManagementService } from '../donation-management-.service';
 import { InvoiceManagementService } from '../../invoice-management/invoice-management.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-donation',
@@ -30,7 +31,8 @@ export class AddDonationComponent {
     private donationManagementService : DonationManagementService,
     private invoiceManagementService : InvoiceManagementService,
     private toastr: ToastrService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router,
   ) {
     this.loginUser = this.authenticationService.getLoginUser();
   }
@@ -143,12 +145,22 @@ export class AddDonationComponent {
       .subscribe({
         next: (response: any) => {
           if (response['responseCode'] == '200') {
+            let payload = response['payload'];
             if (response['payload']['respCode'] == '200') {
               console.log("ok hai")
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.addDonationForm.reset();
               this.setValueInForm();
               this.isLoading = false;
+              
+
+              if(payload['paymentMode'] == 'PAYMENT_GATEWAY'){
+                let url = payload['paymentGatewayPageRedirectUrl'];
+                console.log(" URL : "+url)
+                this.router.navigate(['donation/donationlist']);
+                window.open(url, '_blank');
+              }
+
             } else {
               this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
               this.isLoading = false;
