@@ -47,6 +47,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   activeTab: string = 'TODAY';
   paymentActiveTab: string = 'TODAY';
+
+  currentMonthName: string;
   
 
   constructor(
@@ -157,6 +159,11 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     this.getDonationPaymentModeCountAndAmountGroupByName("TODAY");
     // this.setData();
     this.checkRoleType();
+
+    const currentDate = new Date();
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    this.currentMonthName = months[currentDate.getMonth()];
+
 
     google.charts.load('current', {'packages': ['corechart']});
     google.charts.setOnLoadCallback(this.drawChart.bind(this));
