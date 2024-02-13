@@ -56,19 +56,20 @@
 
 <div *ngIf="isSuperadmin">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-4">
       <c-card>
       <div class="tab">
-        <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today's Report</button>
-        <button class="tablinks" (click)="openDetails('YESTERDAY')" [class.active]="isTabActive('YESTERDAY')">Yesterday's Report</button>
-        <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">Current Month's Report</button>
+        <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today</button>
+        <button class="tablinks" (click)="openDetails('YESTERDAY')" [class.active]="isTabActive('YESTERDAY')">Yesterday</button>
+        <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">{{ currentMonthName }}</button>
       </div>
 
       <div class="table-container">
         <table class="table table-sm">
           <thead>
             <tr>
-              <th scope="col">Name</th>
+              <th scope="col" style="width: 12%;"></th>
+              <th scope="col" style="width: 42%;">Name</th>
               <th scope="col">Count</th>
               <th scope="col">Amount</th>
             </tr>
@@ -76,13 +77,14 @@
           <tbody class="table-body">
             <tr *ngFor="let FRToday of FRToday">
               <td><ng-container *ngIf="FRToday[3]; else otherImage">
-                <img src="data:image/png;base64,{{FRToday[3]}}" size="lg" width="30px" height="30px"> {{FRToday[0]}}
+                <img src="data:image/png;base64,{{FRToday[3]}}" size="lg" width="30px" height="30px"> 
               </ng-container>
               <ng-template #otherImage>
-                <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" size="lg" width="30px" height="30px"> {{FRToday[0]}}
+                <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" size="lg" width="30px" height="30px"> 
               </ng-template></td>
+              <td>{{FRToday[0]}}</td>
               <td>{{FRToday[1]}}</td>
-              <td>{{FRToday[2]}}</td>
+              <td>₹ {{FRToday[2]}}</td>
             </tr>
           </tbody>
         </table>
@@ -90,12 +92,12 @@
     </c-card>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-4">
       <c-card>
       <div class="tab">
-        <button class="tablinks" (click)="openPaymentDetails('TODAY')" [class.active]="isPaymentTabActive('TODAY')">Today's Payment</button>
-        <button class="tablinks" (click)="openPaymentDetails('YESTERDAY')" [class.active]="isPaymentTabActive('YESTERDAY')">Yesterday's Payment</button>
-        <button class="tablinks" (click)="openPaymentDetails('MONTH')" [class.active]="isPaymentTabActive('MONTH')">Current Month's Payment</button>
+        <button class="tablinks" (click)="openPaymentDetails('TODAY')" [class.active]="isPaymentTabActive('TODAY')">Today</button>
+        <button class="tablinks" (click)="openPaymentDetails('YESTERDAY')" [class.active]="isPaymentTabActive('YESTERDAY')">Yesterday</button>
+        <button class="tablinks" (click)="openPaymentDetails('MONTH')" [class.active]="isPaymentTabActive('MONTH')">{{ currentMonthName }}</button>
       </div>
 
       <div class="table-container">
@@ -111,7 +113,7 @@
             <tr *ngFor="let PaymentModeCountAmount of PaymentModeCountAmount">
               <td>{{PaymentModeCountAmount[0]}}</td>
               <td>{{PaymentModeCountAmount[1]}}</td>
-              <td>{{PaymentModeCountAmount[2]}}</td>
+              <td>₹ {{PaymentModeCountAmount[2]}}</td>
             </tr>
           </tbody>
         </table>
@@ -120,9 +122,9 @@
     </c-card>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-4">
       <div id="piechart"></div>
-      </div>
+    </div>
 
   </div>
 
