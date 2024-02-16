@@ -56,7 +56,7 @@
 
 <div *ngIf="isSuperadmin">
   <div class="row">
-    <div class="col-4">
+    <div class="col-6">
       <c-card>
       <div class="tab">
         <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today</button>
@@ -92,7 +92,7 @@
     </c-card>
     </div>
 
-    <div class="col-4">
+    <div class="col-6">
       <c-card>
       <div class="tab">
         <button class="tablinks" (click)="openPaymentDetails('TODAY')" [class.active]="isPaymentTabActive('TODAY')">Today</button>
@@ -122,9 +122,9 @@
     </c-card>
     </div>
 
-    <div class="col-4">
+    <!-- <div class="col-4">
       <div id="piechart"></div>
-    </div>
+    </div> -->
 
   </div>
 
