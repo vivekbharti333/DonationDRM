@@ -24,35 +24,36 @@
                         <label class="form-label">Created By</label>
                         <input class="form-control" type="text" pInputText formControlName="createdBy" maxlength="100">
                     </div> -->
+                    
+
                     <div class="col-sm-6 form-group">
-                        <label class="form-label">Receipt Type</label>
-                        
+                        <label class="form-label">Menu Display Logo</label><br>
+                        <img src="{{displayLogo}}" width="400" height="100">
+                        <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label class="form-label">ipAddress</label>
-                        <input class="form-control" type="text" pInputText formControlName="ipAddress" maxlength="100">
+                        <label class="form-label">Login Page Wallpaper</label><br>
+                        <img src="{{loginPageWallpaper}}" width="400" height="100">
+                        <input class="form-control" type="file" (change)="onFileLoginPageWallpaper($event)" accept="image/*">
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-sm-6 form-group">
                         <label class="form-label">Login Page Logo</label>
                         <input class="form-control" type="number" pInputText formControlName="loginPageLogo"
                             maxlength="100">
                     </div>
-                    <div class="col-sm-6 form-group">
-                        <label class="form-label">Login Page Wallpaper</label>
-                        <input class="form-control" type="text" pInputText formControlName="loginPageWallpaper" maxlength="100">
-                    </div>
-                </div>
+                    
+                </div> -->
 
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <label class="form-label">Display Logo</label>
-                        <input class="form-control" type="text" pInputText formControlName="displayLogo" maxlength="100">
+                        <label class="form-label">IP Address</label>
+                        <input class="form-control" type="text" pInputText formControlName="ipAddress" maxlength="100">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label class="form-label">Display Name</label>
+                        <label class="form-label">Footer Display Name</label>
                         <input class="form-control" type="text" pInputText formControlName="displayName" maxlength="100">
                     </div>
                 </div>
@@ -60,13 +61,13 @@
                 <div class="row">
                     <div class="col-sm-3 form-group">
                         <label class="form-label">Email Id</label>
-                        <input class="form-control" type="number" pInputText formControlName="emailId"
+                        <input class="form-control" type="text" pInputText formControlName="emailId"
                             maxlength="100">
 
                     </div>
                     <div class="col-sm-3 form-group">
                         <label class="form-label">Website</label>
-                        <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="website" maxlength="100">
+                        <input class="form-control" type="text" pInputText formControlName="website" maxlength="100">
                     </div>
 
                     <div class="col-sm-6 form-group">

@@ -39,10 +39,9 @@ export class ApplicationManagementService {
         phoneNumber: applicationDetails.phoneNumber,
         token: this.loginUser['token'],
         superadminId: this.loginUser['superadminId'],
-
       }
     };
-    return this.http.post<ApplicationRequest>(Constant.Site_Url + "addDonationyttytt", request);
+    return this.http.post<ApplicationRequest>(Constant.Site_Url + "addUpdateApplicationHeader", request);
   }
 
   getApplicationDetailsList(): Observable<any> {
@@ -52,7 +51,18 @@ export class ApplicationManagementService {
         superadminId: this.loginUser['superadminId'],
       }
     };
-    return this.http.post<ApplicationRequest>(Constant.Site_Url + "utyyurru", request);
+    return this.http.post<ApplicationRequest>(Constant.Site_Url + "getApplicationHeaderDetails", request);
+  }
+
+  
+  getApplicationDetailsByIpAddress(): Observable<any> {
+    let request: ApplicationRequest = {
+      payload: {
+        // token: this.loginUser['token'],
+        // superadminId: this.loginUser['superadminId'],
+      }
+    };
+    return this.http.post<ApplicationRequest>(Constant.Site_Url + "getApplicationDetailsByIpAddress", request);
   }
 
 }

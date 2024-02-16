@@ -17,6 +17,8 @@ export class ApplicantionDetailsComponent {
   public isLoading = false;
   public loginUser: any;
   public applicationDetailsList: any;
+  public displayLogo: any;
+  public loginPageWallpaper: any;
 
 
   constructor(
@@ -31,6 +33,7 @@ export class ApplicantionDetailsComponent {
 
   ngOnInit() {
     this.createForms();
+    this.getApplicationDetailsList();
 
   }
 
@@ -54,7 +57,7 @@ export class ApplicantionDetailsComponent {
       .subscribe({
         next: (response: any) => {
           if (response['responseCode'] == '200') {
-            let payload = response['payload'];
+            // let payload = response['payload'];
             if (response['payload']['respCode'] == '200') {
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.applicationForm.reset();
@@ -80,6 +83,7 @@ export class ApplicantionDetailsComponent {
           if (response['responseCode'] == '200') {
             this.applicationDetailsList = JSON.parse(JSON.stringify(response['listPayload']));
             this.applicationDetailsList = this.applicationDetailsList[0];
+            console.log(this.applicationDetailsList)
             this.setApplicationDetails();
           } else {
           }
@@ -93,12 +97,60 @@ export class ApplicantionDetailsComponent {
       ipAddress: this.applicationDetailsList['ipAddress'],
       loginPageLogo: this.applicationDetailsList['loginPageLogo'],
       loginPageWallpaper: this.applicationDetailsList['loginPageWallpaper'],
+      
       displayLogo: this.applicationDetailsList['displayLogo'],
       displayName: this.applicationDetailsList['displayName'],
       emailId: this.applicationDetailsList['emailId'],
       website: this.applicationDetailsList['website'],
       phoneNumber: this.applicationDetailsList['phoneNumber'],
     });
+
+    if(this.applicationDetailsList['displayLogo'] != null){
+      this.displayLogo = 'data:image/png;base64,'+this.applicationDetailsList['displayLogo'];
+    }else{
+      this.displayLogo ="";
+    }   
+    //LoginPageWallpaper
+    if(this.applicationDetailsList['loginPageWallpaper'] != null){
+      this.loginPageWallpaper = 'data:image/png;base64,'+this.applicationDetailsList['loginPageWallpaper'];
+    }else{
+      this.loginPageWallpaper ="";
+    }
+  }
+
+  onFileSelected(event: any) {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const base64String = event.target.result.split(',')[1]; // Get the base64 part
+
+        // Set the base64 string to the userPicture field
+        this.applicationForm.patchValue({
+          displayLogo: base64String
+        });
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  }
+
+  
+  onFileLoginPageWallpaper(event: any) {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const base64String = event.target.result.split(',')[1]; // Get the base64 part
+
+        // Set the base64 string to the userPicture field
+        this.applicationForm.patchValue({
+          loginPageWallpaper: base64String
+        });
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   }
 
 }

@@ -5,6 +5,7 @@ import { DropdownInterface } from '../../Interface/dropdown';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ApplicationManagementService } from '../../application-management/application-management.service'; 
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,14 @@ export class LoginComponent {
   // public submitted: boolean = false;
 
   public loginMsg: any;
+  public applicationDetailsList: any;
+  public loginPageWallpaper:any;
 
   constructor(
     private fb: FormBuilder,
     private pagesServicesService: PagesServicesService,
     private toastr: ToastrService,
+    private applicationManagementService: ApplicationManagementService,
     public router: Router,
     private cookieService: CookieService,
   ) {
@@ -32,6 +36,7 @@ export class LoginComponent {
   ngOnInit() {
     this.createForms();
     this.loginMsg = "Login";
+    this.getApplicationDetailsByIpAddress();
    // this.loginForm.valid;
   }
 
@@ -76,6 +81,29 @@ export class LoginComponent {
         }
         },
         error: (error:any) => this.toastr.error('Server Error','500'),
+      });
+  }
+
+  public getApplicationDetailsByIpAddress() {
+    this.applicationManagementService.getApplicationDetailsByIpAddress()
+      .subscribe({
+        next: (response: any) => {
+          if (response['responseCode'] == '200') {
+            this.applicationDetailsList = JSON.parse(JSON.stringify(response['payload']));
+            // this.applicationDetailsList = this.applicationDetailsList;
+            console.log(this.applicationDetailsList['loginPageWallpaper']);
+
+            if(this.applicationDetailsList['loginPageWallpaper'] != null){
+              this.loginPageWallpaper = 'data:image/png;base64,'+this.applicationDetailsList['loginPageWallpaper'];
+            }else{
+              this.loginPageWallpaper ="";
+            }
+
+            // this.setApplicationDetails();
+          } else {
+          }
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
       });
   }
 
