@@ -64,6 +64,11 @@ const routes: Routes = [
           import('./views/donation-management/donation-management.module').then((m) => m.DonationManagementModule), canActivate: [AuthGuard],
       },
       {
+        path: 'message',
+        loadChildren: () =>
+          import('./views/message-management/message-management.module').then((m) => m.MessageManagementModule), canActivate: [AuthGuard],
+      },
+      {
         path: 'invoice',
         loadChildren: () =>
           import('./views/invoice-management/invoice-management.module').then((m) => m.InvoiceManagementModule), canActivate: [AuthGuard],

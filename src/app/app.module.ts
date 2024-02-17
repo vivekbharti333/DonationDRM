@@ -55,8 +55,6 @@ import {
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 
-
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };

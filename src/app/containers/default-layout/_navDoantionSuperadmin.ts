@@ -57,22 +57,30 @@ let navDonationSuperadmin: INavData[] = [
     ],
   },
   {
-    name: 'Application Management',
-    url: '/lead',
-    iconComponent: { name: 'cilCommentSquare' },
+    name: 'App Management',
+    url: '/application',
+    iconComponent: { name: 'cilSettings' },
     children: [
       {
         name: 'Application Details',
         url: '/application/app-details',
-        iconComponent: { name: 'cilEnvelopeOpen' },
+        iconComponent: { name: 'cilApplications' },
         permission: ''
       },
+    ]
+  },
+  {
+    name: 'Message Management',
+    url: '/message',
+    iconComponent: { name: 'cilAt' },
+    children: [
       {
-        name: 'Receipt List',
-        url: '/donation/donationlist',
-        iconComponent: { name: 'cilList' },
+        name: 'Email Setting',
+        url: '/message/email',
+        iconComponent: { name: 'cilAt' },
         permission: ''
       },
+     
     ]
   },
   {

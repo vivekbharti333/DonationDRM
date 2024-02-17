@@ -1,0 +1,85 @@
+<c-card>
+    <div class="form-main-container">
+        <div class="add-user-main-container">
+            <div class="add-user-main-header">Email Details</div>
+
+            <div *ngIf="isLoading; else dataContent">
+
+                <div class="loader">
+                    <!-- <c-spinner color="primary"></c-spinner> -->
+                    <div class="spinner"></div>
+                    <img src="assets/img/brand/logo.png" alt="Loading..." />
+                </div>
+
+            </div>
+
+            <ng-template #dataContent>
+
+
+
+                <form [formGroup]="addEmailForm" (ngSubmit)="addUpdateEmailServiceDetails()">
+
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label class="form-label">Email Type</label>
+                            <select class="form-control" formControlName="emailType">
+                                <option *ngFor="let emType of emailTypeOption">{{emType}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Host</label>
+                            <input class="form-control" type="text" pInputText formControlName="host" maxlength="100">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label class="form-label">Port</label>
+                            <input class="form-control" type="text" pInputText formControlName="port" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-sm-6 form-group">
+                            <label class="form-label">User Id</label>
+                            <input class="form-control" type="text" pInputText formControlName="emailUserid"
+                                maxlength="100">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label class="form-label">Email Password</label>
+                            <input class="form-control" type="text" pInputText formControlName="emailPassword"
+                                maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label class="form-label">Email From</label>
+                            <input class="form-control" type="text" pInputText formControlName="emailFrom"
+                                maxlength="100">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label class="form-label">Subject</label>
+                            <input class="form-control" type="text" pInputText formControlName="subject"
+                                maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label class="form-label">Email Body</label>
+                            <textarea style=" float: left; width: 100%; margin-top: 6px; height:150px"
+                                formControlName="emailBody"></textarea>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="submit-button">
+                        <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </ng-template>
+        </div>
+    </div>
+</c-card>
