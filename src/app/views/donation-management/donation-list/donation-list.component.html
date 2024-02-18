@@ -60,6 +60,7 @@
               <th>Date & Time</th>
               <th>Invoice No.</th>
               <th>Status</th>
+              <th>Invoice Download</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -77,6 +78,26 @@
               <td>{{ donation.programName }}</td>
               <td>{{ donation.createdAt | date: 'dd-MM-yyyy | hh:mm:ss a' }}</td>
               <td>{{ donation.invoiceNumber}}</td>
+              <!-- <td>{{donation.status}}</td> -->
+              <td>
+                <c-badge *ngIf="donation.status === 'ACTIVE'" class="ms-2 float-end" color="success"
+                  style="cursor: pointer;">
+                  {{donation.status}}
+                </c-badge>
+                <c-badge *ngIf="donation.status === 'FAILD'" class="ms-2 float-end" color="danger"
+                  style="cursor: pointer;">
+                  {{donation.status}}
+                </c-badge>
+                <c-badge *ngIf="donation.status === 'INIT'" class="ms-2 float-end" color="warning"
+                  style="cursor: pointer;">
+                  {{donation.status}}
+                </c-badge>
+                <c-badge *ngIf="donation.status === 'PENDING'" class="ms-2 float-end" color="warning"
+                  style="cursor: pointer;">
+                  {{donation.status}}
+                </c-badge>
+              </td>
+
 
               <td>
                 <c-badge *ngIf="donation.invoiceDownloadStatus === 'NO'" class="ms-2 float-end" color="success"
@@ -148,7 +169,7 @@
               <th>Program</th>
               <th>Date & Time</th>
               <th>Invoice Number</th>
-              <th>Status</th>
+              <th>Invoice Download</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -234,7 +255,7 @@
               <th>Program</th>
               <th>Date & Time</th>
               <th>Invoice Number</th>
-              <th>Status</th>
+              <th>Invoice Download</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -334,7 +355,7 @@
               <th>Program</th>
               <th>Date & Time</th>
               <th>Invoice Number</th>
-              <th>Status</th>
+              <th>Invoice Download</th>
               <th>Action</th>
             </tr>
           </thead>
