@@ -59,12 +59,18 @@ let navDonationSuperadmin: INavData[] = [
   {
     name: 'App Management',
     url: '/application',
-    iconComponent: { name: 'cilSettings' },
+    iconComponent: { name: 'cilApplications' },
     children: [
       {
-        name: 'Application Details',
+        name: 'Application Setting',
         url: '/application/app-details',
-        iconComponent: { name: 'cilApplications' },
+        iconComponent: { name: 'cilSettings' },
+        permission: ''
+      },
+      {
+        name: 'Program Details',
+        url: '/application/program-details',
+        iconComponent: { name: 'cilSettings' },
         permission: ''
       },
     ]

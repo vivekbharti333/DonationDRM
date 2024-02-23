@@ -1,7 +1,7 @@
 <c-card>
     <div class="form-main-container">
         <div class="add-user-main-container">
-            <div class="add-user-main-header">Application Details</div>
+            <div class="add-user-main-header">Application Setting</div>
 
             <div *ngIf="isLoading; else dataContent">
         
@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <label class="form-label">IP Address</label>
-                        <input class="form-control" type="text" pInputText formControlName="ipAddress" maxlength="100">
+                        <input class="form-control" type="text" pInputText formControlName="ipAddress" maxlength="100" readonly>
                     </div>
                     <div class="col-sm-6 form-group">
                         <label class="form-label">Footer Display Name</label>

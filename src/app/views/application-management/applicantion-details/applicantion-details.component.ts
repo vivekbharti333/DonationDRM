@@ -114,7 +114,7 @@ export class ApplicantionDetailsComponent {
     if(this.applicationDetailsList['loginPageWallpaper'] != null){
       this.loginPageWallpaper = 'data:image/png;base64,'+this.applicationDetailsList['loginPageWallpaper'];
     }else{
-      this.loginPageWallpaper ="";
+      this.loginPageWallpaper ="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
     }
   }
 

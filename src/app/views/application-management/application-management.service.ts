@@ -65,4 +65,19 @@ export class ApplicationManagementService {
     return this.http.post<ApplicationRequest>(Constant.Site_Url + "getApplicationDetailsByIpAddress", request);
   }
 
+
+  getProgramDetailsList(): Observable<any> {
+    let request: ApplicationRequest = {
+      payload: {
+        roleType: this.loginUser['roleType'],
+        createdBy: this.loginUser['userId'],
+        token: this.loginUser['token'],
+        superadminId: this.loginUser['superadminId'],
+      }
+    };
+    return this.http.post<ApplicationRequest>(Constant.Site_Url + "getDonationTypeListBySuperadminId", request);
+  }
+  
+
+
 }

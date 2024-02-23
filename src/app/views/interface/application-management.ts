@@ -11,8 +11,10 @@ export class ApplicationRequest {
         displayName?: String;
         emailId?: String;
         website?: String;
+        roleType?: String
         phoneNumber?: String;
         token?: String;
+        createdBy?: String;
         superadminId?: String;
         requestedFor?: String;
         requestFor?: String;

@@ -1,1 +1,111 @@
-<p>program-details works!</p>
+<div class="container">
+
+
+
+    <div class="table-responsive">
+  
+      <div styleClass="user-mngmt-view-user-container">
+        <div class="user-mngmt-view-user-heading"> Program Details List </div>
+  
+        <div *ngIf="isLoading; else dataContent">
+          
+          <div class="loader">
+            <!-- <c-spinner color="primary"></c-spinner> -->
+            <div class="spinner"></div>
+            <img src="assets/img/brand/logo.png" alt="Loading..." />
+          </div>
+          
+        </div>
+  
+        
+        
+        <ng-template #dataContent>
+  
+        <table class="table table-striped" id="customers">
+          <thead>
+            <tr>
+              <th>Program Name</th>
+              <th>Program Amount</th>
+              <th>Date & Time</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor=" let program of programList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
+              <td> {{ program.programName }}</td>
+              <td>{{ program.programAmount }}</td>
+
+              <td>{{ program.createdAt | date: 'dd-MM-yyyy | HH:mm'}}</td>
+  
+              <td *ngIf="program.status === 'ACTIVE'">
+                <c-badge class="ms-2 float-end" color="success" class="left-content" style="cursor: pointer;" (click)="changeProgramStatus(program)">{{ program.status }}</c-badge>
+              </td>
+              <td *ngIf="program.status === 'INACTIVE'">
+                 <c-badge class="ms-2 float-end" color="danger" class="left-content" style="cursor: pointer;" (click)="changeProgramStatus(program)">{{program.status }}</c-badge> 
+              </td>
+  
+              <td>
+                 <!-- <button type="button" class="btn btn-primary" (click)="editProgramPopup(program)"><i class="material-icons">edit</i></button> &nbsp; 
+                 <button type="button" class="btn btn-primary" (click)="removeProgramPopup()"><i class="material-icons">delete_forever</i></button>  -->
+                 <c-dropdown>
+                  <button cButton cDropdownToggle color="primary"> Action </button>
+                  <ul cDropdownMenu>
+                     <li><button cDropdownItem type="button" (click)="editProgramPopup(program)"><i class="material-icons">edit</i> Edit</button></li>
+                    <li><button cDropdownItem type="button" (click)="removeProgramPopup()"><i class="material-icons">delete_forever</i> Delete</button></li> 
+                  </ul>
+                </c-dropdown>
+                </td>
+              
+  
+            </tr>
+          </tbody>
+        </table>
+      
+        <div class="d-flex justify-content-center">
+          <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+          </pagination-controls>
+        </div>
+      </ng-template>
+  
+      </div>
+    </div>
+  </div>
+
+
+
+  <c-modal id="liveDemoModal" #modalXl id="modalXl" size="xl" #verticallyCenteredScrollableModal [scrollable]="true" [visible]="visible" >
+
+  <c-modal-header>
+    <h5 cModalTitle><div class="add-user-main-header">Update User Details</div></h5>
+    <!-- <button (click)="toggleLiveDemo()" cButtonClose></button> -->
+    <!-- <button type="button" class="btn-close" (click)="closeEditPopup()" aria-label="Close"></button> -->
+  </c-modal-header>
+
+
+
+  <c-modal-body>
+    <div class="form-main-container">
+
+      <form [formGroup]="editProgramForm" (ngSubmit)="updateProgramDetails()">
+
+        <div class="inner-header">Basic Details</div>
+
+        <div class="row">
+          <div class="col-sm-4 form-group">
+            <label class="form-label">Program Name</label>
+            <input class="form-control" type="text" pInputText formControlName="programName" maxlength="100">
+          </div>
+          <div class="col-sm-4 form-group">
+            <label class="form-label">Amount</label>
+            <input class="form-control" pInputText type="text" formControlName="programAmount" maxlength="50">
+          </div>
+          
+        </div>
+
+       </form>
+    </div>
+  </c-modal-body>
+
+  </c-modal>

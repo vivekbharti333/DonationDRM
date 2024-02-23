@@ -3,7 +3,6 @@
     <c-widget-stat-a class="mb-4" color="primary" title="Users">
       <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
         {{activeUserCount}} <span class="fs-6 fw-normal">ACTIVE </span><br>
-        <!-- {{inactiveUserCount}} <span class="fs-6 fw-normal">INACTIVE </span><br> -->
         {{activeUserCount+inactiveUserCount}} <span class="fs-6 fw-normal">TOTAL </span>
       </ng-template>
     
@@ -38,8 +37,8 @@
 <c-col sm="3" xl="3">
   <c-widget-stat-a [title]="'CURRENT MONTH'" class="mb-4" color="danger">
   <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
-    {{monthCount}} <span class="fs-6 fw-normal"> </span><br>
-    &#8377; {{monthAmount}} <span class="fs-6 fw-normal"> </span>
+    {{monthCount}} <span class="fs-8 fw-normal"> </span><br>
+    &#8377; {{monthAmount}} <span class="fs-8 fw-normal"> </span>
   </ng-template>
 
   <ng-template cTemplateId="widgetChartTemplate">
@@ -61,29 +60,29 @@
       <div class="tab">
         <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today</button>
         <button class="tablinks" (click)="openDetails('YESTERDAY')" [class.active]="isTabActive('YESTERDAY')">Yesterday</button>
-        <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">{{ currentMonthName }}</button>
+        <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">{{ currentMonthName }}2024</button>
       </div>
 
       <div class="table-container">
         <table class="table table-sm">
           <thead>
             <tr>
-              <th scope="col" style="width: 12%;"></th>
-              <th scope="col" style="width: 42%;">Name</th>
-              <th scope="col">Count</th>
+              <!-- <th scope="col"></th> -->
+              <th scope="col">Name</th>
+              <th scope="col">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Count</th>
               <th scope="col">Amount</th>
             </tr>
           </thead>
           <tbody class="table-body">
             <tr *ngFor="let FRToday of FRToday">
               <td><ng-container *ngIf="FRToday[3]; else otherImage">
-                <img src="data:image/png;base64,{{FRToday[3]}}" size="lg" width="30px" height="30px"> 
+                <img src="data:image/png;base64,{{FRToday[3]}}" size="lg" width="30px" height="30px">&nbsp; &nbsp; {{FRToday[0]}}
               </ng-container>
               <ng-template #otherImage>
-                <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" size="lg" width="30px" height="30px"> 
+                <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" size="lg" width="30px" height="30px">&nbsp; &nbsp; {{FRToday[0]}}
               </ng-template></td>
-              <td>{{FRToday[0]}}</td>
-              <td>{{FRToday[1]}}</td>
+              <!-- <td>{{FRToday[0]}}</td> -->
+              <td>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;{{FRToday[1]}}</td>
               <td>₹ {{FRToday[2]}}</td>
             </tr>
           </tbody>
@@ -124,9 +123,136 @@
 
     <!-- <div class="col-4">
       <div id="piechart"></div>
-    </div> -->
+    </div> --> 
 
   </div>
+
+</div>
+
+
+
+
+
+<c-row>
+  <c-col sm="3" xl="3" *ngIf="isSuperadmin || isMainAdmin">
+    <c-widget-stat-a class="mb-4" color="primary" title="Users">
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        {{activeUserCount}} <span class="fs-6 fw-normal">ACTIVE </span><br>
+        <!-- {{inactiveUserCount}} <span class="fs-6 fw-normal">INACTIVE </span><br> -->
+        {{activeUserCount+inactiveUserCount}} <span class="fs-6 fw-normal">TOTAL </span>
+      </ng-template>
+
+      <ng-template cTemplateId="widgetChartTemplate">
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+
+  <c-col sm="3" xl="3">
+    <c-widget-stat-a [title]="'TODAY'" class="mb-4" color="info">
+    <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+      {{todaysCount}} <span class="fs-6 fw-normal"> </span><br>
+      &#8377; {{todaysAmount}} <span class="fs-6 fw-normal"> </span>
+    </ng-template>
+
+    <ng-template cTemplateId="widgetChartTemplate">
+    </ng-template>
+  </c-widget-stat-a>
+</c-col>
+<c-col sm="3" xl="3">
+  <c-widget-stat-a [title]="'YESTERDAY'" class="mb-4" color="warning">
+  <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+    {{yesterdayCount}} <span class="fs-6 fw-normal"> </span><br>
+    &#8377; {{yesterdayAmount}} <span class="fs-6 fw-normal"> </span>
+  </ng-template>
+
+  <ng-template cTemplateId="widgetChartTemplate">
+  </ng-template>
+</c-widget-stat-a>
+</c-col>
+
+<c-col sm="3" xl="3">
+  <c-widget-stat-a [title]="'CURRENT MONTH'" class="mb-4" color="danger">
+  <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+    {{monthCount}} <span class="fs-6 fw-normal"> </span><br>
+    &#8377; {{monthAmount}} <span class="fs-6 fw-normal"> </span>
+  </ng-template>
+
+  <ng-template cTemplateId="widgetChartTemplate">
+  </ng-template>
+</c-widget-stat-a>
+</c-col>
+</c-row>
+
+<br>
+
+
+<div *ngIf="isSuperadmin">
+  <div class="row">
+    <div class="col-md-6">
+      <c-card>
+      <div class="tab">
+        <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today's Report</button>
+        <button class="tablinks" (click)="openDetails('YESTERDAY')" [class.active]="isTabActive('YESTERDAY')">Yesterday's Report</button>
+        <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">Current Month's Report</button>
+      </div>
+
+      <div class="table-container">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Count</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            <tr *ngFor="let FRToday of FRToday">
+              <td><ng-container *ngIf="FRToday[3]; else otherImage">
+                <img src="data:image/png;base64,{{FRToday[3]}}" size="lg" width="30px" height="30px"> {{FRToday[0]}}
+              </ng-container>
+              <ng-template #otherImage>
+                <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" size="lg" width="30px" height="30px"> {{FRToday[0]}}
+              </ng-template></td>
+              <td>{{FRToday[1]}}</td>
+              <td>{{FRToday[2]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </c-card>
+    </div>
+
+    <div class="col-md-6">
+      <c-card>
+      <div class="tab">
+        <button class="tablinks" (click)="openPaymentDetails('TODAY')" [class.active]="isPaymentTabActive('TODAY')">Today's Payment</button>
+        <button class="tablinks" (click)="openPaymentDetails('YESTERDAY')" [class.active]="isPaymentTabActive('YESTERDAY')">Yesterday's Payment</button>
+        <button class="tablinks" (click)="openPaymentDetails('MONTH')" [class.active]="isPaymentTabActive('MONTH')">Current Month's Payment</button>
+      </div>
+
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Payment Type</th>
+              <th scope="col">Count</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            <tr *ngFor="let PaymentModeCountAmount of PaymentModeCountAmount">
+              <td>{{PaymentModeCountAmount[0]}}</td>
+              <td>{{PaymentModeCountAmount[1]}}</td>
+              <td>{{PaymentModeCountAmount[2]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </c-card>
+    </div>
+
+  </div>
+
 
 </div>
 

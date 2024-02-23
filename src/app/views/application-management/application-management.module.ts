@@ -12,7 +12,20 @@ import {
   GridModule,
   BadgeModule,
   ListGroupModule,
-  SharedModule
+  SharedModule,
+  HeaderModule,
+  FooterModule,
+  AvatarModule,
+  BreadcrumbModule,
+  NavModule,
+  ProgressModule,
+  SidebarModule,
+  TabsModule,
+  UtilitiesModule,
+  ModalModule,
+  SpinnerModule,
+
+
 } from '@coreui/angular';
 
 import { ApplicationManagementRoutingModule } from './application-management-routing.module';
@@ -34,6 +47,8 @@ import { ProgramDetailsComponent } from './program-details/program-details.compo
     FormsModule,
     ReactiveFormsModule,
     FormModule,
+    HeaderModule,
+    FooterModule,
     ButtonModule,
     ButtonGroupModule,
     DropdownModule,
@@ -41,7 +56,31 @@ import { ProgramDetailsComponent } from './program-details/program-details.compo
     ListGroupModule, 
     ApplicationManagementRoutingModule,
     NgxPaginationModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    CommonModule,
+    ReactiveFormsModule,
+    BreadcrumbModule,
+    ButtonGroupModule,
+    FooterModule,
+    FormModule,
+    GridModule,
+    HeaderModule,
+    ListGroupModule,
+    NavModule,
+    ProgressModule,
+    SharedModule,
+    SidebarModule,
+    TabsModule,
+    UtilitiesModule,
+    ButtonModule,
+    AvatarModule,
+    CardModule,
+    DropdownModule,
+    BadgeModule,
+    ModalModule,
+    SpinnerModule,
+    NgxPaginationModule,
+    FormsModule
   ]
 })
 export class ApplicationManagementModule { }
