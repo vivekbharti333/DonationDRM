@@ -41,6 +41,7 @@ export class DonationManagementService {
   getDonationTypeList(): Observable<any> {
     let request: DonationDetailsRequest = {
       payload: {
+        requestedFor: "OPTION",
         roleType: this.loginUser['roleType'],
         token: this.loginUser['token'],
         createdBy: this.loginUser['loginId'],

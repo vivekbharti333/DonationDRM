@@ -27,13 +27,13 @@
                             <label class="form-label">Password</label>
                             <input class="form-control" pInputText type="text" formControlName="password" maxlength="20">
                         </div>
-                        <div class="col-sm-3 form-group">
+                        <!-- <div class="col-sm-3 form-group">
                             <label class="form-label">Confirm Password</label>
                             <input class="form-control" pInputText type="text" formControlName="password" maxlength="20">
-                        </div>
+                        </div> -->
                         <div class="col-sm-3 form-group">
                             <div class="submit-button">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button class="btn btn-primary" type="submit" [disabled]="changePasswordBtn">{{changePasswordBtnMessage}}</button>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-sm-3 form-group">
                             <div class="submit-button">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button class="btn btn-primary" type="submit" [disabled]="changeTeamLeaderBtn">{{changeTeamLeaderBtnMessage}}</button>
                             </div>
                         </div>
                     </div>
@@ -74,9 +74,9 @@
 
 <p><p><p><p><p><p><p><p><p><p><p><p></p>
 
-            <!-- <div class="inner-header">Change User Role</div>
+             <div class="inner-header">Change User Role</div>
             <div class="scrollable-container">
-                <form [formGroup]="changeTeamLeaderForm" (ngSubmit)="changeUserRole()">
+                <form [formGroup]="changeUserRoleForm" (ngSubmit)="changeUserRole()">
                     <div class="row">
                         <div class="col-sm-3 form-group">
                             <label class="form-label">Select User</label>
@@ -95,13 +95,13 @@
                        
                         <div class="col-sm-3 form-group">
                             <div class="submit-button">
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button class="btn btn-primary" type="submit" [disabled]="changeUserRoleBtn">{{changeRoleBtnMessage}}</button>
                             </div>
                         </div>
                     </div>
 
                 </form>
-            </div>  -->
+            </div> 
 
         </ng-template>
     </div>

@@ -13,6 +13,8 @@ export class ApplicationRequest {
         website?: String;
         roleType?: String
         phoneNumber?: String;
+        programName?: String;
+        programAmount?: Number;
         token?: String;
         createdBy?: String;
         superadminId?: String;
@@ -34,6 +36,8 @@ export class ApplicationDetails{
     emailId?: String;
     website?: String;
     phoneNumber?: String;
+    programName?: String;
+    programAmount?: Number;
     superadminId?: String;
     requestedFor?: String;
     requestFor?: String;

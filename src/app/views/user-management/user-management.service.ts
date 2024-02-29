@@ -90,7 +90,6 @@ removeUserParmanent(loginId: any): Observable<UserDetailsRequest> {
         loginId: userDetails['loginId'],
         roleType: userDetails['roleType'],
         token: this.loginUser['token'],
-        // createdBy: this.loginUser['loginId'],
         superadminId: this.loginUser['superadminId'],
       }
     };

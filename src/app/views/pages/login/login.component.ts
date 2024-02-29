@@ -17,6 +17,7 @@ export class LoginComponent {
   public loginForm: FormGroup;
   public loading: Boolean = false;
   public passwordVisible: boolean = false;
+  public loginFormBtn: boolean = false;
   // public submitted: boolean = false;
 
   public loginMsg: any;
@@ -58,6 +59,7 @@ export class LoginComponent {
   }
 
   checkCredential() {
+    this.loginFormBtn = true;
     this.loginMsg = 'Please Wait..';
     // this.submitted = true;
     this.pagesServicesService.checkCredential(this.loginForm.value)
@@ -76,7 +78,7 @@ export class LoginComponent {
           }else{
             this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
             this.loginMsg = 'Login';
-            this.loginForm.valid;
+            this.loginFormBtn = false;
           }
         }
         },

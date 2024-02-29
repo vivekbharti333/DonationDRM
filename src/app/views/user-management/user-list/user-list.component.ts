@@ -81,7 +81,6 @@ export class UserListComponent {
   }
 
   serviceType: any = ['DONATION'];
-
   roleTypeForMainAdmin: any = [Constant.superAdmin,Constant.admin, Constant.teamLeader, Constant.fundraisingOfficer];
   roleTypeForSuperadmin: any = [Constant.admin, Constant.teamLeader, Constant.fundraisingOfficer];
   roleTypeForAdmin: any = [Constant.teamLeader, Constant.fundraisingOfficer];

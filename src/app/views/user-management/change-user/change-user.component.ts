@@ -14,8 +14,14 @@ import { constants } from 'buffer';
 })
 export class ChangeUserComponent {
 
+  public changePasswordBtnMessage ="Submit";
+  public changePasswordBtn: boolean = false;
   public changeUserPasswordForm: FormGroup;
+  public changeRoleBtnMessage = "Submit";
+  public changeUserRoleBtn: boolean = false;
   public changeUserRoleForm: FormGroup;
+  public changeTeamLeaderBtnMessage = "Submit";
+  public changeTeamLeaderBtn: boolean = false;
   public changeTeamLeaderForm: FormGroup;
   public isLoading = false;
   public loginUser: any;
@@ -74,6 +80,8 @@ export class ChangeUserComponent {
 
   public changePassword(){
     this.isLoading = true;
+    this.changePasswordBtnMessage = "Processing Wait.."
+    this.changePasswordBtn = true;
     this.userManagementService.changeUserPassword(this.changeUserPasswordForm.value)
       .subscribe({
         next: (response: any) => {
@@ -82,14 +90,21 @@ export class ChangeUserComponent {
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.changeUserPasswordForm.reset();
               this.createForms();
+              this.changePasswordBtnMessage = "Submit"
+              this.changePasswordBtn = false;
               this.isLoading = false;
             } else {
               this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
               this.isLoading = false;
+              this.changePasswordBtnMessage = "Submit"
+              this.changePasswordBtn = false;
+              
             }
           } else {
             this.toastr.error(response['responseMessage'], response['responseCode']);
             this.isLoading = false;
+            this.changePasswordBtnMessage = "Submit"
+              this.changePasswordBtn = false;
           }
         },
         error: (error: any) => this.toastr.error('Server Error', '500'),
@@ -99,6 +114,8 @@ export class ChangeUserComponent {
 
   public changeUserRole(){
     this.isLoading = true;
+    this.changeRoleBtnMessage = "Processing Wait.."
+    this.changeUserRoleBtn = true;
     this.userManagementService.changeUserRole(this.changeUserRoleForm.value)
       .subscribe({
         next: (response: any) => {
@@ -107,14 +124,20 @@ export class ChangeUserComponent {
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.changeUserRoleForm.reset();
               this.createForms();
+              this.changeRoleBtnMessage = "Submit"
+              this.changeUserRoleBtn = false;
               this.isLoading = false;
             } else {
               this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
               this.isLoading = false;
+              this.changeRoleBtnMessage = "Submit"
+              this.changeUserRoleBtn = false;
             }
           } else {
             this.toastr.error(response['responseMessage'], response['responseCode']);
             this.isLoading = false;
+            this.changeRoleBtnMessage = "Submit"
+            this.changeUserRoleBtn = false;
           }
         },
         error: (error: any) => this.toastr.error('Server Error', '500'),
@@ -154,6 +177,8 @@ export class ChangeUserComponent {
 
   public changeTeamLeader(){
     this.isLoading = true;
+    this.changeTeamLeaderBtnMessage= "Processing wait.."
+    this.changeTeamLeaderBtn = true;
     this.userManagementService.changeTeamLeader(this.changeTeamLeaderForm.value)
       .subscribe({
         next: (response: any) => {
@@ -162,10 +187,14 @@ export class ChangeUserComponent {
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.changeUserRoleForm.reset();
               this.createForms();
+              this.changeTeamLeaderBtnMessage = "Submit";
+              this.changeTeamLeaderBtn = false;
               this.isLoading = false;
             } else {
               this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
               this.isLoading = false;
+              this.changeTeamLeaderBtnMessage = "Submit";
+              this.changeTeamLeaderBtn = false;
             }
           } else {
             this.toastr.error(response['responseMessage'], response['responseCode']);
