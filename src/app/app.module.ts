@@ -12,6 +12,7 @@ import { AuthGuard } from './views/gaurd/auth.guard';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { GoogleChartsModule } from 'angular-google-charts';
 
+
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,

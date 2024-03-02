@@ -166,18 +166,13 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
 
     google.charts.load('current', {'packages': ['corechart']});
-    // google.charts.setOnLoadCallback(this.drawChart.bind(this));
     google.charts.setOnLoadCallback(this.drawPieHoleChart.bind(this));
 
+    // google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(this.drawChart.bind(this));
   }
 
   drawPieHoleChart() {
-    //  const dataArray = [['Name', 'Count', 'Amount']];
-  
-    // for (var i = 0; i < this.FRToday.length; i++) {
-    //   // Add data for each item to the dataArray
-    //   dataArray.push([this.FRToday[i][0], this.FRToday[i][2]]);
-    // }
     const data = google.visualization.arrayToDataTable([
       ['Task', 'Hours per Day'],
       ['Work', 8],
@@ -192,13 +187,39 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
       width: 550,
       height: 400,
       pieHole: 0.4,
+      is3D: true,
     };
 
     const chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
   }
 
- 
+  drawChart() {
+    var data = google.visualization.arrayToDataTable(
+      [
+    //   ['Year', 'Sales', 'Expenses'],
+    //   ['2004',  1000,      400],
+    //   ['2005',  1170,      460],
+    //   ['2006',  660,       1120],
+    //   ['2007',  1030,      540]
+    ['Payment mode', 'Count', 'Amount'], // Add column headers if necessary
+    ...this.PaymentModeCountAmount
+    ]
+    
+    );
+
+    var options = {
+      title: 'Payment Mode Graph',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+  }
+
+  
 
 
 
@@ -296,6 +317,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
               for(var i=0; i< paymentDetails.length; i++){
                 this.PaymentModeCountAmount = paymentDetails;
               }
+
+              this.drawChart();
 
             } else {
               // this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);

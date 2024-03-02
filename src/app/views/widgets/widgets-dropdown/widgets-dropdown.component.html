@@ -53,14 +53,18 @@
 
 
 
+
 <div *ngIf="isSuperadmin">
+  <div id="curve_chart" style="width: 100%; height: 40%"></div><p></p>
+
+
   <div class="row">
     <div class="col-6">
       <c-card>
       <div class="tab">
-        <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today's Report</button>
-        <button class="tablinks" (click)="openDetails('YESTERDAY')" [class.active]="isTabActive('YESTERDAY')">Yesterday's Report</button>
-        <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">{{ currentMonthName }}' Report</button>
+        <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today</button>
+        <button class="tablinks" (click)="openDetails('YESTERDAY')" [class.active]="isTabActive('YESTERDAY')">Yesterday</button>
+        <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">{{ currentMonthName }}</button>
       </div>
 
       <div class="table-container">
@@ -95,9 +99,9 @@
       <c-card>
       
       <div class="tab">
-        <button class="tablinks" (click)="openPaymentDetails('TODAY')" [class.active]="isPaymentTabActive('TODAY')">Today's Payment</button>
-        <button class="tablinks" (click)="openPaymentDetails('YESTERDAY')" [class.active]="isPaymentTabActive('YESTERDAY')">Yesterday's Payment</button>
-        <button class="tablinks" (click)="openPaymentDetails('MONTH')" [class.active]="isPaymentTabActive('MONTH')">{{ currentMonthName }}'s Payment</button>
+        <button class="tablinks" (click)="openPaymentDetails('TODAY')" [class.active]="isPaymentTabActive('TODAY')">Today</button>
+        <button class="tablinks" (click)="openPaymentDetails('YESTERDAY')" [class.active]="isPaymentTabActive('YESTERDAY')">Yesterday</button>
+        <button class="tablinks" (click)="openPaymentDetails('MONTH')" [class.active]="isPaymentTabActive('MONTH')">{{ currentMonthName }}</button>
       </div>
 
       <div class="table-container">
@@ -122,13 +126,16 @@
     </c-card>
     </div>
 
-    <!-- <div class="col-4">
+
+    <!-- <div class="col-3">
       <div id="piechart"></div>
-    </div> --> 
+    </div>  -->
 
   </div>
 
 </div>
+
+
 
 
 
