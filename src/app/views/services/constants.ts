@@ -1,8 +1,8 @@
 export class Constant {
 
     // public static Site_Url = "https://datafusionlab.co.in:8080/mycrm/";  
-    public static Site_Url = "http://192.168.29.119:8080/mycrm/";
-    // public static Site_Url = "http://localhost:8080/mycrm/";
+    // public static Site_Url = "http://192.168.29.119:8080/mycrm/";
+    public static Site_Url = "http://localhost:8080/mycrm/";
 
 
     // USER ROLE
