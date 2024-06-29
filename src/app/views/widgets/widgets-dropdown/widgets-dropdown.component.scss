@@ -53,30 +53,84 @@
 }
 
 
-/* Example media query for smaller devices */
 @media (max-width: 768px) {
-  /* Add your responsive CSS rules here */
   .tab button {
-    /* Adjust button styles for smaller screens */
     font-size: 14px;
     padding: 8px 12px;
   }
-
-  /* Additional styles for smaller screens */
-  /* ... */
 }
 
 
 .startcontainer {
   position: relative;
+  text-align: center;
 }
+
+.startbg {
+  width: 100%;
+  height: auto; /* Maintain aspect ratio */
+}
+
 .starimage {
   position: absolute;
+  top: 42%; /* Center vertically within the container */
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center horizontally and vertically */
+  height: 50px;
+  width: 115px;
+}
+
+.starname {
   position: absolute;
-  top: 50px;
-  left: 50px;
-  height: 200px;
-  width: 200px;
+  bottom: 10px; /* Adjust the bottom value as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.starname h5, .starname small {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 776px) {
+  .starimage {
+    top: 40%;
+    height: 250px;
+    width: 50px;
+  }
+  .startbg {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .starname {
+    bottom: 5px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 776px) {
+  .col-9, .col-3, .col-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .starimage {
+    top: 40%;
+    height: 110px;
+    width: 110px;
+  }
+
+  .starname {
+    bottom: 20px;
+    font-size: 24px;
+  }
 }
 
 .row {
@@ -88,7 +142,7 @@
   padding: 15px;
 }
 .col-9 {
-  flex: 0 0 75%;
+  flex: 0 0 100%;
   max-width: 75%;
 }
 .col-3 {
@@ -110,6 +164,7 @@
   display: block;
   margin: 10px auto 0;
 }
+
 @media (max-width: 768px) {
   .col-9, .col-3, .col-6 {
       flex: 0 0 100%;

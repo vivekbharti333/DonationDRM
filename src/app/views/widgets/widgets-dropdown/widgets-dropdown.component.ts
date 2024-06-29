@@ -41,6 +41,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
   public monthAmount: any;
 
   public FRToday: any;
+  public star: any;
+  public starname: string;
   public PaymentModeCountAmount: any;
   // public FRcount: any;
   // public FRAmount: any;
@@ -49,6 +51,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
   paymentActiveTab: string = 'TODAY';
 
   currentMonthName: string;
+  previousMonthName: string
   
 
   constructor(
@@ -155,6 +158,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.getCountAndSum();
+    this.getStarOfTheMonth();
     this.getDonationCountAndAmountGroupByName("TODAY");
     this.getDonationPaymentModeCountAndAmountGroupByName("TODAY");
     // this.setData();
@@ -163,6 +167,15 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     const currentDate = new Date();
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     this.currentMonthName = months[currentDate.getMonth()];
+
+    const currentMonthIndex = currentDate.getMonth();
+
+    // Calculate the previous month index
+const previousMonthIndex = (currentMonthIndex === 0) ? 11 : currentMonthIndex - 1;
+
+// Get the previous month name
+this.previousMonthName = months[previousMonthIndex];
+
 
 
     google.charts.load('current', {'packages': ['corechart']});
@@ -284,6 +297,32 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
       });
   }
 
+  getStarOfTheMonth() {
+    this.widgetsServices.getStarOfTheMonth()
+      .subscribe({
+        next: (response: any) => {
+            if (response['responseCode'] == '200') {
+              let star = response['listPayload'];
+              for(var i=0; i< star.length; i++){
+                this.star = star;
+                // alert(this.star[0]);
+                // alert(this.star[0][0]);
+              }
+              // alert(this.star[0][0]);
+              this.starname = this.star[0][0];              
+
+              // this.drawChart();
+            } else {
+              // this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
+            }
+          // } else {
+          //   this.toastr.error(response['responseMessage'], response['responseCode']);
+          // }
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
+      });
+  }
+
   getDonationCountAndAmountGroupByName(tabName: string) {
     this.FRToday= null;
     this.widgetsServices.getDonationCountAndAmountGroupByName(tabName)
@@ -294,7 +333,6 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
               for(var i=0; i< frtoday.length; i++){
                 this.FRToday = frtoday;
               }
-
               // this.drawChart();
             } else {
               // this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);

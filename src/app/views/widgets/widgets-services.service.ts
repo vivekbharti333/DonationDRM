@@ -36,10 +36,20 @@ export class WidgetsServicesService {
   return  this.http.post<any>(Constant.Site_Url+"getCountAndSum",request);
 }
 
+getStarOfTheMonth(){
+
+  let request: any = {
+    payload: {
+      requestedFor: "ALL",
+      // token: this.loginUser['token'],
+      // createdBy: this.loginUser['loginId'],
+      superadminId: this.loginUser['superadminId'],
+    }
+  };
+  return this.http.post<any>(Constant.Site_Url+"getStartPerformer",request);
+}
 
 getDonationCountAndAmountGroupByName(tabName:string){
-  // this.loginId = localStorage.getItem('loginId');
-  // this.superadminId = localStorage.getItem('superadminId');
 
   let request: any = {
     payload: {
