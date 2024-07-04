@@ -36,13 +36,26 @@ export class WidgetsServicesService {
   return  this.http.post<any>(Constant.Site_Url+"getCountAndSum",request);
 }
 
-getStarOfTheMonth(){
+getStarFundrisingOfficerOfTheMonth(){
 
   let request: any = {
     payload: {
       requestedFor: "ALL",
       // token: this.loginUser['token'],
       // createdBy: this.loginUser['loginId'],
+      superadminId: this.loginUser['superadminId'],
+    }
+  };
+  return this.http.post<any>(Constant.Site_Url+"getStartPerformer",request);
+}
+
+
+getStarTeamOfTheMonth(){
+  let request: any = {
+    payload: {
+      requestedFor: "ALL",
+      // token: this.loginUser['token'],
+      teamLeaderId: this.loginUser['teamLeaderId'],
       superadminId: this.loginUser['superadminId'],
     }
   };

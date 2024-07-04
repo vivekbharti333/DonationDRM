@@ -42,7 +42,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   public FRToday: any;
   public star: any;
-  public starname: string;
+  public starfundrisingofficer: string;
+  public starTeam: string;
   public PaymentModeCountAmount: any;
   // public FRcount: any;
   // public FRAmount: any;
@@ -52,7 +53,14 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   currentMonthName: string;
   previousMonthName: string
-  
+
+  slideIndex = 0;
+  slides = [
+    { image: 'https://www.w3schools.com/howto/img_avatar.png', caption: 'Caption Text' },
+    { image: 'https://www.w3schools.com/howto/img_avatar.png' , caption: 'Caption Text' },
+   
+  ];
+
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -63,102 +71,14 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     this.loginUser = this.authenticationService.getLoginUser();
   }
 
-  // data: any[] = [];
-  // options: any[] = [];
-  // labels = [
-  //   'January',
-  //   'February',
-  //   'March',
-  //   'April',
-  //   'May',
-  //   'June',
-  //   'July',
-  //   'August',
-  //   'September',
-  //   'October',
-  //   'November',
-  //   'December',
-  //   'January',
-  //   'February',
-  //   'March',
-  //   'April'
-  // ];
-  // datasets = [
-  //   [{
-  //     label: 'My First dataset',
-  //     backgroundColor: 'transparent',
-  //     borderColor: 'rgba(255,255,255,.55)',
-  //     pointBackgroundColor: getStyle('--cui-primary'),
-  //     pointHoverBorderColor: getStyle('--cui-primary'),
-  //     data: [65, 59, 84, 84, 51, 55, 40]
-  //   }], [{
-  //     label: 'My Second dataset',
-  //     backgroundColor: 'transparent',
-  //     borderColor: 'rgba(255,255,255,.55)',
-  //     pointBackgroundColor: getStyle('--cui-info'),
-  //     pointHoverBorderColor: getStyle('--cui-info'),
-  //     data: [1, 18, 9, 17, 34, 22, 11]
-  //   }], [{
-  //     label: 'My Third dataset',
-  //     backgroundColor: 'rgba(255,255,255,.2)',
-  //     borderColor: 'rgba(255,255,255,.55)',
-  //     pointBackgroundColor: getStyle('--cui-warning'),
-  //     pointHoverBorderColor: getStyle('--cui-warning'),
-  //     data: [78, 81, 80, 45, 34, 12, 40],
-  //     fill: true
-  //   }], [{
-  //     label: 'My Fourth dataset',
-  //     backgroundColor: 'rgba(255,255,255,.2)',
-  //     borderColor: 'rgba(255,255,255,.55)',
-  //     data: [78, 81, 80, 45, 34, 12, 40, 85, 65, 23, 12, 98, 34, 84, 67, 82],
-  //     barPercentage: 0.7
-  //   }]
-  // ];
-  // optionsDefault = {
-  //   plugins: {
-  //     legend: {
-  //       display: false
-  //     }
-  //   },
-  //   maintainAspectRatio: false,
-  //   scales: {
-  //     x: {
-  //       grid: {
-  //         display: false,
-  //         drawBorder: false
-  //       },
-  //       ticks: {
-  //         display: false
-  //       }
-  //     },
-  //     y: {
-  //       min: 30,
-  //       max: 89,
-  //       display: false,
-  //       grid: {
-  //         display: false
-  //       },
-  //       ticks: {
-  //         display: false
-  //       }
-  //     }
-  //   },
-  //   elements: {
-  //     line: {
-  //       borderWidth: 1,
-  //       tension: 0.4
-  //     },
-  //     point: {
-  //       radius: 4,
-  //       hitRadius: 10,
-  //       hoverRadius: 4
-  //     }
-  //   }
-  // };
+
+
 
   ngOnInit() {
+    this.showSlides(this.slideIndex);
     this.getCountAndSum();
-    this.getStarOfTheMonth();
+    this.getStarFundrisingOfficerOfTheMonth();
+    this.getStarTeamOfTheMonth();
     this.getDonationCountAndAmountGroupByName("TODAY");
     this.getDonationPaymentModeCountAndAmountGroupByName("TODAY");
     // this.setData();
@@ -185,6 +105,22 @@ this.previousMonthName = months[previousMonthIndex];
     google.charts.setOnLoadCallback(this.drawChart.bind(this));
   }
 
+  plusSlides(n: number) {
+    this.slideIndex += n;
+    this.showSlides(this.slideIndex);
+  }
+
+  currentSlide(n: number) {
+    this.slideIndex = n;
+    this.showSlides(this.slideIndex);
+  }
+
+  showSlides(n: number) {
+    if (n > this.slides.length) { this.slideIndex = 1; }
+    if (n < 1) { this.slideIndex = this.slides.length; }
+  }
+
+
   drawPieHoleChart() {
     const data = google.visualization.arrayToDataTable([
       ['Task', 'Hours per Day'],
@@ -210,11 +146,6 @@ this.previousMonthName = months[previousMonthIndex];
   drawChart() {
     var data = google.visualization.arrayToDataTable(
       [
-    //   ['Year', 'Sales', 'Expenses'],
-    //   ['2004',  1000,      400],
-    //   ['2005',  1170,      460],
-    //   ['2006',  660,       1120],
-    //   ['2007',  1030,      540]
     ['Payment mode', 'Count', 'Amount'], // Add column headers if necessary
     ...this.PaymentModeCountAmount
     ]
@@ -297,27 +228,33 @@ this.previousMonthName = months[previousMonthIndex];
       });
   }
 
-  getStarOfTheMonth() {
-    this.widgetsServices.getStarOfTheMonth()
+  getStarFundrisingOfficerOfTheMonth() {
+    this.widgetsServices.getStarFundrisingOfficerOfTheMonth()
       .subscribe({
         next: (response: any) => {
             if (response['responseCode'] == '200') {
               let star = response['listPayload'];
               for(var i=0; i< star.length; i++){
                 this.star = star;
-                // alert(this.star[0]);
-                // alert(this.star[0][0]);
               }
-              // alert(this.star[0][0]);
-              this.starname = this.star[0][0];              
+              this.starfundrisingofficer = this.star[0][0];              
+            } 
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
+      });
+  }
 
-              // this.drawChart();
-            } else {
-              // this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
-            }
-          // } else {
-          //   this.toastr.error(response['responseMessage'], response['responseCode']);
-          // }
+  getStarTeamOfTheMonth() {
+    this.widgetsServices.getStarTeamOfTheMonth()
+      .subscribe({
+        next: (response: any) => {
+            if (response['responseCode'] == '200') {
+              let star = response['listPayload'];
+              for(var i=0; i< star.length; i++){
+                this.star = star;
+              }
+              this.starTeam = this.star[0][0];              
+            } 
         },
         error: (error: any) => this.toastr.error('Server Error', '500'),
       });
@@ -499,4 +436,11 @@ export class ChartSample implements AfterViewInit {
       });
     }, 5000);
   }
+
+
+
+ 
+ 
+
+  
 }

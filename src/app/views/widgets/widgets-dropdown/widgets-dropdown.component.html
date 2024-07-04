@@ -58,12 +58,27 @@
 
 <div class="row">
   <div class="col-3">
-    <div class="startcontainer">
-      <img src="assets/img/background/startbg.png" class="startbg">
+    <div >
+      <!-- <img src="assets/img/background/startbg.png" class="startbg">
       <img src="https://www.w3schools.com/howto/img_avatar.png" class="starimage">
       <div class="starname">
-        <h5>{{starname}}</h5>
-        <!-- <small>(for {{previousMonthName}})</small> -->
+        <h5>{{starfundrisingofficer}}</h5>
+         <small>(for {{previousMonthName}})</small> 
+      </div> -->
+      <div class="slideshow-container">
+        <div *ngFor="let slide of slides; let i = index" class="mySlides" [ngStyle]="{ 'display': slideIndex === i + 1 ? 'block' : 'none' }">
+          <div class="numbertext">{{ i + 1 }} / {{ slides.length }}</div>
+          <img [src]="slide.image" style="width:100%">
+          <div class="text">{{ slide.caption }}</div>
+        </div>
+      
+        <a class="prev" (click)="plusSlides(-1)">❮</a>
+        <a class="next" (click)="plusSlides(1)">❯</a>
+      </div>
+      <br>
+      
+      <div style="text-align:center">
+        <span *ngFor="let slide of slides; let i = index" class="dot" [ngClass]="{ 'active': slideIndex === i + 1 }" (click)="currentSlide(i + 1)"></span> 
       </div>
     </div>
   </div>
@@ -139,3 +154,21 @@
     </div>
   </div>
 </div>
+
+<div class="slideshow-container">
+  <div *ngFor="let slide of slides; let i = index" class="mySlides" [ngStyle]="{ 'display': slideIndex === i + 1 ? 'block' : 'none' }">
+    <div class="numbertext">{{ i + 1 }} / {{ slides.length }}</div>
+    <img [src]="slide.image" style="width:100%">
+    <div class="text">{{ slide.caption }}</div>
+  </div>
+
+  <a class="prev" (click)="plusSlides(-1)">❮</a>
+  <a class="next" (click)="plusSlides(1)">❯</a>
+</div>
+<br>
+
+<div style="text-align:center">
+  <span *ngFor="let slide of slides; let i = index" class="dot" [ngClass]="{ 'active': slideIndex === i + 1 }" (click)="currentSlide(i + 1)"></span> 
+</div>
+
+
