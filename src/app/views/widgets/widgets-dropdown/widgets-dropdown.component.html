@@ -159,7 +159,8 @@
   <div *ngFor="let slide of slides; let i = index" class="mySlides" [ngStyle]="{ 'display': slideIndex === i + 1 ? 'block' : 'none' }">
     <div class="numbertext">{{ i + 1 }} / {{ slides.length }}</div>
     <img [src]="slide.image" style="width:100%">
-    <div class="text">{{ slide.caption }}</div>
+    <div class="text">{{ slide.caption }}</div><br>
+    <div class="text">{{ slide.name }}</div>
   </div>
 
   <a class="prev" (click)="plusSlides(-1)">❮</a>

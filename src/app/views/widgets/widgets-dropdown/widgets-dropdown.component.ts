@@ -56,8 +56,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   slideIndex = 0;
   slides = [
-    { image: 'https://www.w3schools.com/howto/img_avatar.png', caption: 'Caption Text' },
-    { image: 'https://www.w3schools.com/howto/img_avatar.png' , caption: 'Caption Text' },
+    { image: 'https://www.w3schools.com/howto/img_avatar.png', caption: 'Caption Text' ,name: 'fdhdthteyt13545' },
+    { image: 'https://www.w3schools.com/howto/img_avatar.png' , caption: 'Caption Text' ,name: 'hkjhkjkhj'},
    
   ];
 
