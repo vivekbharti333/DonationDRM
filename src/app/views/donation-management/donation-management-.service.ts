@@ -51,11 +51,34 @@ export class DonationManagementService {
     return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "getDonationTypeListBySuperadminId", request);
   }
 
-  saveDonationDetails(donationDetails: DonationDetails): Observable<DonationDetailsRequest> {
-    this.loginUser = this.authenticationService.getLoginUser();
+  getFundrisingOfficerByTeamLeaderId(): Observable<any> {
     let request: DonationDetailsRequest = {
       payload: {
-        createdBy: this.loginUser['loginId'],
+        requestedFor: "OPTION",
+        roleType: this.loginUser['roleType'],
+        token: this.loginUser['token'],
+        loginId: this.loginUser['loginId'],
+        superadminId: this.loginUser['superadminId'],
+      }
+    };
+    return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "getFundRisingOfficersBySuperadminId", request);
+  }
+  
+
+  saveDonationDetails(donationDetails: DonationDetails): Observable<DonationDetailsRequest> {
+    this.loginUser = this.authenticationService.getLoginUser();
+
+    let createdBy = this.loginUser['loginId'];
+
+    if(donationDetails.createdBy != 'N/A' || donationDetails.createdBy !='Select Fundrising Officer'){
+        createdBy = donationDetails.createdBy;
+    }
+
+    alert(donationDetails.createdBy);
+
+    let request: DonationDetailsRequest = {
+      payload: {
+        createdBy: donationDetails.createdBy,
         invoiceHeaderDetailsId: donationDetails.invoiceHeaderDetailsId,
         donorName: donationDetails.donorName,
         mobileNumber: donationDetails.mobileNumber,
@@ -70,12 +93,13 @@ export class DonationManagementService {
         paymentType: 'OFFLINE',
         roleType: this.loginUser['roleType'],
         token: this.loginUser['token'],
-        loginId: this.loginUser['loginId'],
+        // loginId: this.loginUser['loginId'],
+        loginId: createdBy,
         superadminId: this.loginUser['superadminId'],
 
       }
     };
-    return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "addDonation", request);
+    return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "addDonation123", request);
   }
 
 

@@ -90,6 +90,16 @@
                             <option *ngFor="let payModOpt of paymentModeList">{{payModOpt.paymentMode}}</option>
                         </select>
                     </div>
+
+                    <div class="col-sm-6 form-group" *ngIf="showFundrisingOfficerList">
+                        <label class="form-label">Select Fundrising Officer</label>
+                        <select class="form-control" formControlName="createdBy">
+                          <option value="N/A">Select Fundrising Officer</option>
+                          <option *ngFor="let fundRisingOffcer of fundRisingOffcerList" [value]="fundRisingOffcer.loginId">
+                            {{fundRisingOffcer.firstName}} {{fundRisingOffcer.lastName}}
+                          </option>
+                        </select>
+                      </div>
                 </div>
 
                 <div class="row">
