@@ -39,6 +39,7 @@ export class AddDonationComponent {
     private router: Router,
   ) {
     this.loginUser = this.authenticationService.getLoginUser();
+    this.createForms();
   }
 
   ngOnInit() {
@@ -90,6 +91,12 @@ export class AddDonationComponent {
     });
   }
 
+  onSelectFundrisingOfficer(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    console.log('Selected value:', selectedValue);
+    // alert('Selected value:', selectedValue);
+  }
+
   public getInvoiceTypeList() {
     // this.donationManagementService.getInvoiceTypeList()
     this.invoiceManagementService.getInvoiceHeaderList()
@@ -113,7 +120,6 @@ export class AddDonationComponent {
             next: (response: any) => {
               if (response['responseCode'] == '200') {
                 this.fundRisingOffcerList = JSON.parse(JSON.stringify(response['listPayload']));
-              
               } else {
                 //this.toastr.error(response['responseMessage'], response['responseCode']);
               }

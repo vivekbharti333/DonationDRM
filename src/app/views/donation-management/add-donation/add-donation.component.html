@@ -94,8 +94,8 @@
                     <div class="col-sm-6 form-group" *ngIf="showFundrisingOfficerList">
                         <label class="form-label">Select Fundrising Officer</label>
                         <select class="form-control" formControlName="createdBy">
-                          <option value="N/A">Select Fundrising Officer</option>
-                          <option *ngFor="let fundRisingOffcer of fundRisingOffcerList" [value]="fundRisingOffcer.loginId">
+                          <option aria-readonly="true" value="N/A">Select Fundrising Officer</option>
+                          <option [value]="fundRisingOffcer.loginId" *ngFor="let fundRisingOffcer of fundRisingOffcerList" >
                             {{fundRisingOffcer.firstName}} {{fundRisingOffcer.lastName}}
                           </option>
                         </select>

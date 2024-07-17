@@ -88,13 +88,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .starname h5, .starname small {
   display: inline;
   margin: 0;
   padding: 0;
+  
 }
 
 @media (max-width: 776px) {
@@ -110,7 +111,8 @@
 
   .starname {
     bottom: 20%;
-    font-size: 20px;
+    font-size: 30px;
+    // margin-bottom: 50px;
   }
 }
 
@@ -134,6 +136,7 @@
     bottom: 200px;
     font-size: 30px;
     width: 100%;
+    margin-bottom: -390px;
   }
 }
 
