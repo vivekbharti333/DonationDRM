@@ -99,7 +99,7 @@ export class DonationManagementService {
 
       }
     };
-    return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "addDonation123", request);
+    return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "addDonation", request);
   }
 
 
