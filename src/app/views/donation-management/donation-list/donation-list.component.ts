@@ -54,7 +54,7 @@ export class DonationListComponent {
 
 
 
-
+  public selectedTeamLeaderLoginId: string;
   public userList: any;
   public donationList: any[];
   public cols: any[];
@@ -64,7 +64,9 @@ export class DonationListComponent {
   public isSuperadmin: boolean = false;
   public isAdmin: boolean = false;
   public isTeamLeader: boolean = false;
+  public isDonationExecutive: boolean = false;
   public teamLeaderList: any;
+  
 
   POSTS: any;
   page: number = 1;
@@ -120,6 +122,8 @@ export class DonationListComponent {
       this.isAdmin = true;
     }else if(this.loginUser['roleType'] == Constant.teamLeader){
       this.isTeamLeader = true;
+    }else if(this.loginUser['roleType'] == Constant.donorExecutive){
+      this.isDonationExecutive = true;
     }
   }
 
@@ -229,6 +233,7 @@ export class DonationListComponent {
     this.donationList = [];
     this.firstDate = firstDate;
     this.lastDate = lastDate;
+    
     this.donationManagementService.getDonationListByDate(firstDate, lastDate)
       .subscribe({
         next: (response: any) => {

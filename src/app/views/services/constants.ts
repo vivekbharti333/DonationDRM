@@ -11,6 +11,7 @@ export class Constant {
     public static admin = 'ADMIN';
     public static teamLeader = 'TEAM_LEADER';
     public static fundraisingOfficer = 'FUNDRAISING_OFFICER';
+    public static donorExecutive = 'DONOR_EXECUTIVE';
 
     //Requested For
     public static TODAY = 'TODAY';

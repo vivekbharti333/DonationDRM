@@ -61,8 +61,8 @@ export class AddUserComponent {
 
   serviceType: any = ['DONATION'];
 
-  roleTypeForMainAdmin: any = ['SUPERADMIN',Constant.admin, Constant.teamLeader, Constant.fundraisingOfficer];
-  roleTypeForSuperadmin: any = [Constant.admin, Constant.teamLeader, Constant.fundraisingOfficer];
+  roleTypeForMainAdmin: any = ['SUPERADMIN',Constant.admin, Constant.teamLeader, Constant.fundraisingOfficer, Constant.donorExecutive];
+  roleTypeForSuperadmin: any = [Constant.admin, Constant.teamLeader, Constant.fundraisingOfficer, Constant.donorExecutive];
   roleTypeForAdmin: any = [Constant.teamLeader, Constant.fundraisingOfficer];
   roleTypeFoManager: any = [Constant.fundraisingOfficer];
 

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { navItems,  } from './_nav';
 import { navDonationSuperadmin } from './_navDoantionSuperadmin';
 import { navDonationManager } from './_navDonationManager';
+import { navFundrisingOfficer } from './_navFundrisingOfficer'
 import { navDonationExecutive } from './_navCustomerExecutive';
 import { Constant } from '../../views/services/constants';
 import { AuthenticationService} from '../../views/services/authentication.service';
@@ -57,6 +58,8 @@ export class DefaultLayoutComponent {
       }else if(this.loginUser['roleType'] == Constant.teamLeader){
         this.navItems = navDonationManager;
       }else if(this.loginUser['roleType'] == Constant.fundraisingOfficer){
+        this.navItems = navFundrisingOfficer;
+      }else if(this.loginUser['roleType'] == Constant.donorExecutive){
         this.navItems = navDonationExecutive;
       }
     }
