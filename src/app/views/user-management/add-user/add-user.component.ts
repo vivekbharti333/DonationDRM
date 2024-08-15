@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Constant } from '../../services/constants';
 import { AuthenticationService} from '../../../views/services/authentication.service';
 import { constants } from 'buffer';
+import { CookieService } from 'ngx-cookie-service';
 
 
 
@@ -35,6 +36,7 @@ export class AddUserComponent {
     private userManagementService: UserManagementService,
     private toastr: ToastrService,
     private authenticationService: AuthenticationService,
+    private cookieService: CookieService,
   ) {
     this.loginUser = this.authenticationService.getLoginUser();
   }
@@ -154,6 +156,13 @@ export class AddUserComponent {
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.addUserForm.reset();
               this.createForms();
+              this.isLoading = false;
+            } else if (response['payload']['respCode'] == '401') {
+
+              this.cookieService.delete('loginDetails');
+              window.location.href = "/login";
+              window.location.reload();
+              this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
               this.isLoading = false;
             } else {
               this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
