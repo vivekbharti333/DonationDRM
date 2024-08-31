@@ -108,10 +108,6 @@ export class DonationListComponent {
     
   }
 
-
-
-
-
   checkRoleType(){
     console.log("user role : "+this.loginUser['roleType']);
     if(this.loginUser['roleType'] == Constant.mainAdmin){
@@ -435,7 +431,7 @@ export class DonationListComponent {
         next: (response: any) => {
           if (response['responseCode'] == '200') {
             if (response['payload']['respCode'] == '200') {
-              console.log("ok hai")
+              // console.log("ok hai")
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.editDonationForm.reset();
               this.getDonationList('TODAY');

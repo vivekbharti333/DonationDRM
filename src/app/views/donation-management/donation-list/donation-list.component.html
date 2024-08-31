@@ -511,11 +511,18 @@
                       <label class="form-label">Pan</label>
                       <input class="form-control" type="text" pInputText formControlName="panNumber" maxlength="100">
                     </div>
+                    <div *ngIf="isSuperadmin; else readonlyAmount" class="col-sm-3 form-group">
+                      <label class="form-label">Amount</label>
+                      <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="amount"
+                        maxlength="100">
+                    </div>
+                    <ng-template #readonlyAmount>
                     <div class="col-sm-3 form-group">
                       <label class="form-label">Amount</label>
                       <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="amount"
                         maxlength="100" readonly>
                     </div>
+                  </ng-template>
                     <div class="col-sm-3 form-group">
                       <label class="form-label">Transaction Id</label>
                       <input class="form-control" type="text" pInputText formControlName="transactionId"
@@ -523,19 +530,19 @@
                     </div>
                   </div>
 
-                  <!-- <div class="row">
+                  <div class="row" *ngIf="isSuperadmin">
                     <div class="col-sm-6 form-group">
                       <label class="form-label">Payment Mode</label>
                       <select class="form-control" formControlName="paymentMode">
                         <option aria-readonly="true">Select Payment Type</option>
                         <option *ngFor="let payModOpt of paymentModeOption">{{payModOpt}}</option>
                       </select>
-                    </div> -->
+                    </div> 
                     <!-- <div class="col-sm-6 form-group">
                       <label class="form-label">requestFor</label>
                       <input class="form-control" type="text" pInputText formControlName="requestFor" maxlength="100">
                   </div> -->
-                  <!-- </div> -->
+                  </div>
 
                   <div class="row">
                     <div class="col-sm-6 form-group">
