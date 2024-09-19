@@ -40,6 +40,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
   public monthCount: any;
   public monthAmount: any;
 
+  public validityExpireOn: any;
+
   public FRToday: any;
   public star: any;
   public starfundrisingofficer: string;
@@ -53,6 +55,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   currentMonthName: string;
   previousMonthName: string
+
+  public diffInDays = 0;
 
   slideIndex = 0;
   slides = [
@@ -83,6 +87,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     this.getDonationPaymentModeCountAndAmountGroupByName("TODAY");
     // this.setData();
     this.checkRoleType();
+    this.showNotification();
 
     const currentDate = new Date();
     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -163,10 +168,6 @@ this.previousMonthName = months[previousMonthIndex];
     chart.draw(data, options);
   }
 
-  
-
-
-
   checkRoleType(){
     console.log("user role : "+this.loginUser['roleType'])
     if(this.loginUser['roleType'] == Constant.mainAdmin){
@@ -178,7 +179,17 @@ this.previousMonthName = months[previousMonthIndex];
     }else if(this.loginUser['roleType'] == Constant.teamLeader){
       this.isTeamLeader = true;
     }
+  }
 
+  showNotification() {
+    this.validityExpireOn = new Date(this.loginUser['validityExpireOn']);
+    const msInDay = 24 * 60 * 60 * 1000; // Milliseconds in a day
+
+    // Calculate the difference in days
+    const diffInMs = this.validityExpireOn.getTime() - new Date().getTime();
+    this.diffInDays = Math.floor(diffInMs / msInDay);
+
+    return this.diffInDays;
   }
 
   openDetails(tabName: string) {

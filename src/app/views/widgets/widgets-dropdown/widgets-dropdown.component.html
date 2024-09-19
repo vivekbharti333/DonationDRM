@@ -1,3 +1,9 @@
+<div *ngIf="diffInDays <= 15 && isSuperadmin">
+  <marquee>
+    <p style="color: red; font-weight: bold;">Your plan is set to expire on {{ validityExpireOn | date:'dd/MM/yyyy' }}. Please renew now to continue enjoying uninterrupted service.</p>
+  </marquee>
+</div>
+
 <c-row>
   <c-col sm="3" lg="3" xl="3" *ngIf="isSuperadmin">
     <div class="info-box bg-primary">
