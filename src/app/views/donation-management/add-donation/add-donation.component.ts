@@ -6,6 +6,7 @@ import { InvoiceManagementService } from '../../invoice-management/invoice-manag
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Constant } from '../../services/constants';
 
 @Component({
   selector: 'app-add-donation',
@@ -17,7 +18,10 @@ export class AddDonationComponent {
   public addDonationForm: FormGroup;
   public isLoading = false;
   public loginUser : any;
+  public showFundrisingOfficerList: boolean = false;
 
+
+  public fundRisingOffcerList: any;
   public invoiceTypeList: any;
   public invoiceType: any;
   public paymentModeList: any;
@@ -35,23 +39,37 @@ export class AddDonationComponent {
     private router: Router,
   ) {
     this.loginUser = this.authenticationService.getLoginUser();
+    this.createForms();
   }
 
   ngOnInit() {
     this.createForms();
+    this.getFundrisingOfficerByTeamLeaderId();
     this.getInvoiceTypeList();
     this.getDonationTypeList();
     this.getPaymentModeList();
     this.setValueInForm();
+    this.checkRoleType();
     this.getCurrentLocation();
-    this.getClientIpAddress();
+    this.getClientIpAddress(); 
   }
 
-  // paymentModeOption: any = ['CASH', 'CARD','CHEQUE', 'NET-BANKING', 'UPI','WEBSITE'];
+  checkRoleType(){
+    if(this.loginUser['roleType'] == Constant.mainAdmin ||
+      this.loginUser['roleType'] == Constant.superAdmin ||
+      this.loginUser['roleType'] == Constant.admin ||
+      this.loginUser['roleType'] == Constant.teamLeader
+    ){
+      this.showFundrisingOfficerList = true;
+    } else if(this.loginUser['roleType'] == Constant.fundraisingOfficer){
+      this.showFundrisingOfficerList = false;
+    }
+  }
+
 
   createForms() {
     this.addDonationForm = this.fb.group({
-      createdBy: [''],
+      createdBy: ['N/A'],
       invoiceHeaderDetailsId:[''],
       donorName: ['', [Validators.required, Validators.pattern("[0-9A-Za-z ]{3,150}")]],
       mobileNumber: ['', Validators.pattern('^[0-9]*$')],
@@ -73,6 +91,12 @@ export class AddDonationComponent {
     });
   }
 
+  onSelectFundrisingOfficer(event: Event) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    console.log('Selected value:', selectedValue);
+    // alert('Selected value:', selectedValue);
+  }
+
   public getInvoiceTypeList() {
     // this.donationManagementService.getInvoiceTypeList()
     this.invoiceManagementService.getInvoiceHeaderList()
@@ -89,6 +113,20 @@ export class AddDonationComponent {
           error: (error: any) => this.toastr.error('Server Error', '500'),
         });
     }
+
+    public getFundrisingOfficerByTeamLeaderId() {
+      this.donationManagementService.getFundrisingOfficerByTeamLeaderId()
+          .subscribe({
+            next: (response: any) => {
+              if (response['responseCode'] == '200') {
+                this.fundRisingOffcerList = JSON.parse(JSON.stringify(response['listPayload']));
+              } else {
+                //this.toastr.error(response['responseMessage'], response['responseCode']);
+              }
+            },
+            error: (error: any) => this.toastr.error('Server Error', '500'),
+          });
+      }
 
   public getDonationTypeList() {
     this.donationManagementService.getDonationTypeList()
@@ -172,7 +210,6 @@ export class AddDonationComponent {
           }
         },
         error: (error: any) => this.toastr.error('Server Error', '500'),
-        
       });
   }
 

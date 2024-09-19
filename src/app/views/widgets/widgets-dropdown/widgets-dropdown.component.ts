@@ -44,7 +44,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   public FRToday: any;
   public star: any;
-  public starfundrisingofficer: string;
+  public starfundrisingofficer: string = '';
   public starTeam: string;
   public PaymentModeCountAmount: any;
   // public FRcount: any;
@@ -60,8 +60,8 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
   slideIndex = 0;
   slides = [
-    { image: 'https://www.w3schools.com/howto/img_avatar.png', caption: 'Caption Text' ,name: 'fdhdthteyt13545' },
-    { image: 'https://www.w3schools.com/howto/img_avatar.png' , caption: 'Caption Text' ,name: 'hkjhkjkhj'},
+    { image: 'assets/img/star/star.png', caption: this.starfundrisingofficer ,name: 'fdhdthteyt13545' },
+    { image: 'assets/img/star/star-team.png' , caption: 'Caption Text' ,name: 'hkjhkjkhj'},
    
   ];
 
@@ -79,6 +79,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
 
 
   ngOnInit() {
+    this.starfundrisingofficer = 'Initial Officer';
     this.showSlides(this.slideIndex);
     this.getCountAndSum();
     this.getStarFundrisingOfficerOfTheMonth();
@@ -320,53 +321,8 @@ this.previousMonthName = months[previousMonthIndex];
 
   ngAfterContentInit(): void {
     this.changeDetectorRef.detectChanges();
-
   }
 
-  // setData() {
-  //   for (let idx = 0; idx < 4; idx++) {
-  //     this.data[idx] = {
-  //       labels: idx < 3 ? this.labels.slice(0, 7) : this.labels,
-  //       datasets: this.datasets[idx]
-  //     };
-  //   }
-  //   this.setOptions();
-  // }
-
-  // setOptions() {
-  //   for (let idx = 0; idx < 4; idx++) {
-  //     const options = JSON.parse(JSON.stringify(this.optionsDefault));
-  //     switch (idx) {
-  //       case 0: {
-  //         this.options.push(options);
-  //         break;
-  //       }
-  //       case 1: {
-  //         options.scales.y.min = -9;
-  //         options.scales.y.max = 39;
-  //         this.options.push(options);
-  //         break;
-  //       }
-  //       case 2: {
-  //         options.scales.x = { display: false };
-  //         options.scales.y = { display: false };
-  //         options.elements.line.borderWidth = 2;
-  //         options.elements.point.radius = 0;
-  //         this.options.push(options);
-  //         break;
-  //       }
-  //       case 3: {
-  //         options.scales.x.grid = { display: false, drawTicks: false };
-  //         options.scales.x.grid = { display: false, drawTicks: false, drawBorder: false };
-  //         options.scales.y.min = undefined;
-  //         options.scales.y.max = undefined;
-  //         options.elements = {};
-  //         this.options.push(options);
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
 }
 
 @Component({

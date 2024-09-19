@@ -2,7 +2,7 @@ import { INavData } from '@coreui/angular';
 import { AuthenticationService } from '../../views/services/authentication.service';
 
 
-let navDonationExecutive: INavData[] = [
+let navFundrisingOfficer: INavData[] = [
   {
     name: 'Dashboard',
     url: '/dashboard',
@@ -17,12 +17,12 @@ let navDonationExecutive: INavData[] = [
     url: '/lead',
     iconComponent: { name: 'cilCommentSquare' },
     children: [
-      // {
-      //   name: 'Add Receipt',
-      //   url: '/donation/add-donation',
-      //   iconComponent: { name: 'cilEnvelopeOpen' },
-      //   permission: ''
-      // },
+      {
+        name: 'Add Receipt',
+        url: '/donation/add-donation',
+        iconComponent: { name: 'cilEnvelopeOpen' },
+        permission: ''
+      },
       {
         name: 'Receipt List',
         url: '/donation/donationlist',
@@ -37,4 +37,4 @@ let navDonationExecutive: INavData[] = [
 
 
 
-export { navDonationExecutive };
+export { navFundrisingOfficer };

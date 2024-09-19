@@ -54,7 +54,7 @@ export class DonationListComponent {
 
 
 
-
+  public selectedTeamLeaderLoginId: string;
   public userList: any;
   public donationList: any[];
   public cols: any[];
@@ -64,7 +64,9 @@ export class DonationListComponent {
   public isSuperadmin: boolean = false;
   public isAdmin: boolean = false;
   public isTeamLeader: boolean = false;
+  public isDonationExecutive: boolean = false;
   public teamLeaderList: any;
+  
 
   POSTS: any;
   page: number = 1;
@@ -106,10 +108,6 @@ export class DonationListComponent {
     
   }
 
-
-
-
-
   checkRoleType(){
     console.log("user role : "+this.loginUser['roleType']);
     if(this.loginUser['roleType'] == Constant.mainAdmin){
@@ -120,6 +118,8 @@ export class DonationListComponent {
       this.isAdmin = true;
     }else if(this.loginUser['roleType'] == Constant.teamLeader){
       this.isTeamLeader = true;
+    }else if(this.loginUser['roleType'] == Constant.donorExecutive){
+      this.isDonationExecutive = true;
     }
   }
 
@@ -229,6 +229,7 @@ export class DonationListComponent {
     this.donationList = [];
     this.firstDate = firstDate;
     this.lastDate = lastDate;
+    
     this.donationManagementService.getDonationListByDate(firstDate, lastDate)
       .subscribe({
         next: (response: any) => {
@@ -430,7 +431,7 @@ export class DonationListComponent {
         next: (response: any) => {
           if (response['responseCode'] == '200') {
             if (response['payload']['respCode'] == '200') {
-              console.log("ok hai")
+              // console.log("ok hai")
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.editDonationForm.reset();
               this.getDonationList('TODAY');

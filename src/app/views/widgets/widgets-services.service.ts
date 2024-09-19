@@ -59,7 +59,7 @@ getStarTeamOfTheMonth(){
       superadminId: this.loginUser['superadminId'],
     }
   };
-  return this.http.post<any>(Constant.Site_Url+"getStartPerformer",request);
+  return this.http.post<any>(Constant.Site_Url+"getStartTeam",request);
 }
 
 getDonationCountAndAmountGroupByName(tabName:string){

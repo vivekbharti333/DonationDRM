@@ -310,13 +310,22 @@
 
       <div class="tabcontent" [ngStyle]="{'display': isTabActive('CUSTOM') ? 'block' : 'none'}">
         <div class="row">
-          <div class="col-2">
-            <label> Download In Excel</label>
-            <br>
-            <button mat-raised-button class="btn btn-warning" (click)="exportAsExcelFile()">
-              <img src="/assets/img/brand/excel-logo.png" width="24"> Export Report
-            </button>
-          </div>
+
+            <!-- <form [formGroup]="searchDonationForm" *ngIf="isDonationExecutive">
+              <div class="row">
+                  <div class="col-sm-3 form-group">
+                     
+                  </div>
+                  
+              </div>
+            </form> -->
+            <!-- <div class="col-sm-3 form-group">
+              <label> Select Team</label>
+              <select class="form-control" formControlName="teamLeaderId" (change)="getDonationByTeamLeaderId('TODAY')">
+                <option value="" disabled selected>Select Team Leader</option>
+                  <option *ngFor="let teamleader of teamLeaderList" [ngValue]="teamleader.loginId">{{teamleader.firstName + ' ' + teamleader.lastName}}</option>
+              </select>
+          </div> -->
           <div class="col-sm-2">
             <label> From</label>
             <input class="form-control" pInputText type="date" #firstDate>
@@ -333,12 +342,16 @@
               style="margin-top: 8px; margin-left: 0px;">Search</button>
           </div>
 
-          <div class="form-group col-sm-3"><br>
-            <input type="text" class="form-control"  #searchKey placeholder="Filter">
-          </div>
-          <div class="form-group col-sm-1"><br>
-            <button type="button" class="btn btn-primary" (click)="getDonationDetailsBySearch(searchKey.value)">Search</button>
-          </div>
+         
+            <div class="col-2">
+              <label> Download In Excel</label>
+              <br>
+              <button mat-raised-button class="btn btn-warning" (click)="exportAsExcelFile()">
+                <img src="/assets/img/brand/excel-logo.png" width="24"> Export Report
+              </button>
+            </div>
+          
+          
 
 
         </div>
@@ -498,11 +511,18 @@
                       <label class="form-label">Pan</label>
                       <input class="form-control" type="text" pInputText formControlName="panNumber" maxlength="100">
                     </div>
+                    <div *ngIf="isSuperadmin; else readonlyAmount" class="col-sm-3 form-group">
+                      <label class="form-label">Amount</label>
+                      <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="amount"
+                        maxlength="100">
+                    </div>
+                    <ng-template #readonlyAmount>
                     <div class="col-sm-3 form-group">
                       <label class="form-label">Amount</label>
                       <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="amount"
                         maxlength="100" readonly>
                     </div>
+                  </ng-template>
                     <div class="col-sm-3 form-group">
                       <label class="form-label">Transaction Id</label>
                       <input class="form-control" type="text" pInputText formControlName="transactionId"
@@ -510,19 +530,19 @@
                     </div>
                   </div>
 
-                  <!-- <div class="row">
+                  <div class="row" *ngIf="isSuperadmin">
                     <div class="col-sm-6 form-group">
                       <label class="form-label">Payment Mode</label>
                       <select class="form-control" formControlName="paymentMode">
                         <option aria-readonly="true">Select Payment Type</option>
                         <option *ngFor="let payModOpt of paymentModeOption">{{payModOpt}}</option>
                       </select>
-                    </div> -->
+                    </div> 
                     <!-- <div class="col-sm-6 form-group">
                       <label class="form-label">requestFor</label>
                       <input class="form-control" type="text" pInputText formControlName="requestFor" maxlength="100">
                   </div> -->
-                  <!-- </div> -->
+                  </div>
 
                   <div class="row">
                     <div class="col-sm-6 form-group">

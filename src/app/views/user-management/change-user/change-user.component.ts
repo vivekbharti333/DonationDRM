@@ -37,7 +37,7 @@ export class ChangeUserComponent {
     this.loginUser = this.authenticationService.getLoginUser();
   }
 
-  roleTypeForSuperadmin: any = [Constant.admin, Constant.teamLeader, Constant.fundraisingOfficer];
+  roleTypeForSuperadmin: any = [Constant.admin, Constant.teamLeader, Constant.fundraisingOfficer, Constant.donorExecutive];
 
   ngOnInit() {
     this.createForms();
