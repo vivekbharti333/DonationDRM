@@ -69,7 +69,7 @@ export class UserListComponent {
     console.log("Role type : "+this.loginUser['roleType']);
     if(this.loginUser['roleType'] === Constant.mainAdmin){
       this.isMainAdmin = true;
-      this.isSuperadmin = true;
+      // this.isSuperadmin = true;
     }else if(this.loginUser['roleType'] === Constant.superAdmin){
       this.isSuperadmin = true;
     }else if(this.loginUser['roleType'] === Constant.admin){
@@ -196,6 +196,24 @@ export class UserListComponent {
           if (response['responseCode'] == '200') {
             this.userAddressList = JSON.parse(JSON.stringify(response['listPayload']));
             // this.toastr.success(response['status'], response['responseCode']);
+          } else {
+            this.toastr.error(response['responseMessage'], response['responseCode']);
+          }
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
+      });
+  }
+
+  public updateUserSubscription(user:any) {
+    this.userManagementService.updateUserSubscription(user)
+      .subscribe({
+        next: (response: any) => {
+          console.log("Data : "+response)
+          if (response['responseCode'] == '200') {
+            if (response['payload']['respCode'] == '200') {
+              this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
+              this.getUserDetails();
+            }
           } else {
             this.toastr.error(response['responseMessage'], response['responseCode']);
           }

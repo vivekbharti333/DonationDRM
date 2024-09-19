@@ -22,6 +22,15 @@ export class UserManagementService {
 }
 
 
+updateUserSubscription(user: any): Observable<UserDetailsRequest> {
+  let request: any = {
+    payload: {
+      loginId:user.loginId,
+    }
+  };
+  return  this.http.post<any>(Constant.Site_Url+"updateUserSubscription",request);
+}
+
 
 removeUserParmanent(loginId: any): Observable<UserDetailsRequest> {
   let request: any = {
