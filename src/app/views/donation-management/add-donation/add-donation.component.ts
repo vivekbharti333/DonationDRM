@@ -57,8 +57,9 @@ export class AddDonationComponent {
   checkRoleType(){
     if(this.loginUser['roleType'] == Constant.mainAdmin ||
       this.loginUser['roleType'] == Constant.superAdmin ||
-      this.loginUser['roleType'] == Constant.admin ||
-      this.loginUser['roleType'] == Constant.teamLeader
+      this.loginUser['roleType'] == Constant.admin 
+      // ||
+      // this.loginUser['roleType'] == Constant.teamLeader
     ){
       this.showFundrisingOfficerList = true;
     } else if(this.loginUser['roleType'] == Constant.fundraisingOfficer){
