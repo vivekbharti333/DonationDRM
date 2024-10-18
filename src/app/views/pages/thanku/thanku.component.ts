@@ -37,7 +37,7 @@ export class ThankuComponent implements OnInit {
     // this.downloadPdf();
   }
 
-  public getInvoiceHeaderById() {
+  public getInvoiceHeaderById1() {
     this.receiptNo = this.route.snapshot.params['receiptNo']; // Changed router to route
     
     this.donationManagementService.getDonationListByReceiptNumber(this.receiptNo)
@@ -59,6 +59,37 @@ export class ThankuComponent implements OnInit {
         },
         error: (error: any) => this.toastr.error('Server Error', '500'),
       });
+  }
+
+  public getInvoiceHeaderById() {
+    // Get the 'receiptNo' from the query parameters
+    this.route.queryParams.subscribe(params => {
+      this.receiptNo = params['receiptNo']; // Get the receiptNo from the query string
+      alert("Rec : " + this.receiptNo);
+
+      if (this.receiptNo) {
+        this.donationManagementService.getDonationListByReceiptNumber(this.receiptNo)
+          .subscribe({
+            next: (response: any) => {
+              console.log(response['responseCode'] + " response");
+              if (response['responseCode'] == '200') {
+                this.successMessageVisible = "Please Wait... Your Download will start in ";
+                this.countShow = true;
+                this.startCountdown();
+                setTimeout(() => {
+                  this.downloadPdf();
+                }, 5000);
+              } else {
+                this.successMessageVisible = "Invalid Request. Contact the admin for details";
+                this.countShow = false;
+              }
+            },
+            error: (error: any) => this.toastr.error('Server Error', '500'),
+          });
+      } else {
+        this.successMessageVisible = "No receipt number provided";
+      }
+    });
   }
 
 

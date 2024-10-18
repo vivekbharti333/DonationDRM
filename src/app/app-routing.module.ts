@@ -150,7 +150,8 @@ const routes: Routes = [
     }
   },
   {
-    path: 'receipt/:receiptNo',
+    // path: 'receipt/:receiptNo',  http://localhost:4200/#/receipt?receiptNo=92204f0W489
+    path: 'receipt',
     component: ThankuComponent,
     data: {
       title: 'Thankyou'
