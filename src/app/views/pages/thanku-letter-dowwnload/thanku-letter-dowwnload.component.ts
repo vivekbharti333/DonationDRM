@@ -5,12 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Constant } from '../../services/constants';
 import { HttpResponse } from '@angular/common/http';
 
+
 @Component({
-  selector: 'app-thanku',
-  templateUrl: './thanku.component.html',
-  styleUrls: ['./thanku.component.scss']
+  selector: 'app-thanku-letter-dowwnload',
+  templateUrl: './thanku-letter-dowwnload.component.html',
+  styleUrls: ['./thanku-letter-dowwnload.component.scss']
 })
-export class ThankuComponent implements OnInit {
+export class ThankuLetterDowwnloadComponent implements OnInit{
 
   public receiptNo: any;
   public message: any;
@@ -36,35 +37,9 @@ export class ThankuComponent implements OnInit {
     // this.startCountdown();
     // this.downloadPdf();
   }
-
   public getInvoiceHeaderById() {
-    this.receiptNo = this.route.snapshot.params['receiptNo']; // Changed router to route
-    
-    this.donationManagementService.getDonationListByReceiptNumber(this.receiptNo)
-      .subscribe({
-        next: (response: any) => {
-          console.log(response['responseCode']+" resqpnsw")
-          if (response['responseCode'] == '200') {
-            this.successMessageVisible = "Please Wait... Your Download will start in ";
-            this.countShow = true;
-            this.startCountdown();
-            setTimeout(() => {
-              this.downloadPdf();
-            }, 5000);
-
-          } else {
-            this.successMessageVisible = "Invalid Request. Contact to admin for details";
-            this.countShow = false;
-          }
-        },
-        error: (error: any) => this.toastr.error('Server Error', '500'),
-      });
-  }
-
-  public getInvoiceHeaderById1() {
-    // Get the 'receiptNo' from the query parameters
     this.route.queryParams.subscribe(params => {
-      this.receiptNo = params['receiptNo']; // Get the receiptNo from the query string
+      this.receiptNo = params['receiptNo']; 
 
       if (this.receiptNo) {
         this.donationManagementService.getDonationListByReceiptNumber(this.receiptNo)
@@ -76,7 +51,7 @@ export class ThankuComponent implements OnInit {
                 this.countShow = true;
                 this.startCountdown();
                 setTimeout(() => {
-                  this.downloadPdf();
+                  this.downloadPdf(this.receiptNo);
                 }, 5000);
               } else {
                 this.successMessageVisible = "Invalid Request. Contact the admin for details";
@@ -95,34 +70,21 @@ export class ThankuComponent implements OnInit {
   showSuccessMessage(): void {
     this.successMessageVisible = 'Thank You for Your Kind Donation';
     this.countShow = false;
-    // Hide the success message after a certain duration (e.g., 5 seconds)
-    // setTimeout(() => {
-    //   this.successMessageVisible = 'Wait';
-    // }, 5000); // 5 seconds (adjust as needed)
   }
 
-  // showErrorMessage(): void {
-  //   this.errorMessageVisible = true;
-  //   // Hide the error message after a certain duration (e.g., 5 seconds)
-  //   setTimeout(() => {
-  //     this.errorMessageVisible = false;
-  //   }, 5000); // 5 seconds (adjust as needed)
-  // }
 
-
-  downloadPdf(): void {
-    this.receiptNo = this.route.snapshot.params['receiptNo'];
-
-    this.donationManagementService.downloadPdf(this.receiptNo).subscribe(
+  downloadPdf(receiptNo:any): void {
+    // this.receiptNo = this.route.snapshot.params['receiptNo'];
+    console.log("receiptNo : "+receiptNo);
+    this.donationManagementService.downloadPdf(receiptNo).subscribe(
       (response: any) => {
         const filename = this.getFileNameFromHttpResponse(response);
+        console.log("filename : "+filename);
         this.saveFile(response.body, filename);
         this.showSuccessMessage();
       },
       error => {
         console.error('Error downloading PDF: ', error);
-        // this.showErrorMessage();
-        // Handle error (display message or perform other actions)
       }
     );
   }
@@ -146,8 +108,6 @@ export class ThankuComponent implements OnInit {
         this.countdownValue--;
       } else {
         clearInterval(this.countdownInterval); // Stop the countdown when it reaches 0
-        // Perform any action after countdown completes
-        // For example, trigger a function or perform a specific action
       }
     }, 1000); // Update countdown every 1 second (1000 milliseconds)
   }
@@ -164,6 +124,28 @@ export class ThankuComponent implements OnInit {
     
     return 'file.pdf'; // Default filename if header is null or filename not found
   }
+
+
+
+
+
+
+//   private getFileNameFromHttpResponse(response: HttpResponse<Blob>, url: string): string {
+//     const contentDispositionHeader = response.headers.get('Content-Disposition');
+    
+//     if (contentDispositionHeader !== null) {
+//         const matches = /filename="?([^"]+)"?;?/.exec(contentDispositionHeader);
+//         if (matches != null && matches[1]) {
+//             return matches[1];
+//         }
+//     }
+//     // Extract receiptNo from URL if present, otherwise default to 'file.pdf'
+//     const urlParams = new URL(url).searchParams;
+//     const receiptNo = urlParams.get('receiptNo');
+
+//     return receiptNo ? `invoice_${receiptNo}.pdf` : 'file.pdf';
+// }
+
 
 
 }

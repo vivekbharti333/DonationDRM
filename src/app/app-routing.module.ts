@@ -8,6 +8,7 @@ import { ThankuComponent } from './views/pages/thanku/thanku.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
 import { AuthGuard } from './views/gaurd/auth.guard';
+import { ThankuLetterDowwnloadComponent } from './views/pages/thanku-letter-dowwnload/thanku-letter-dowwnload.component';
 
 const routes: Routes = [
   {
@@ -150,11 +151,19 @@ const routes: Routes = [
     }
   },
   {
-    // path: 'receipt/:receiptNo',  http://localhost:4200/#/receipt?receiptNo=92204f0W489
-    path: 'receipt',
+    path: 'receipt/:receiptNo',  
+    //path: 'receipt',
     component: ThankuComponent,
     data: {
       title: 'Thankyou'
+    }
+  },
+
+  {
+    path: 'thanku',   //http://localhost:4200/#/invoice?receiptNo=92204f0W489
+    component: ThankuLetterDowwnloadComponent,
+    data: {
+      title: 'Thankyouletter'
     }
   },
   {

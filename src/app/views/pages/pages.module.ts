@@ -10,6 +10,7 @@ import { ButtonModule, CardModule, FormModule, GridModule } from '@coreui/angula
 import { IconModule } from '@coreui/icons-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThankuComponent } from './thanku/thanku.component';
+import { ThankuLetterDowwnloadComponent } from './thanku-letter-dowwnload/thanku-letter-dowwnload.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ThankuComponent } from './thanku/thanku.component';
     RegisterComponent,
     Page404Component,
     Page500Component,
-    ThankuComponent
+    ThankuComponent,
+    ThankuLetterDowwnloadComponent
   ],
   imports: [
     CommonModule,
