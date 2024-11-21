@@ -122,9 +122,10 @@
                     <ul cDropdownMenu>
                       <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
                       <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
+                      <li><button cDropdownItem type="button" (click)="sendInvoiceOnWahtsApp(donation)"><i class="fab fa-whatsapp"></i> Send Invoice</button></li>
                       <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
                     </ul>
-                  </c-dropdown>
+                  </c-dropdown>import WhatsAppIcon from '@mui/icons-material/WhatsApp';
                 </td>
             </tr>
           </tbody>
@@ -293,6 +294,7 @@
                     <ul cDropdownMenu>
                       <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
                       <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
+                      <li><button cDropdownItem type="button" (click)="sendInvoiceOnWahtsApp(donation)"><i class="material-icons">send</i> Send Invoice</button></li>
                       <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
                     </ul>
                   </c-dropdown>
