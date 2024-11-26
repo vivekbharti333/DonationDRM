@@ -74,8 +74,6 @@ export class DonationManagementService {
         createdBy = donationDetails.createdBy;
     }
 
-    alert(donationDetails.createdBy);
-
     let request: DonationDetailsRequest = {
       payload: {
         createdBy: donationDetails.createdBy,
@@ -87,6 +85,8 @@ export class DonationManagementService {
         panNumber: donationDetails.panNumber,
         programName: donationDetails.programName,
         amount: donationDetails.amount,
+        currency: donationDetails.currency,
+        currencyCode: donationDetails.currencyCode,
         transactionId: donationDetails.transactionId,
         paymentMode: donationDetails.paymentMode,
         notes: donationDetails.notes,
@@ -142,6 +142,16 @@ export class DonationManagementService {
       }
     };
     return this.http.post<DonationDetailsRequest>(Constant.Site_Url + "getDonationList", request);
+  }
+
+  getCurrencyDetailBySuperadmin(): Observable<any> {
+    let request: any = {
+      payload: {
+        token: this.loginUser['token'],
+        superadminId: this.loginUser['superadminId'],
+      }
+    };
+    return this.http.post<any>(Constant.Site_Url + "getCurrencyDetailsBySuperadmin", request);
   }
 
   getDonationListByRole(tabName:string, searchDetails:any): Observable<DonationDetailsRequest> {

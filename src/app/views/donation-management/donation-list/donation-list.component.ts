@@ -56,6 +56,7 @@ export class DonationListComponent {
 
   public selectedTeamLeaderLoginId: string;
   public userList: any;
+  public currencyList: any;
   public donationList: any[];
   public cols: any[];
   public isLoading = true;
@@ -101,6 +102,7 @@ export class DonationListComponent {
 
   ngOnInit() {
     this.getUserList();
+    this.getCurrencyDetailBySuperadmin();
     this.getTeamleaderList();
     this.getDonationList('TODAY');
     this.createForms();
@@ -171,9 +173,21 @@ export class DonationListComponent {
         next: (response: any) => {
           if (response['responseCode'] == '200') {
             this.userList = JSON.parse(JSON.stringify(response['listPayload']));
-           
           } else {
-           
+          }
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
+      });
+  }
+
+
+  public getCurrencyDetailBySuperadmin() {
+    this.donationManagementService.getCurrencyDetailBySuperadmin()
+      .subscribe({
+        next: (response: any) => {
+          if (response['responseCode'] == '200') {
+            this.currencyList = JSON.parse(JSON.stringify(response['listPayload']));
+          } else {
           }
         },
         error: (error: any) => this.toastr.error('Server Error', '500'),

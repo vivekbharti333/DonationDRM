@@ -239,4 +239,5 @@ removeUserParmanent(loginId: any): Observable<UserDetailsRequest> {
     };
     return this.http.post<UserDetailsRequest>(Constant.Site_Url + "getAddressDetails", request);
   }
+
 }

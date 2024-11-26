@@ -20,7 +20,8 @@ export class AddDonationComponent {
   public loginUser : any;
   public showFundrisingOfficerList: boolean = false;
 
-
+  public showCurrencyBox: boolean = false;
+  public currencyList: any;
   public fundRisingOffcerList: any;
   public invoiceTypeList: any;
   public invoiceType: any;
@@ -44,6 +45,7 @@ export class AddDonationComponent {
 
   ngOnInit() {
     this.createForms();
+    this.getCurrencyDetailBySuperadmin();
     this.getFundrisingOfficerByTeamLeaderId();
     this.getInvoiceTypeList();
     this.getDonationTypeList();
@@ -79,6 +81,8 @@ export class AddDonationComponent {
       panNumber: ['', [Validators.required, Validators.pattern("[0-9A-Za-z ]{3,150}")]],
       programName: [''],
       amount: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      currency: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      currencyCode: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       transactionId: ['', [Validators.required, Validators.pattern("[0-9A-Za-z ]{3,150}")]],
       paymentMode: ['', [Validators.required, Validators.pattern("[0-9A-Za-z ]{3,150}")]],
       notes: ['']
@@ -114,6 +118,26 @@ export class AddDonationComponent {
           error: (error: any) => this.toastr.error('Server Error', '500'),
         });
     }
+
+    
+
+  public getCurrencyDetailBySuperadmin() {
+    this.donationManagementService.getCurrencyDetailBySuperadmin()
+      .subscribe({
+        next: (response: any) => {
+          if (response['responseCode'] == '200') {
+            this.currencyList = JSON.parse(JSON.stringify(response['listPayload']));
+
+            if (this.currencyList.length > 1) {
+              this.showCurrencyBox = true;
+              this.addDonationForm.controls['currencyCode'].setValue(this.currencyList[0].currencyCode);
+            }
+          } else {
+          }
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
+      });
+  }
 
     public getFundrisingOfficerByTeamLeaderId() {
       this.donationManagementService.getFundrisingOfficerByTeamLeaderId()
@@ -179,6 +203,11 @@ export class AddDonationComponent {
       );
     }
 
+    setCurrency(rawData:any) {
+      const selectedCurrency = rawData['unicode'];
+      console.log('Selected Currency:', rawData.currencyCode, selectedCurrency);
+    }
+
   public saveDonationDetails() {
     this.isLoading = true;
     this.donationManagementService.saveDonationDetails(this.addDonationForm.value)
@@ -190,6 +219,7 @@ export class AddDonationComponent {
               console.log("ok hai")
               this.toastr.success(response['payload']['respMesg'], response['payload']['respCode']);
               this.addDonationForm.reset();
+              this.addDonationForm.controls['currencyCode'].setValue(this.currencyList[0].currencyCode);
               this.setValueInForm();
               this.isLoading = false;
               

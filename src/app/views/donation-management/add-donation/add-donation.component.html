@@ -69,10 +69,23 @@
                         </select>
 
                     </div>
-                    <div class="col-sm-3 form-group">
+                    <div class="col-sm-2 form-group">
                         <label class="form-label">Amount</label>
                         <input class="form-control" type="number" pInputText pKeyFilter="int" formControlName="amount"
                             maxlength="100">
+                    </div>
+                    <!-- <div class="col-sm-1 form-group">
+                        <label class="form-label">Currency</label>
+                        <select class="form-control" formControlName="currencyCode">
+                            <option *ngFor="let currency of currencyList" [ngValue]="currency.currencyCode">{{currency.currencyCode+" "+currency.unicode}}</option>
+                        </select>
+                    </div> -->
+
+                    <div class="col-sm-1 form-group" *ngIf="showCurrencyBox">
+                        <label class="form-label">Currency</label>
+                        <select class="form-control" formControlName="currencyCode" (change)="setCurrency($event)">
+                            <option *ngFor="let currency of currencyList" [ngValue]="currency">{{currency.currencyCode+" "+currency.unicode}}</option>
+                        </select>
                     </div>
 
                     <div class="col-sm-6 form-group">

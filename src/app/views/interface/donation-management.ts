@@ -14,6 +14,8 @@ export class DonationDetailsRequest {
         searchParam?: String;
         panNumber?: String;
         amount?: Number;
+        currency?:String;
+        currencyCode?: String;
         transactionId?: String;
         paymentMode?: String;
         paymentType?: String;
@@ -43,6 +45,8 @@ export class DonationDetails {
     address?: String;
     panNumber?: String;
     amount?: Number;
+    currency?:String;
+        currencyCode?: String;
     transactionId?: String;
     paymentMode?: String;
     paymentType?: String;
