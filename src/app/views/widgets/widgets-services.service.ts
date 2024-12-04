@@ -63,7 +63,6 @@ getStarTeamOfTheMonth(){
 }
 
 getDonationCountAndAmountGroupByName(tabName:string){
-
   let request: any = {
     payload: {
       requestedFor: tabName,
@@ -74,6 +73,20 @@ getDonationCountAndAmountGroupByName(tabName:string){
     }
   };
   return  this.http.post<any>(Constant.Site_Url+"getDonationCountAndAmountGroupByName",request);
+}
+
+
+getDonationCountAndAmountGroupByCurrency(tabName:string){
+  let request: any = {
+    payload: {
+      requestedFor: tabName,
+      roleType: this.loginUser['roleType'],
+      token: this.loginUser['token'],
+      createdBy: this.loginUser['loginId'],
+      superadminId: this.loginUser['superadminId'],
+    }
+  };
+  return  this.http.post<any>(Constant.Site_Url+"getDonationCountAndAmountGroupByCurrency",request);
 }
 
 getDonationPaymentModeCountAndAmountGroupByName(tabName:string){

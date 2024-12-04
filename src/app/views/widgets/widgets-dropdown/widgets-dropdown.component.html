@@ -63,48 +63,30 @@
   </c-col>
 </c-row>
 
-<div class="row">
+ <div class="row">
   <div class="col-2">
-    <div >
+    <div>
       <img src="assets/img/star/star.png" class="startbg">
-      <!-- <img src="https://www.w3schools.com/howto/img_avatar.png" class="starimage"> -->
       <div class="starname">
         <h5>{{starfundrisingofficer}}</h5>
-         <!-- <small>(for {{previousMonthName}})</small>  -->
-      </div> 
-      <!-- <div class="slideshow-container">
-        <div *ngFor="let slide of slides; let i = index" class="mySlides" [ngStyle]="{ 'display': slideIndex === i + 1 ? 'block' : 'none' }">
-          <div class="numbertext">{{ i + 1 }} / {{ slides.length }}</div>
-          <img [src]="slide.image" style="width:100%">
-          <div class="text">{{ slide.caption }}</div>
-        </div>
-      
-        <a class="prev" (click)="plusSlides(-1)">❮</a>
-        <a class="next" (click)="plusSlides(1)">❯</a>
-      </div> -->
-    
-      
-      <!-- <div style="text-align:center">
-        <span *ngFor="let slide of slides; let i = index" class="dot" [ngClass]="{ 'active': slideIndex === i + 1 }" (click)="currentSlide(i + 1)"></span> 
-      </div> -->
+      </div>
     </div>
   </div>
   <div class="col-2 container">
-    <div >
+    <div>
       <img src="assets/img/star/star-team.png" class="startbg">
-      <!-- <img src="https://www.w3schools.com/howto/img_avatar.png" class="starimage"> -->
       <div class="starname">
         <h5>{{starfundrisingofficer}}</h5>
-         <!-- <small>(for {{previousMonthName}})</small>  -->
-      </div> 
-      
+      </div>
+
     </div>
   </div>
   <div class="col-8">
-    <div id="curve_chart" style="width: 100%; height: 280px"></div>  
+    <div id="curve_chart" style="width: 100%; height: 280px"></div>
   </div>
-</div>
-<p></p><p></p>
+</div> 
+<p></p>
+<p></p>
 
 <div *ngIf="isSuperadmin">
   <div class="row">
@@ -112,8 +94,10 @@
       <c-card>
         <div class="tab">
           <button class="tablinks" (click)="openDetails('TODAY')" [class.active]="isTabActive('TODAY')">Today</button>
-          <button class="tablinks" (click)="openDetails('YESTERDAY')" [class.active]="isTabActive('YESTERDAY')">Yesterday</button>
-          <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">{{ currentMonthName }}</button>
+          <button class="tablinks" (click)="openDetails('YESTERDAY')"
+            [class.active]="isTabActive('YESTERDAY')">Yesterday</button>
+          <button class="tablinks" (click)="openDetails('MONTH')" [class.active]="isTabActive('MONTH')">{{
+            currentMonthName }}</button>
         </div>
         <div class="table-container" style="padding: 20px;">
           <table class="table table-sm">
@@ -132,7 +116,8 @@
                     {{FRToday[0]}}
                   </ng-container>
                   <ng-template #otherImage>
-                    <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" size="lg" width="30px" height="30px">
+                    <img src="https://www.shareicon.net/data/128x128/2016/05/24/770117_people_512x512.png" size="lg"
+                      width="30px" height="30px">
                     {{FRToday[0]}}
                   </ng-template>
                 </td>
@@ -144,12 +129,15 @@
         </div>
       </c-card>
     </div>
-    <div class="col-6">
+    <div class="col-3">
       <c-card>
         <div class="tab">
-          <button class="tablinks" (click)="openPaymentDetails('TODAY')" [class.active]="isPaymentTabActive('TODAY')">Today</button>
-          <button class="tablinks" (click)="openPaymentDetails('YESTERDAY')" [class.active]="isPaymentTabActive('YESTERDAY')">Yesterday</button>
-          <button class="tablinks" (click)="openPaymentDetails('MONTH')" [class.active]="isPaymentTabActive('MONTH')">{{ currentMonthName }}</button>
+          <button class="tablinks" (click)="openPaymentDetails('TODAY')"
+            [class.active]="isPaymentTabActive('TODAY')">Today</button>
+          <button class="tablinks" (click)="openPaymentDetails('YESTERDAY')"
+            [class.active]="isPaymentTabActive('YESTERDAY')">Yesterday</button>
+          <button class="tablinks" (click)="openPaymentDetails('MONTH')" [class.active]="isPaymentTabActive('MONTH')">{{
+            currentMonthName }}</button>
         </div>
         <div class="table-container" style="padding: 20px;">
           <table class="table">
@@ -164,15 +152,44 @@
               <tr *ngFor="let PaymentModeCountAmount of PaymentModeCountAmount">
                 <td>{{PaymentModeCountAmount[0]}}</td>
                 <td>{{PaymentModeCountAmount[1]}}</td>
-                <td>₹ {{PaymentModeCountAmount[2]}}</td>
+                <td>{{PaymentModeCountAmount[2]}} {{PaymentModeCountAmount[3]}}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </c-card>
     </div>
+
+    <div class="col-3">
+      <c-card>
+        <div class="tab">
+          <button class="tablinks" (click)="openCurrencyDetails('TODAY')"
+            [class.active]="isCurrencyTabActive('TODAY')">Today</button>
+          <button class="tablinks" (click)="openCurrencyDetails('YESTERDAY')"
+            [class.active]="isCurrencyTabActive('YESTERDAY')">Yesterday</button>
+          <button class="tablinks" (click)="openCurrencyDetails('MONTH')"
+            [class.active]="isCurrencyTabActive('MONTH')">{{ currentMonthName }}</button>
+        </div>
+        <div class="table-container" style="padding: 20px;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Currency</th>
+                <th scope="col">Count</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr *ngFor="let currencyType of currencyType">
+                <td>{{currencyType[0]}}</td>
+                <td>{{currencyType[2]}}</td>
+                <td>{{currencyType[1]}} {{currencyType[3]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </c-card>
+    </div>
+
   </div>
 </div>
-
-
-

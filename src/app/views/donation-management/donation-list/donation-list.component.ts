@@ -502,7 +502,7 @@ export class DonationListComponent {
  sendInvoiceOnWahtsApp(rawData:any){
   // var url = "https://api.whatsapp.com/send?phone=919876543210&text=Hello%20there%2C%20how%20are%20you%3F";
 
-  var msg = "We have received donation of Rs "+rawData['amount']+" Click to to downloadyour receipt https://mydonation.co.in/#/thanku?receiptNo="+rawData['receiptNumber']
+  var msg = "We have received donation of Rs "+rawData['amount']+" Click to to download your receipt https://mydonation.co.in//thanku?receiptNo="+rawData['receiptNumber']
 
   var url = "https://api.whatsapp.com/send?phone="+rawData['mobileNumber']+"&text="+msg;
   console.log("url : "+url);

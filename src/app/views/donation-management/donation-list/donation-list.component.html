@@ -51,7 +51,7 @@
             <tr>
               <th>Name</th>
               <th>Mobile No.</th>
-              <th>Amount</th>
+              <th>Amount (Currency)</th>
               <!-- <th>Transaction id</th> -->
               <th>Payment Mode</th>
               <th>Received By</th>
@@ -70,7 +70,7 @@
               *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
               <td>{{ donation.donorName }}</td>
               <td>{{ donation.mobileNumber }}</td>
-              <td>{{ donation.amount }} {{ donation.lastName }}</td>
+              <td>{{ donation.amount }} {{ donation.currencyCode }}</td>
               <!-- <td>{{ donation.transactionId }}</td> -->
               <td>{{ donation.paymentMode }}</td>
               <td>{{ donation.createdbyName }}</td>
@@ -122,10 +122,12 @@
                     <ul cDropdownMenu>
                       <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
                       <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
-                      <li><button cDropdownItem type="button" (click)="sendInvoiceOnWahtsApp(donation)"><i class="fab fa-whatsapp"></i> Send Invoice</button></li>
+                      <li><button cDropdownItem type="button" (click)="sendInvoiceOnWahtsApp(donation)"><span class="material-icons">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 24px; height: 24px; vertical-align: middle;">
+                    </span> Send Invoice</button></li>
                       <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
                     </ul>
-                  </c-dropdown>import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+                  </c-dropdown>
                 </td>
             </tr>
           </tbody>
@@ -162,7 +164,7 @@
             <tr>
               <th>Name</th>
               <th>Mobile No.</th>
-              <th>Amount</th>
+              <th>Amount (Currency)</th>
               <!-- <th>Transaction id</th> -->
               <th>Payment Mode</th>
               <th>Received By</th>
@@ -180,7 +182,7 @@
               *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
               <td>{{ donation.donorName }}</td>
               <td>{{ donation.mobileNumber }}</td>
-              <td>{{ donation.amount }} {{ donation.lastName }}</td>
+              <td>{{ donation.amount }} {{ donation.currencyCode }}</td>
               <!-- <td>{{ donation.transactionId }}</td> -->
               <td>{{ donation.paymentMode }}</td>
               <td>{{ donation.createdbyName }}</td>
@@ -207,6 +209,9 @@
                   <ul cDropdownMenu>
                     <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
                     <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
+                    <li><button cDropdownItem type="button" (click)="sendInvoiceOnWahtsApp(donation)"><span class="material-icons">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 24px; height: 24px; vertical-align: middle;">
+                  </span> Send Invoice</button></li>
                     <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
                   </ul>
                 </c-dropdown>
@@ -248,8 +253,7 @@
             <tr>
               <th>Name</th>
               <th>Mobile No.</th>
-              <th>Amount</th>
-              <!-- <th>Transaction id</th> -->
+              <th>Amount (Currency)</th>
               <th>Payment Mode</th>
               <th>Received By</th>
               <th>Invoice For</th>
@@ -266,8 +270,7 @@
               *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
               <td>{{ donation.donorName }}</td>
               <td>{{ donation.mobileNumber }}</td>
-              <td>{{ donation.amount }} {{ donation.lastName }}</td>
-              <!-- <td>{{ donation.transactionId }}</td> -->
+              <td>{{ donation.amount }} {{ donation.currencyCode }}</td>
               <td>{{ donation.paymentMode }}</td>
               <td>{{ donation.createdbyName }}</td>
               <td>{{ donation.invoiceHeaderName }}</td>
@@ -294,7 +297,9 @@
                     <ul cDropdownMenu>
                       <li><button cDropdownItem type="button" (click)="editDonationPopup(donation)"><i class="material-icons">edit</i> Edit</button></li>
                       <li><button cDropdownItem type="button" (click)="downloadInvoice(donation.receiptNumber)"><i class="material-icons">cloud_download</i> Download Invoice</button></li>
-                      <li><button cDropdownItem type="button" (click)="sendInvoiceOnWahtsApp(donation)"><i class="material-icons">send</i> Send Invoice</button></li>
+                      <li><button cDropdownItem type="button" (click)="sendInvoiceOnWahtsApp(donation)"><span class="material-icons">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 24px; height: 24px; vertical-align: middle;">
+                    </span> Send Invoice</button></li>
                       <li *ngIf="isSuperadmin"><button cDropdownItem type="button" (click)="cancelConfirmationPopup(donation.id)"><i class="material-icons">cancel</i> Cancel</button></li>
                     </ul>
                   </c-dropdown>
@@ -362,7 +367,7 @@
             <tr>
               <th>Name</th>
               <th>Mobile No.</th>
-              <th>Amount</th>
+              <th>Amount (Currency)</th>
               <!-- <th>Transaction id</th> -->
               <th>Payment Mode</th>
               <th>Received By</th>
@@ -380,7 +385,7 @@
               *ngFor=" let donation of donationList | paginate : { itemsPerPage: tableSize, currentPage: page, totalItems: count }; let i = index">
               <td>{{ donation.donorName }}</td>
               <td>{{ donation.mobileNumber }}</td>
-              <td>{{ donation.amount }} {{ donation.lastName }}</td>
+              <td>{{ donation.amount }} {{ donation.currencyCode }}</td>
               <!-- <td>{{ donation.transactionId }}</td> -->
               <td>{{ donation.paymentMode }}</td>
               <td>{{ donation.createdbyName }}</td>
@@ -539,10 +544,6 @@
                         <option *ngFor="let payModOpt of paymentModeOption">{{payModOpt}}</option>
                       </select>
                     </div> 
-                    <!-- <div class="col-sm-6 form-group">
-                      <label class="form-label">requestFor</label>
-                      <input class="form-control" type="text" pInputText formControlName="requestFor" maxlength="100">
-                  </div> -->
                   </div>
 
                   <div class="row">
@@ -552,8 +553,6 @@
                         placeholder="Write Notes.."></textarea>
                     </div>
                   </div>
-
-
 
                   <div class="submit-button">
                     <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
@@ -574,35 +573,4 @@
 
 
 
-    <!-- <div class="row">
-          <div class="col-2">
-            <label> Download In Excel</label>
-            <br>
-            <button mat-raised-button class="btn btn-warning">
-              <img src="{}" width="24">Export Report
-            </button>
-          </div>
-          <div class="col-2">
-            <label> Choose user</label>
-            <br>
-            <select class="form-control" [(ngModel)]="selectedLoginId" name="loginId">
-              <option [ngValue]="null">Choose User</option>
-              <option *ngFor="let payModOpt of userList" [ngValue]="payModOpt.loginId">{{payModOpt.firstName}}</option>
-            </select>
-
-
-          </div>
-          <div class="col-sm-2">
-            <label> From</label>
-            <input class="form-control" pInputText type="date" #firstDate>
-          </div>
-          <div class="col-sm-2">
-            <label> To </label>
-            <input class="form-control" pInputText type="date" #lastDate>
-
-          </div>
-          <div class="col-sm-1">
-            <br>
-            <button type="submit" mat-raised-button class="btn btn-warning" (click)="getDonationListByDate('',firstDate.value,lastDate.value)" style="margin-top: 8px; margin-left: 0px;">Search</button> 
-          </div>
-        </div> -->
+    

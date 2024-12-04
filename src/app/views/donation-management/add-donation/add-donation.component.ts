@@ -52,7 +52,7 @@ export class AddDonationComponent {
     this.getPaymentModeList();
     this.setValueInForm();
     this.checkRoleType();
-    this.getCurrentLocation();
+    // this.getCurrentLocation();
     this.getClientIpAddress(); 
   }
 
@@ -130,8 +130,9 @@ export class AddDonationComponent {
 
             if (this.currencyList.length > 1) {
               this.showCurrencyBox = true;
-              this.addDonationForm.controls['currencyCode'].setValue(this.currencyList[0].currencyCode);
+              
             }
+            this.addDonationForm.controls['currencyCode'].setValue(this.currencyList[0].currencyCode);
           } else {
           }
         },
@@ -191,7 +192,7 @@ export class AddDonationComponent {
     }
 
     getClientIpAddress() {
-      const url = 'https://datafusionlab.co.in:8080/mycrm/test';
+      const url = Constant.Site_Url+'test';
       this.http.get(url).subscribe(
         (response) => {
           console.log('Response from API:', response);
@@ -244,34 +245,34 @@ export class AddDonationComponent {
       });
   }
 
-  getCurrentLocation() {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            if (position) {
-              console.log(
-                'Latitude: ' +
-                  position.coords.latitude +
-                  'Longitude: ' +
-                  position.coords.longitude
-              );
-              let lat = position.coords.latitude;
-              let lng = position.coords.longitude;
+  // getCurrentLocation() {
+  //   return new Promise((resolve, reject) => {
+  //     if (navigator.geolocation) {
+  //       navigator.geolocation.getCurrentPosition(
+  //         (position) => {
+  //           if (position) {
+  //             console.log(
+  //               'Latitude: ' +
+  //                 position.coords.latitude +
+  //                 'Longitude: ' +
+  //                 position.coords.longitude
+  //             );
+  //             let lat = position.coords.latitude;
+  //             let lng = position.coords.longitude;
 
-              const location = {
-                lat,
-                lng,
-              };
-              resolve(location);
-            }
-          },
-          (error) => console.log(error)
-        );
-      } else {
-        reject('Geolocation is not supported by this browser.');
-      }
-    });
-  }
+  //             const location = {
+  //               lat,
+  //               lng,
+  //             };
+  //             resolve(location);
+  //           }
+  //         },
+  //         (error) => console.log(error)
+  //       );
+  //     } else {
+  //       reject('Geolocation is not supported by this browser.');
+  //     }
+  //   });
+  // }
 
 }

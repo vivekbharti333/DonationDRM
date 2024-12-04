@@ -43,6 +43,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
   public validityExpireOn: any;
 
   public FRToday: any;
+  public currencyType: any;
   public star: any;
   public starfundrisingofficer: string = '';
   public starTeam: string;
@@ -50,6 +51,7 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
   // public FRcount: any;
   // public FRAmount: any;
 
+  currencyActiveTab: string = 'TODAY';
   activeTab: string = 'TODAY';
   paymentActiveTab: string = 'TODAY';
 
@@ -82,8 +84,10 @@ export class WidgetsDropdownComponent implements OnInit, AfterContentInit {
     this.starfundrisingofficer = 'Initial Officer';
     this.showSlides(this.slideIndex);
     this.getCountAndSum();
+    // this.drawPieHoleChart();
     this.getStarFundrisingOfficerOfTheMonth();
     this.getStarTeamOfTheMonth();
+    this.getDonationCountAndAmountGroupByCurrency("TODAY");
     this.getDonationCountAndAmountGroupByName("TODAY");
     this.getDonationPaymentModeCountAndAmountGroupByName("TODAY");
     // this.setData();
@@ -152,7 +156,7 @@ this.previousMonthName = months[previousMonthIndex];
   drawChart() {
     var data = google.visualization.arrayToDataTable(
       [
-    ['Payment mode', 'Count', 'Amount'], // Add column headers if necessary
+    ['Payment mode', 'Count', 'Amount', 'gh'], // Add column headers if necessary
     ...this.PaymentModeCountAmount
     ]
     
@@ -191,6 +195,15 @@ this.previousMonthName = months[previousMonthIndex];
     this.diffInDays = Math.floor(diffInMs / msInDay);
 
     return this.diffInDays;
+  }
+
+  openCurrencyDetails(tabName: string) {
+    this.getDonationCountAndAmountGroupByCurrency(tabName);
+    this.currencyActiveTab = tabName;
+  }
+
+  isCurrencyTabActive(tabName: string): boolean {
+    return this.currencyActiveTab === tabName;
   }
 
   openDetails(tabName: string) {
@@ -272,6 +285,28 @@ this.previousMonthName = months[previousMonthIndex];
       });
   }
 
+  getDonationCountAndAmountGroupByCurrency(tabName: string) {
+    this.currencyType= null;
+    this.widgetsServices.getDonationCountAndAmountGroupByCurrency(tabName)
+      .subscribe({
+        next: (response: any) => {
+            if (response['responseCode'] == '200') {
+              let currency = response['listPayload'];
+              for(var i=0; i< currency.length; i++){
+                this.currencyType = currency;
+              }
+              // this.drawChart();
+            } else {
+              // this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
+            }
+          // } else {
+          //   this.toastr.error(response['responseMessage'], response['responseCode']);
+          // }
+        },
+        error: (error: any) => this.toastr.error('Server Error', '500'),
+      });
+  }
+
   getDonationCountAndAmountGroupByName(tabName: string) {
     this.FRToday= null;
     this.widgetsServices.getDonationCountAndAmountGroupByName(tabName)
@@ -282,7 +317,7 @@ this.previousMonthName = months[previousMonthIndex];
               for(var i=0; i< frtoday.length; i++){
                 this.FRToday = frtoday;
               }
-              // this.drawChart();
+              this.drawChart();
             } else {
               // this.toastr.error(response['payload']['respMesg'], response['payload']['respCode']);
             }
