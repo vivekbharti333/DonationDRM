@@ -47,8 +47,6 @@ removeUserParmanent(loginId: any): Observable<UserDetailsRequest> {
   saveUserDetails(userDetails: any): Observable<UserDetailsRequest> {
     this.loginId = localStorage.getItem('loginId');
     this.superadminId = localStorage.getItem('superadminId');
-
-    console.log("1 : "+userDetails.createdBy);
     var creatBy ="";
     if(userDetails.roleType === Constant.fundraisingOfficer){
       creatBy = userDetails.createdBy;

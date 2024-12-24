@@ -137,9 +137,8 @@ export class AddUserComponent {
           if (response['responseCode'] == '200') {
             this.userList = JSON.parse(JSON.stringify(response['listPayload']));
             console.log(this.userList)
-           // this.toastr.success(response['responseMessage'], response['responseCode']);
           } else {
-            //this.toastr.error(response['responseMessage'], response['responseCode']);
+            
           }
         },
         error: (error: any) => this.toastr.error('Server Error', '500'),

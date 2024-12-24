@@ -3,173 +3,180 @@
         <div class="add-user-main-header">Create User</div>
 
         <div *ngIf="isLoading; else dataContent">
-        
+
             <div class="loader">
-              <!-- <c-spinner color="primary"></c-spinner> -->
-              <div class="spinner"></div>
-              <img src="assets/img/brand/logo.png" alt="Loading..." />
+                <!-- <c-spinner color="primary"></c-spinner> -->
+                <div class="spinner"></div>
+                <img src="assets/img/brand/logo.png" alt="Loading..." />
             </div>
-            
-          </div>
-          
-          <ng-template #dataContent>
+
+        </div>
+
+        <ng-template #dataContent>
 
             <div class="inner-header">Basic Details</div>
             <div class="scrollable-container">
-        <form [formGroup]="addUserForm" (ngSubmit)="saveUserDetails()">
+                <form [formGroup]="addUserForm" (ngSubmit)="saveUserDetails()">
 
-            <div class="row">
-                <div class="col-sm-4 form-group">
-                    <label class="form-label">Photo</label>
-                    <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*">
-                </div>
-                <div class="col-sm-4 form-group" *ngIf="isMainAdmin">
-                    <label class="form-label">Services Type</label>
-                    <select class="form-control" formControlName="service">
-                        <option aria-readonly="true">Select Service Type</option>
-                        <option *ngFor="let services of serviceType">{{services}}</option>
-                    </select>
-                </div>
-
-                <div class="col-sm-4 form-group" *ngIf="isMainAdmin">
-                    <label class="form-label">Role Type</label>
-                    <select class="form-control" formControlName="roleType">
-                        <option aria-readonly="true">Select Role Type</option>
-                        <option *ngFor="let member of roleTypeForMainAdmin">{{member}}</option>
-                    </select>
-                </div>
-            <div class="col-sm-4 form-group" *ngIf="isSuperadmin">
-                <label class="form-label">Role Type</label>
-                <select class="form-control" formControlName="roleType">
-                    <option aria-readonly="true">Select Role Type</option>
-                    <option *ngFor="let member of roleTypeForSuperadmin">{{member}}</option>
-                </select>
-            </div>
-            <div class="col-sm-4 form-group" *ngIf="isAdmin">
-                <label class="form-label">Role Type</label>
-                <select class="form-control" formControlName="roleType">
-                    <option aria-readonly="true">Select Role Type</option>
-                    <option *ngFor="let member of roleTypeForAdmin">{{member}}</option>
-                </select>
-            </div>
-            <div class="col-sm-4 form-group" *ngIf="isTeamLeader">
-                <label class="form-label">Role Type</label>
-                <select class="form-control" formControlName="roleType">
-                    <option aria-readonly="true">Select Role Type</option>
-                    <option *ngFor="let member of roleTypeFoManager">{{member}}</option>
-                </select>
-                
-            </div>
-
-            <div class="col-sm-4 form-group">
-                <label class="form-label">Team Leader</label>
-                <select class="form-control" formControlName="createdBy">
-                    <option [ngValue]="null">Select Teamleader</option>
-                    <!-- <option selected disabled>Select Teamleader</option> -->
-                    <option *ngFor="let teamleader of userList" [ngValue]="teamleader.loginId">{{teamleader.firstName + ' ' + teamleader.lastName}}</option>
-                </select>
-            </div>
-            </div>
-
-            <div class="row">  
-                <div class="col-sm-4 form-group">
-                    <label class="form-label">First Name</label>
-                    <input class="form-control" type="text" pInputText formControlName="firstName" maxlength="100">
-                </div>
-                <div class="col-sm-4 form-group">
-                    <label class="form-label">Last Name</label>
-                    <input class="form-control" pInputText type="text" formControlName="lastName" maxlength="50">
-                </div>
-                
-                <div class="col-sm-4 form-group">
-                    <label class="form-label">Date of birth</label>
-                    <input class="form-control" pInputText type="date" formControlName="dob">
-                </div>
-               
-
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4 form-group">
-                    <label class="form-label">Mobile No</label>
-                    <input class="form-control" pInputText type="text" formControlName="mobileNo" pattern="[0-9]*" maxlength="13">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                    <label class="form-label">Whats App No</label>
-                    <input class="form-control" pInputText type="text" formControlName="alternateMobile" pattern="[0-9]*" maxlength="13">
-                </div>
-                <div class="col-sm-4 form-group">
-                    <label class="form-label">Email Id</label>
-                    <input class="form-control" type="text" formControlName="emailId" maxlength="50">
-                </div>
-            </div>
-
-
-            <div formArrayName="addressList">
-                <div *ngFor="let address of addressList.controls; let i=index">
-                    <div [formGroupName]="i">
-                        <div class="inner-header" *ngIf="i === 0 ">Current Address</div>
-                        <div class="inner-header" *ngIf="i === 1">Parmanent Address</div>
-
-                        <div class="row">
-                            <input class="form-control" *ngIf="i === 0" type="text" [(ngModel)]="currentAddressType" formControlName="addressType" hidden>
-                            <input class="form-control" *ngIf="i === 1" type="text" [(ngModel)]="parmanentAddressType" formControlName="addressType" hidden>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label class="form-label">Photo</label>
+                            <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*">
+                        </div>
+                        <div class="col-sm-4 form-group" *ngIf="isMainAdmin">
+                            <label class="form-label">Services Type</label>
+                            <select class="form-control" formControlName="service">
+                                <option aria-readonly="true">Select Service Type</option>
+                                <option *ngFor="let services of serviceType">{{services}}</option>
+                            </select>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-6 form-group">
-                                <label class="form-label">Address </label>
-                                <input class="form-control" type="text" pInputText formControlName="addressLine"
-                                    maxlength="100">
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                <label class="form-label">Landmark</label>
-                                <input class="form-control" type="text" pInputText formControlName="landmark"
-                                    maxlength="100">
-                            </div>
+                        <div class="col-sm-4 form-group" *ngIf="isMainAdmin">
+                            <label class="form-label">Role Type</label>
+                            <select class="form-control" formControlName="roleType">
+                                <option aria-readonly="true">Select Role Type</option>
+                                <option *ngFor="let member of roleTypeForMainAdmin">{{member}}</option>
+                            </select>
                         </div>
-
-                        <div class="row">
-                            <div class="col-sm-2 form-group">
-                                <label class="form-label">District</label>
-                                <input class="form-control" pInputText type="text" formControlName="district"
-                                    maxlength="50">
-                            </div>
-                            <div class="col-sm-2 form-group">
-                                <label class="form-label">City</label>
-                                <input class="form-control" pInputText type="text" formControlName="city"
-                                    maxlength="50">
-                            </div>
-                            <div class="col-sm-2 form-group">
-                                <label class="form-label">State</label>
-                                <input class="form-control" pInputText type="text" formControlName="state"
-                                    maxlength="50">
-                            </div>
-                            <div class="col-sm-2 form-group">
-                                <label class="form-label">Country</label>
-                                <input class="form-control" pInputText type="text" formControlName="country"
-                                    maxlength="50" readonly>
-                            </div>
-                            <div class="col-sm-2 form-group">
-                                <label class="form-label">Pincode</label>
-                                <input class="form-control" pInputText type="text" formControlName="pincode"
-                                    maxlength="50">
-                            </div>
+                        <div class="col-sm-4 form-group" *ngIf="isSuperadmin">
+                            <label class="form-label">Role Type</label>
+                            <select class="form-control" formControlName="roleType">
+                                <option aria-readonly="true">Select Role Type</option>
+                                <option *ngFor="let member of roleTypeForSuperadmin">{{member}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 form-group" *ngIf="isAdmin">
+                            <label class="form-label">Role Type</label>
+                            <select class="form-control" formControlName="roleType">
+                                <option aria-readonly="true">Select Role Type</option>
+                                <option *ngFor="let member of roleTypeForAdmin">{{member}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4 form-group" *ngIf="isTeamLeader">
+                            <label class="form-label">Role Type</label>
+                            <select class="form-control" formControlName="roleType">
+                                <option aria-readonly="true">Select Role Type</option>
+                                <option *ngFor="let member of roleTypeFoManager">{{member}}</option>
+                            </select>
 
                         </div>
-                        <!-- <button type="button" class="btn btn-danger btn-close" (click)="removeItem(i)" aria-label="Close"></button> -->
+
+                        <div class="col-sm-4 form-group">
+                            <label class="form-label">Team Leader</label>
+                            <select class="form-control" formControlName="createdBy">
+                                <option [ngValue]="null">Select Teamleader</option>
+                                <!-- <option selected disabled>Select Teamleader</option> -->
+                                <option *ngFor="let teamleader of userList" [ngValue]="teamleader.loginId">
+                                    {{teamleader.firstName + ' ' + teamleader.lastName}}</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- <button type="button" class="btn btn-info" (click)="addItem()">Add row</button> -->
-            <br>
 
-            <div class="submit-button">
-                <button class="btn btn-primary" type="submit">Submit</button>
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label class="form-label">First Name</label>
+                            <input class="form-control" type="text" pInputText formControlName="firstName"
+                                maxlength="100">
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label class="form-label">Last Name</label>
+                            <input class="form-control" pInputText type="text" formControlName="lastName"
+                                maxlength="50">
+                        </div>
+
+                        <div class="col-sm-4 form-group">
+                            <label class="form-label">Date of birth</label>
+                            <input class="form-control" pInputText type="date" formControlName="dob">
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <label class="form-label">Mobile No</label>
+                            <input class="form-control" pInputText type="text" formControlName="mobileNo"
+                                pattern="[0-9]*" maxlength="13">
+                        </div>
+
+                        <div class="col-sm-4 form-group">
+                            <label class="form-label">Whats App No</label>
+                            <input class="form-control" pInputText type="text" formControlName="alternateMobile"
+                                pattern="[0-9]*" maxlength="13">
+                        </div>
+                        <div class="col-sm-4 form-group">
+                            <label class="form-label">Email Id</label>
+                            <input class="form-control" type="text" formControlName="emailId" maxlength="50">
+                        </div>
+                    </div>
+
+
+                    <div formArrayName="addressList">
+                        <div *ngFor="let address of addressList.controls; let i=index">
+                            <div [formGroupName]="i">
+                                <div class="inner-header" *ngIf="i === 0 ">Current Address</div>
+                                <div class="inner-header" *ngIf="i === 1">Parmanent Address</div>
+
+                                <div class="row">
+                                    <input class="form-control" *ngIf="i === 0" type="text"
+                                        [(ngModel)]="currentAddressType" formControlName="addressType" hidden>
+                                    <input class="form-control" *ngIf="i === 1" type="text"
+                                        [(ngModel)]="parmanentAddressType" formControlName="addressType" hidden>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6 form-group">
+                                        <label class="form-label">Address </label>
+                                        <input class="form-control" type="text" pInputText formControlName="addressLine"
+                                            maxlength="100">
+                                    </div>
+                                    <div class="col-sm-6 form-group">
+                                        <label class="form-label">Landmark</label>
+                                        <input class="form-control" type="text" pInputText formControlName="landmark"
+                                            maxlength="100">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2 form-group">
+                                        <label class="form-label">District</label>
+                                        <input class="form-control" pInputText type="text" formControlName="district"
+                                            maxlength="50">
+                                    </div>
+                                    <div class="col-sm-2 form-group">
+                                        <label class="form-label">City</label>
+                                        <input class="form-control" pInputText type="text" formControlName="city"
+                                            maxlength="50">
+                                    </div>
+                                    <div class="col-sm-2 form-group">
+                                        <label class="form-label">State</label>
+                                        <input class="form-control" pInputText type="text" formControlName="state"
+                                            maxlength="50">
+                                    </div>
+                                    <div class="col-sm-2 form-group">
+                                        <label class="form-label">Country</label>
+                                        <input class="form-control" pInputText type="text" formControlName="country"
+                                            maxlength="50" readonly>
+                                    </div>
+                                    <div class="col-sm-2 form-group">
+                                        <label class="form-label">Pincode</label>
+                                        <input class="form-control" pInputText type="text" formControlName="pincode"
+                                            maxlength="50">
+                                    </div>
+
+                                </div>
+                                <!-- <button type="button" class="btn btn-danger btn-close" (click)="removeItem(i)" aria-label="Close"></button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <button type="button" class="btn btn-info" (click)="addItem()">Add row</button> -->
+                    <br>
+
+                    <div class="submit-button">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-          </ng-template>
+        </ng-template>
     </div>
 </c-card>
