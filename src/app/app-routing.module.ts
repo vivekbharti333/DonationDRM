@@ -160,7 +160,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'thanku',   //http://localhost:4200/#/invoice?receiptNo=92204f0W489
+    path: 'thanku',   //http://localhost:4200/#/thanku?receiptNo=92204f0W489
     component: ThankuLetterDowwnloadComponent,
     data: {
       title: 'Thankyouletter'

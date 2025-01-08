@@ -38,8 +38,10 @@ export class ThankuComponent implements OnInit {
   }
 
   public getInvoiceHeaderById() {
-    this.receiptNo = this.route.snapshot.params['receiptNo']; // Changed router to route
+
+
     
+    this.receiptNo = this.route.snapshot.params['receiptNo']; // Changed router to route
     this.donationManagementService.getDonationListByReceiptNumber(this.receiptNo)
       .subscribe({
         next: (response: any) => {

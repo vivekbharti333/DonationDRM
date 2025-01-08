@@ -2,8 +2,8 @@ export class Constant {
 
     // public static Site_Url = "https://datfuslab.in/drmapi/";  
     // public static Site_Url = "http://192.168.29.119:8080/mycrm/";
-    public static Site_Url = "http://localhost/mycrm/";
-    // public static Site_Url = "https://datfuslab.in/mycrm/";
+    // public static Site_Url = "http://localhost/mycrm/";
+    public static Site_Url = "https://datfuslab.in/mycrm/";
 
 
     // USER ROLE

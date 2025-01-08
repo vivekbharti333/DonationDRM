@@ -38,9 +38,9 @@ export class ThankuLetterDowwnloadComponent implements OnInit{
     // this.downloadPdf();
   }
   public getInvoiceHeaderById() {
+   
     this.route.queryParams.subscribe(params => {
       this.receiptNo = params['receiptNo']; 
-
       if (this.receiptNo) {
         this.donationManagementService.getDonationListByReceiptNumber(this.receiptNo)
           .subscribe({
@@ -124,28 +124,5 @@ export class ThankuLetterDowwnloadComponent implements OnInit{
     
     return 'file.pdf'; // Default filename if header is null or filename not found
   }
-
-  
-
-
-
-
-//   private getFileNameFromHttpResponse(response: HttpResponse<Blob>, url: string): string {
-//     const contentDispositionHeader = response.headers.get('Content-Disposition');
-    
-//     if (contentDispositionHeader !== null) {
-//         const matches = /filename="?([^"]+)"?;?/.exec(contentDispositionHeader);
-//         if (matches != null && matches[1]) {
-//             return matches[1];
-//         }
-//     }
-//     // Extract receiptNo from URL if present, otherwise default to 'file.pdf'
-//     const urlParams = new URL(url).searchParams;
-//     const receiptNo = urlParams.get('receiptNo');
-
-//     return receiptNo ? `invoice_${receiptNo}.pdf` : 'file.pdf';
-// }
-
-
 
 }
