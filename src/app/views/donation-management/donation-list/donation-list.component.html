@@ -318,21 +318,6 @@
       <div class="tabcontent" [ngStyle]="{'display': isTabActive('CUSTOM') ? 'block' : 'none'}">
         <div class="row">
 
-            <!-- <form [formGroup]="searchDonationForm" *ngIf="isDonationExecutive">
-              <div class="row">
-                  <div class="col-sm-3 form-group">
-                     
-                  </div>
-                  
-              </div>
-            </form> -->
-            <!-- <div class="col-sm-3 form-group">
-              <label> Select Team</label>
-              <select class="form-control" formControlName="teamLeaderId" (change)="getDonationByTeamLeaderId('TODAY')">
-                <option value="" disabled selected>Select Team Leader</option>
-                  <option *ngFor="let teamleader of teamLeaderList" [ngValue]="teamleader.loginId">{{teamleader.firstName + ' ' + teamleader.lastName}}</option>
-              </select>
-          </div> -->
           <div class="col-sm-2">
             <label> From</label>
             <input class="form-control" pInputText type="date" #firstDate>

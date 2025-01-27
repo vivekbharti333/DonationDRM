@@ -33,13 +33,10 @@ export class ThankuComponent implements OnInit {
 
   ngOnInit() {
     this.getInvoiceHeaderById();
-    // this.startCountdown();
-    // this.downloadPdf();
+
   }
 
   public getInvoiceHeaderById() {
-
-
     
     this.receiptNo = this.route.snapshot.params['receiptNo']; // Changed router to route
     this.donationManagementService.getDonationListByReceiptNumber(this.receiptNo)
